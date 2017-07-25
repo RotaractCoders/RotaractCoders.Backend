@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities.Base;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Categoria
+    public class Categoria : Entity
     {
-        public long Id { get; private set; }
         public string Nome { get; private set; }
         public List<ProjetoCategoria> ProjetosCategoria { get; private set; }
     }

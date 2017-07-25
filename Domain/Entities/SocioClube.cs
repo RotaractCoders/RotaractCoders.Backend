@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Domain.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class SocioClube
+    public class SocioClube : Entity
     {
-        public long Id { get; private set; }
-        public long IdClube { get; private set; }
-        public long IdSocio { get; private set; }
+        public Guid IdClube { get; private set; }
+        public Guid IdSocio { get; private set; }
         public DateTime Posse { get; private set; }
         public DateTime? Desligamento { get; private set; }
         public Clube Clube { get; private set; }

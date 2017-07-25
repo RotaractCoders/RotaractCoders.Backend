@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities.Base;
+using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Distrito
+    public class Distrito : Entity
     {
-        public long Id { get; private set; }
         public string Numero { get; private set; }
         public int Regiao { get; private set; }
         public string Mascote { get; private set; }

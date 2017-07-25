@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Domain.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Socio
+    public class Socio : Entity
     {
-        public long Id { get; private set; }
         public string Nome { get; private set; }
         public string Apelido { get; private set; }
         public DateTime DataNascimento { get; private set; }

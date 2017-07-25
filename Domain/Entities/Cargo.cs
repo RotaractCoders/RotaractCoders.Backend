@@ -1,11 +1,11 @@
-﻿using Domain.Enum;
+﻿using Domain.Entities.Base;
+using Domain.Enum;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Cargo
+    public class Cargo : Entity
     {
-        public long Id { get; private set; }
         public string Nome { get; private set; }
         public TipoCargo TipoCargo { get; private set; }
         public List<CargoClube> CargoClubes { get; private set; }

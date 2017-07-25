@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Domain.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class Projeto
+    public class Projeto : Entity
     {
-        public long Id { get; private set; }
         public int Codigo { get; private set; }
         public DateTime? DataUltimaAtualizacao { get; private set; }
         public string Nome { get; private set; }
@@ -28,7 +28,7 @@ namespace Domain.Entities
         public string PalavraChave { get; private set; }
         public string LicoesAprendidas { get; private set; }
         public string Resumo { get; private set; }
-        public long IdClube { get; private set; }
+        public Guid IdClube { get; private set; }
         public Clube Clube { get; private set; }
     }
 }
