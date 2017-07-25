@@ -5,7 +5,7 @@ namespace Domain.Entities
 {
     public class Projeto
     {
-        public Guid Id { get; private set; }
+        public long Id { get; private set; }
         public int Codigo { get; private set; }
         public DateTime? DataUltimaAtualizacao { get; private set; }
         public string Nome { get; private set; }
@@ -28,6 +28,7 @@ namespace Domain.Entities
         public string PalavraChave { get; private set; }
         public string LicoesAprendidas { get; private set; }
         public string Resumo { get; private set; }
+        public long IdClube { get; private set; }
         public Clube Clube { get; private set; }
     }
 }

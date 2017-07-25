@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.Collections.Generic;
+
+namespace Domain.Entities
 {
     public class Clube
     {
@@ -10,5 +12,6 @@
         public string Email { get; private set; }
         public long IdDistrito { get; private set; }
         public Distrito Distrito { get; private set; }
+        public List<Projeto> Projetos { get; private set; }
     }
 }
