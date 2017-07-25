@@ -13,5 +13,7 @@ namespace Domain.Entities
         public long IdDistrito { get; private set; }
         public Distrito Distrito { get; private set; }
         public List<Projeto> Projetos { get; private set; }
+        public List<SocioClube> SociosClube { get; private set; }
+        public List<CargoClube> CargosClube { get; private set; }
     }
 }

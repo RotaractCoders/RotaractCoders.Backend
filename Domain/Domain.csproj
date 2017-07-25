@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Cargo.cs" />
+    <Compile Include="Entities\CargoClube.cs" />
+    <Compile Include="Entities\CargoDistrito.cs" />
+    <Compile Include="Entities\CargoRotaractBrasil.cs" />
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\Clube.cs" />
     <Compile Include="Entities\Distrito.cs" />
@@ -47,7 +51,10 @@
     <Compile Include="Entities\Objetivo.cs" />
     <Compile Include="Entities\Projeto.cs" />
     <Compile Include="Entities\ProjetoCategoria.cs" />
+    <Compile Include="Entities\Socio.cs" />
+    <Compile Include="Entities\SocioClube.cs" />
     <Compile Include="Entities\Tarefa.cs" />
+    <Compile Include="Enum\TipoCargo.cs" />
     <Compile Include="Enum\TipoCategoria.cs" />
     <Compile Include="Enum\TipoObjetivo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
