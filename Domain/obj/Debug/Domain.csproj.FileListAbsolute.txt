@@ -3,3 +3,4 @@ C:\Projetos\Rotaract\RotaractCoders.Backend\Domain\bin\Debug\Domain.pdb
 C:\Projetos\Rotaract\RotaractCoders.Backend\Domain\bin\Debug\FluentValidator.dll
 C:\Projetos\Rotaract\RotaractCoders.Backend\Domain\obj\Debug\Domain.dll
 C:\Projetos\Rotaract\RotaractCoders.Backend\Domain\obj\Debug\Domain.pdb
+C:\Projetos\Rotaract\RotaractCoders.Backend\Domain\obj\Debug\Domain.csprojResolveAssemblyReference.cache

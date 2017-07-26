@@ -12,5 +12,6 @@ namespace Domain.Entities
         public DateTime? Desligamento { get; private set; }
         public Clube Clube { get; private set; }
         public Socio Socio { get; private set; }
+        public List<CargoClube> CargosClube { get; set; }
     }
 }

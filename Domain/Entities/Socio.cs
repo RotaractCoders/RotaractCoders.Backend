@@ -12,5 +12,6 @@ namespace Domain.Entities
         public string Email { get; private set; }
         public List<SocioClube> SocioClubes { get; private set; }
         public List<CargoDistrito> CargosDistritais { get; private set; }
+        public List<CargoRotaractBrasil> CargosRotaractBrasil { get; private set; }
     }
 }

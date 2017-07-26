@@ -9,7 +9,7 @@ namespace Domain.Entities
         public Guid IdCargo { get; private set; }
         public DateTime De { get; private set; }
         public DateTime Ate { get; private set; }
-        public SocioClube Socio { get; private set; }
+        public SocioClube SocioClube { get; private set; }
         public Cargo Cargo { get; private set; }
     }
 }

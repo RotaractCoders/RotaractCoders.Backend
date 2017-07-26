@@ -7,6 +7,10 @@ namespace Infra
 {
     public class Context : DbContext
     {
+        public DbSet<CargoClube> CargoClube { get; set; }
+        public DbSet<CargoDistrito> CargoDistrito { get; set; }
+        public DbSet<CargoRotaractBrasil> CargoRotaractBrasil { get; set; }
+        public DbSet<Cargo> Cargo { get; set; }
         public DbSet<Categoria> Categoria { get; set; }
         public DbSet<Clube> Clube { get; set; }
         public DbSet<Distrito> Distrito { get; set; }
@@ -14,10 +18,12 @@ namespace Infra
         public DbSet<Objetivo> Objetivo { get; set; }
         public DbSet<Projeto> Projeto { get; set; }
         public DbSet<ProjetoCategoria> ProjetoCategoria { get; set; }
+        public DbSet<SocioClube> SocioClube { get; set; }
+        public DbSet<Socio> Socio { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
 
-        public Context()
-            : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=ControleCasaDB;Integrated Security=True")
+        public Context(string connectionString)
+            : base(connectionString)
         {
 
         }
@@ -37,6 +43,10 @@ namespace Infra
             modelBuilder.Properties<string>()
                 .Configure(p => p.HasColumnType("varchar"));
 
+            modelBuilder.Configurations.Add(new CargoClubeMap());
+            modelBuilder.Configurations.Add(new CargoDistritoMap());
+            modelBuilder.Configurations.Add(new CargoRotaractBrasilMap());
+            modelBuilder.Configurations.Add(new CargoMap());
             modelBuilder.Configurations.Add(new CategoriaMap());
             modelBuilder.Configurations.Add(new ClubeMap());
             modelBuilder.Configurations.Add(new DistritoMap());
@@ -44,6 +54,8 @@ namespace Infra
             modelBuilder.Configurations.Add(new ObjetivoMap());
             modelBuilder.Configurations.Add(new ProjetoMap());
             modelBuilder.Configurations.Add(new ProjetoCategoriaMap());
+            modelBuilder.Configurations.Add(new SocioClubeMap());
+            modelBuilder.Configurations.Add(new SocioMap());
             modelBuilder.Configurations.Add(new TarefaMap());
         }
     }
