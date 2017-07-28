@@ -49,7 +49,11 @@ namespace ConsoleTeste
 
                     var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, socio.Item1);
 
-                    var input = ExtrairFilicoesDoSocio(driver.PageSource);
+                    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource);
+                    //Persistir
+
+                    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource);
+                    //Persistir
                 });
 
                 driver.Close();
@@ -230,7 +234,7 @@ namespace ConsoleTeste
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
-            var retorno = html.QuerySelectorAll("#Guia_Associacoes tr")
+            return html.QuerySelectorAll("#Guia_Associacoes tr")
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
@@ -246,8 +250,29 @@ namespace ConsoleTeste
 
                     return input;
                 }).ToList();
+        }
 
-            return retorno;
+        private static List<CadastrarCargoSocioInput> ExtrairCargosDoSocioNosClubes(string htmlTexto)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+
+            return html.QuerySelectorAll("#Guia_CargosClube tr")
+                .Where(x => x.ClassName != "SistemaLabel")
+                .Select(x =>
+                {
+                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var cargoClube = x.QuerySelectorAll("td")[0].TextContent;
+
+                    var input = new CadastrarCargoSocioInput
+                    {
+                        Cargo = cargoClube.Substring(0, cargoClube.LastIndexOf("(")).Trim(),
+                        Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
+                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
+                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até","").Trim())
+                    };
+                    
+                    return input;
+                }).ToList();
         }
 
         private static int RomanoParaInteiro(string numeroRomano)

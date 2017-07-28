@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
+    <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
     <Compile Include="Commands\Inputs\FiliarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
