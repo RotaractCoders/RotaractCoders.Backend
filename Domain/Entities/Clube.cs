@@ -11,6 +11,9 @@ namespace Domain.Entities
         public string Site { get; private set; }
         public string Facebook { get; private set; }
         public string Email { get; private set; }
+        public DateTime DataFundacao { get; private set; }
+        public string RotaryPadrinho { get; private set; }
+        public DateTime DataFechamento { get; private set; }
         public Guid IdDistrito { get; private set; }
         public Distrito Distrito { get; private set; }
         public List<Projeto> Projetos { get; private set; }

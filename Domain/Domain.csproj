@@ -45,8 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
+    <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
-    <Compile Include="Commands\Results\CriarDistritoResult.cs" />
     <Compile Include="Contracts\Commands\ICommand.cs" />
     <Compile Include="Contracts\Commands\ICommandHandler.cs" />
     <Compile Include="Contracts\Commands\ICommandResult.cs" />
@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Commands\Results\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

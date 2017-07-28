@@ -1,8 +1,9 @@
 ﻿using Domain.Contracts.Commands;
+using FluentValidator;
 
 namespace Domain.Commands.Inputs
 {
-    public class CriarDistritoInput : ICommand
+    public class CriarDistritoInput : Notifiable, ICommand
     {
         public string Numero { get; set; }
         public int Regiao { get; set; }
