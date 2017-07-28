@@ -54,6 +54,12 @@ namespace ConsoleTeste
 
                     var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource);
                     //Persistir
+
+                    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource);
+                    //Persistir
+
+                    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource);
+                    //Persistir
                 });
 
                 driver.Close();
@@ -271,6 +277,51 @@ namespace ConsoleTeste
                         Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até","").Trim())
                     };
                     
+                    return input;
+                }).ToList();
+        }
+
+        private static List<CadastroCargoDistritoInput> ExtrairCargosDoSocioDistritais(string htmlTexto)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+
+            return html.QuerySelectorAll("#Guia_CargosDistrito tr")
+                .Where(x => x.ClassName != "SistemaLabel")
+                .Select(x =>
+                {
+                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var cargoDistrito = x.QuerySelectorAll("td")[0].TextContent;
+
+                    var input = new CadastroCargoDistritoInput
+                    {
+                        Cargo = cargoDistrito.Substring(0, cargoDistrito.LastIndexOf("(")).Trim(),
+                        Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
+                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
+                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
+                    };
+
+                    return input;
+                }).ToList();
+        }
+
+        private static List<CadastroCargoRotaractBrasilInput> ExtrairCargosRotaractBrasilDoSocio(string htmlTexto)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+
+            return html.QuerySelectorAll("#Guia_CargosOmir tr")
+                .Where(x => x.ClassName != "SistemaLabel")
+                .Select(x =>
+                {
+                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var cargo = x.QuerySelectorAll("td")[0].TextContent;
+
+                    var input = new CadastroCargoRotaractBrasilInput
+                    {
+                        Cargo = cargo.Trim(),
+                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
+                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
+                    };
+
                     return input;
                 }).ToList();
         }
