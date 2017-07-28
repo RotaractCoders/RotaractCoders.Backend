@@ -17,34 +17,39 @@ namespace ConsoleTeste
                 driver.ExecuteScript("TrocaInclude('Sistema_OmirBrasil');");
 
                 var numeroDistritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
+                var clubes = new List<Tuple<string, string>>();
+                var socios = new List<Tuple<string, string>>();
 
-                numeroDistritos.ForEach(numeroDistrito =>
+                //numeroDistritos.ForEach(numeroDistrito =>
+                //{
+                //    driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
+
+                //    var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
+                //    //persistir no BD
+
+                //    clubes.AddRange(ExtrairCodigoDosClubesDoDistrito(driver.PageSource)
+                //        .Select(clube => new Tuple<string,string>(numeroDistrito, clube)).ToList());
+                //});
+
+                //clubes.ForEach(clube =>
+                //{
+                //    driver.ExecuteScript($"javascript:AbreFichaClube('{clube.Item1}');");
+
+                //    var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(clube.Item1), clube.Item2);
+                //    //Persistir no BD
+
+                //    socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
+                //});
+
+                socios.Add(new Tuple<string, string>("1342", "email@email.com"));
+
+                socios.ForEach(socio =>
                 {
-                    driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
+                    driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
 
-                    var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
-                    //persistir no BD
+                    var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, socio.Item1);
 
-                    var codigoDosClubes = ExtrairCodigoDosClubesDoDistrito(driver.PageSource);
-
-                    codigoDosClubes.ForEach(codigoClube =>
-                    {
-                        driver.ExecuteScript($"javascript:AbreFichaClube('{codigoClube}');");
-
-                        var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(codigoClube), numeroDistrito);
-                        //Persistir no BD
-
-                        var socios = ExtrairCodigoDosSocios(driver.PageSource);
-
-                        socios.ForEach(socio =>
-                        {
-                            driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
-
-                            var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item1, socio.Item2);
-
-
-                        });
-                    });
+                    var input = ExtrairFilicoesDoSocio(driver.PageSource);
                 });
 
                 driver.Close();
@@ -219,6 +224,30 @@ namespace ConsoleTeste
                 Email = email,
                 Codigo = codigo
             };
+        }
+
+        private static List<FiliarSocioInput> ExtrairFilicoesDoSocio(string htmlTexto)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+
+            var retorno = html.QuerySelectorAll("#Guia_Associacoes tr")
+                .Where(x => x.ClassName != "SistemaLabel")
+                .Select(x =>
+                {
+                    var input = new FiliarSocioInput
+                    {
+                        NumeroDistrito = x.QuerySelectorAll("td")[0].TextContent,
+                        NomeClube = x.QuerySelectorAll("td")[1].TextContent,
+                        Posse = Convert.ToDateTime(x.QuerySelectorAll("td")[2].TextContent)
+                    };
+
+                    if (!string.IsNullOrEmpty(x.QuerySelectorAll("td")[3].TextContent))
+                        input.Desligamento = Convert.ToDateTime(x.QuerySelectorAll("td")[3].TextContent);
+
+                    return input;
+                }).ToList();
+
+            return retorno;
         }
 
         private static int RomanoParaInteiro(string numeroRomano)
