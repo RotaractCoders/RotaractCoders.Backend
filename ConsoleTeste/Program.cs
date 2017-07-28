@@ -1,8 +1,5 @@
 ﻿using AngleSharp.Parser.Html;
-using Domain.Commands.Handlers;
 using Domain.Commands.Inputs;
-using Infra;
-using Infra.Repositories;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -26,7 +23,7 @@ namespace ConsoleTeste
                     driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
 
                     var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
-                    //persistir no bd
+                    //persistir no BD
 
                     var codigoDosClubes = ExtrairCodigoDosClubesDoDistrito(driver.PageSource);
 
@@ -35,8 +32,18 @@ namespace ConsoleTeste
                         driver.ExecuteScript($"javascript:AbreFichaClube('{codigoClube}');");
 
                         var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(codigoClube), numeroDistrito);
+                        //Persistir no BD
+
+                        var socios = ExtrairCodigoDosSocios(driver.PageSource);
+
+                        socios.ForEach(socio =>
+                        {
+                            driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
+
+                            var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item1, socio.Item2);
 
 
+                        });
                     });
                 });
 
@@ -149,6 +156,69 @@ namespace ConsoleTeste
             codigoClubes.AddRange(codigoClubesInativos);
 
             return codigoClubes;
+        }
+
+        private static List<Tuple<string,string>> ExtrairCodigoDosSocios(string htmlTexto)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+
+            var sociosAtivos = html.QuerySelectorAll("#FichaSocio tr")
+                        .Where(x => x.OuterHtml.Contains("javascript:AbreFichaSocio"))
+                        .Select(x =>
+                        {
+                            var texto = x.OuterHtml.Substring(x.OuterHtml.IndexOf("javascript:AbreFichaSocio('"));
+
+                            texto = texto.Replace("javascript:AbreFichaSocio('", "");
+                            var codigo = texto.Substring(0, texto.IndexOf("')"));
+
+                            var email = x.TextContent
+                                .Split('\n')
+                                .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+
+                            return new Tuple<string,string>(codigo, email);
+                        });
+
+            var sociosInativos = html
+                .QuerySelectorAll("#Guia_ExMembros tr")
+                .Where(x => x.OuterHtml.Contains("javascript:AbreFichaSocio"))
+                .Select(x =>
+                {
+                    var texto = x.OuterHtml.Substring(x.OuterHtml.IndexOf("javascript:AbreFichaSocio('"));
+
+                    texto = texto.Replace("javascript:AbreFichaSocio('", "");
+                    var codigo = texto.Substring(0, texto.IndexOf("')"));
+
+                    var email = x.TextContent
+                        .Split('\n')
+                        .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+
+                    return new Tuple<string, string>(codigo, email);
+                });
+
+            var codigoSocios = new List<Tuple<string,string>>();
+
+            codigoSocios.AddRange(sociosAtivos);
+            codigoSocios.AddRange(sociosInativos);
+
+            return codigoSocios;
+        }
+
+        private static CadastrarSocioInput ExtratirDadosSocio(string htmlTexto, string email, string codigo)
+        {
+            var html = new HtmlParser().Parse(htmlTexto);
+            var htmlDadosClube = html.QuerySelector("#FichaSocio").TextContent;
+
+            return new CadastrarSocioInput
+            {
+                Nome = htmlDadosClube.Split('\n')
+                    .FirstOrDefault(x => x.Contains("Nome:")).Replace("Nome:", "").Trim(),
+                Apelido = htmlDadosClube.Split('\n')
+                    .FirstOrDefault(x => x.Contains("Apelido:")).Replace("Apelido:", "").Trim(),
+                DataNascimento = Convert.ToDateTime(htmlDadosClube.Split('\n')
+                    .FirstOrDefault(x => x.Contains("Data de Nasc.:")).Replace("Data de Nasc.:", "").Trim()),
+                Email = email,
+                Codigo = codigo
+            };
         }
 
         private static int RomanoParaInteiro(string numeroRomano)
