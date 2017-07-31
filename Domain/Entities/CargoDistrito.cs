@@ -13,5 +13,14 @@ namespace Domain.Entities
         public Socio Socio { get; private set; }
         public Distrito Distrito { get; private set; }
         public Cargo Cargo { get; private set; }
+
+        public CargoDistrito(Guid idSocio, Guid idDistrito, Guid idCargo, DateTime de, DateTime ate)
+        {
+            IdSocio = idSocio;
+            IdDistrito = idDistrito;
+            IdCargo = idCargo;
+            De = de;
+            Ate = ate;
+        }
     }
 }

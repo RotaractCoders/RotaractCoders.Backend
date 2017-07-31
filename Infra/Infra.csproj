@@ -64,7 +64,14 @@
     <Compile Include="Maps\SocioMap.cs" />
     <Compile Include="Maps\TarefaMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CargoClubeRepository.cs" />
+    <Compile Include="Repositories\CargoDistritoRepository.cs" />
+    <Compile Include="Repositories\CargoRepository.cs" />
+    <Compile Include="Repositories\CargoRotaractBrasilRepository.cs" />
+    <Compile Include="Repositories\ClubeRepository.cs" />
     <Compile Include="Repositories\DistritoRepository.cs" />
+    <Compile Include="Repositories\SocioClubeRepository.cs" />
+    <Compile Include="Repositories\SocioRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -76,6 +83,5 @@
       <Name>Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

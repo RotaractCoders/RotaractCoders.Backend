@@ -4,9 +4,9 @@ using System;
 
 namespace Domain.Commands.Inputs
 {
-    public class CadastrarSocioInput : Notifiable, ICommand
+    public class CadastroCargoDistritoInput : Notifiable, ICommand
     {
-        public string Codigo { get; set; }
+        public int Codigo { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public DateTime DataNascimento { get; set; }

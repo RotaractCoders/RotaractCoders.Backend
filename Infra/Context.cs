@@ -22,8 +22,8 @@ namespace Infra
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
 
-        public Context(string connectionString)
-            : base(connectionString)
+        public Context()
+            : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RotaractDB;Integrated Security=True")
         {
 
         }

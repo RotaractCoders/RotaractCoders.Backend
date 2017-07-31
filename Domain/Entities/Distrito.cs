@@ -15,6 +15,8 @@ namespace Domain.Entities
         public List<Clube> Clubes { get; private set; }
         public List<CargoDistrito> CargosDistritais { get; private set; }
 
+        protected Distrito() { }
+
         public Distrito(CriarDistritoInput input)
         {
             new ValidationContract<CriarDistritoInput>(input)

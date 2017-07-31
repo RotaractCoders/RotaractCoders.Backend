@@ -11,5 +11,13 @@ namespace Domain.Entities
         public DateTime Ate { get; private set; }
         public Socio Socio { get; private set; }
         public Cargo Cargo { get; private set; }
+
+        public CargoRotaractBrasil(Guid idSocio, Guid idCargo, DateTime de, DateTime ate)
+        {
+            IdSocio = idSocio;
+            IdCargo = idCargo;
+            De = de;
+            Ate = ate;
+        }
     }
 }

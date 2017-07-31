@@ -11,5 +11,11 @@ namespace Domain.Entities
         public List<CargoClube> CargoClubes { get; private set; }
         public List<CargoDistrito> CargoDistritos { get; private set; }
         public List<CargoRotaractBrasil> CargoRotaractBrasil { get; private set; }
+
+        public Cargo(string nome, TipoCargo tipoCargo)
+        {
+            Nome = nome;
+            TipoCargo = tipoCargo;
+        }
     }
 }

@@ -44,7 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Handlers\CadastrarSocioHandler.cs" />
+    <Compile Include="Commands\Handlers\CadastroCargoDistritalHandler.cs" />
+    <Compile Include="Commands\Handlers\CadastroCargoSocioHandler.cs" />
+    <Compile Include="Commands\Handlers\CadastroCargoRotaractBrasilHandler.cs" />
+    <Compile Include="Commands\Handlers\CriarClubeHandler.cs" />
     <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
+    <Compile Include="Commands\Handlers\FiliarSocioHandler.cs" />
     <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastroCargoRotaractBrasilInput.cs" />
@@ -55,7 +61,14 @@
     <Compile Include="Contracts\Commands\ICommand.cs" />
     <Compile Include="Contracts\Commands\ICommandHandler.cs" />
     <Compile Include="Contracts\Commands\ICommandResult.cs" />
+    <Compile Include="Contracts\Repositories\ICargoClubeRepository.cs" />
+    <Compile Include="Contracts\Repositories\ICargoDistritoRepository.cs" />
+    <Compile Include="Contracts\Repositories\ICargoRepository.cs" />
+    <Compile Include="Contracts\Repositories\ICargoRotaractBrasilRepository.cs" />
+    <Compile Include="Contracts\Repositories\IClubeRepository.cs" />
     <Compile Include="Contracts\Repositories\IDistritoRepository.cs" />
+    <Compile Include="Contracts\Repositories\ISocioClubeRepository.cs" />
+    <Compile Include="Contracts\Repositories\ISocioRepository.cs" />
     <Compile Include="Entities\Base\Entity.cs" />
     <Compile Include="Entities\Cargo.cs" />
     <Compile Include="Entities\CargoClube.cs" />

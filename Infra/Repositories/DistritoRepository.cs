@@ -1,6 +1,8 @@
 ﻿using System;
 using Domain.Contracts.Repositories;
 using Domain.Entities;
+using System.Linq;
+using System.Data.Entity;
 
 namespace Infra.Repositories
 {
@@ -8,24 +10,28 @@ namespace Infra.Repositories
     {
         private readonly Context _context;
 
-        public DistritoRepository(Context context)
+        public DistritoRepository()
         {
-            _context = context;
+            _context = new Context();
         }
 
         public Distrito Atualizar(Distrito distrito)
         {
-            throw new NotImplementedException();
+            _context.Entry(distrito).State = EntityState.Modified;
+            _context.SaveChanges();
+            return distrito;
         }
 
         public Distrito Buscar(string numero)
         {
-            throw new NotImplementedException();
+            return _context.Distrito.FirstOrDefault(x => x.Numero == numero);
         }
 
         public Distrito Incluir(Distrito distrito)
         {
-            return _context.Distrito.Add(distrito);
+            distrito = _context.Distrito.Add(distrito);
+            _context.SaveChanges();
+            return distrito;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Domain.Entities.Base;
+﻿using Domain.Commands.Inputs;
+using Domain.Entities.Base;
+using FluentValidator;
 using System;
 using System.Collections.Generic;
 
@@ -12,6 +14,23 @@ namespace Domain.Entities
         public DateTime? Desligamento { get; private set; }
         public Clube Clube { get; private set; }
         public Socio Socio { get; private set; }
-        public List<CargoClube> CargosClube { get; set; }
+
+        protected SocioClube()
+        {
+
+        }
+
+        public SocioClube(Guid idClube, Guid idSocio, DateTime posse, DateTime? desligamento)
+        {
+            IdClube = idClube;
+            IdSocio = idSocio;
+            Posse = posse;
+            Desligamento = desligamento;
+
+            new ValidationContract<SocioClube>(this)
+                .IsNotNull(IdClube, "Obrigatório")
+                .IsNotNull(IdSocio, "Obrigatório")
+                .IsNotNull(Posse, "Obrigatório");
+        }
     }
 }

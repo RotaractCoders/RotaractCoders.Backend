@@ -1,5 +1,7 @@
 ﻿using AngleSharp.Parser.Html;
+using Domain.Commands.Handlers;
 using Domain.Commands.Inputs;
+using Infra.Repositories;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
@@ -11,56 +13,103 @@ namespace ConsoleTeste
     {
         static void Main(string[] args)
         {
+            var criarDistritoHandler = new CriarDistritoHandler(new DistritoRepository());
+            var criarClubeHandler = new CriarClubeHandler(new ClubeRepository(), new DistritoRepository());
+            var cadastrarSocioHandler = new CadastrarSocioHandler(new SocioRepository());
+            var filiarSocioHandler = new FiliarSocioHandler(new DistritoRepository(), new SocioRepository(), new ClubeRepository(), new SocioClubeRepository());
+            var cadastroCargoSocioHandler = new CadastroCargoSocioHandler(new CargoRepository(), new CargoClubeRepository(), new ClubeRepository(), new SocioRepository());
+            var cadastroCargoDistritalHandler = new CadastroCargoDistritalHandler(new CargoRepository(), new SocioRepository(), new CargoDistritoRepository(), new DistritoRepository());
+            var cadastroCargoRotaractBrasilHandler = new CadastroCargoRotaractBrasilHandler(new CargoRepository(), new SocioRepository(), new DistritoRepository(), new CargoRotaractBrasilRepository());
+
             using (var driver = new ChromeDriver())
             {
                 driver.Navigate().GoToUrl("http://www.omirbrasil.org.br/");
                 driver.ExecuteScript("TrocaInclude('Sistema_OmirBrasil');");
 
-                var numeroDistritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
+                var distritos = new List<string>();
                 var clubes = new List<Tuple<string, string>>();
                 var socios = new List<Tuple<string, string>>();
 
-                //numeroDistritos.ForEach(numeroDistrito =>
-                //{
-                //    driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
+                //distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
+                distritos.Add("4430");
 
-                //    var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
-                //    //persistir no BD
-
-                //    clubes.AddRange(ExtrairCodigoDosClubesDoDistrito(driver.PageSource)
-                //        .Select(clube => new Tuple<string,string>(numeroDistrito, clube)).ToList());
-                //});
-
-                //clubes.ForEach(clube =>
-                //{
-                //    driver.ExecuteScript($"javascript:AbreFichaClube('{clube.Item1}');");
-
-                //    var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(clube.Item1), clube.Item2);
-                //    //Persistir no BD
-
-                //    socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
-                //});
-
-                socios.Add(new Tuple<string, string>("1342", "email@email.com"));
-
-                socios.ForEach(socio =>
+                distritos.ForEach(numeroDistrito =>
                 {
-                    driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
+                    driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
 
-                    var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, socio.Item1);
+                    var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
+                    criarDistritoHandler.Handle(distritoInput);
 
-                    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource);
-                    //Persistir
+                    if (!criarDistritoHandler.IsValid())
+                    {
 
-                    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource);
-                    //Persistir
+                    }
 
-                    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource);
-                    //Persistir
-
-                    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource);
-                    //Persistir
+                    clubes.AddRange(ExtrairCodigoDosClubesDoDistrito(driver.PageSource)
+                        .Select(clube => new Tuple<string, string>(numeroDistrito, clube)).ToList());
                 });
+
+                clubes.ForEach(clube =>
+                {
+                    driver.ExecuteScript($"javascript:AbreFichaClube('{clube.Item2}');");
+
+                    var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(clube.Item2), clube.Item1);
+                    criarClubeHandler.Handle(clubeInput);
+
+                    if (!criarClubeHandler.IsValid())
+                    {
+
+                    }
+
+                    socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
+                });
+
+                //socios.Add(new Tuple<string, string>("1342", "email@email.com"));
+
+                //socios.ForEach(socio =>
+                //{
+                //    driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
+
+                //    var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
+                //    cadastrarSocioHandler.Handle(socioInput);
+
+                //    if (!cadastrarSocioHandler.IsValid())
+                //    {
+
+                //    }
+
+                //    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
+                //    filiarSocioHandler.Handle(filiacoesInput);
+
+                //    if (!filiarSocioHandler.IsValid())
+                //    {
+
+                //    }
+
+                //    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
+                //    cadastroCargoSocioHandler.Handle(cargosSocioInput);
+
+                //    if (!cadastroCargoSocioHandler.IsValid())
+                //    {
+
+                //    }
+
+                //    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
+                //    cadastroCargoDistritalHandler.Handle(cargosDistritais);
+
+                //    if (!cadastroCargoDistritalHandler.IsValid())
+                //    {
+
+                //    }
+
+                //    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
+                //    cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
+
+                //    if (!cadastroCargoRotaractBrasilHandler.IsValid())
+                //    {
+
+                //    }
+                //});
 
                 driver.Close();
                 driver.Dispose();
@@ -116,8 +165,6 @@ namespace ConsoleTeste
             {
                 Codigo = codigoClube,
                 numeroDistrito = numeroDistrito,
-                DataFundacao = Convert.ToDateTime(htmlDadosClube.Split('\n')
-                    .FirstOrDefault(x => x.Contains("Data de Fundação:")).Replace("Data de Fundação:", "").Trim()),
                 Nome = htmlDadosClube.Substring(0, htmlDadosClube.IndexOf("D.")).Replace("\n", "").Trim(),
                 RotaryPadrinho = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("R.C Padrinho:")).Replace("R.C Padrinho:", "").Trim(),
@@ -130,6 +177,12 @@ namespace ConsoleTeste
             {
                 retorno.DataFechamento = Convert.ToDateTime(htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Data de Fechamento:")).Replace("Data de Fechamento:", "").Trim());
+            }
+
+            if (!string.IsNullOrEmpty(htmlDadosClube.Split('\n').FirstOrDefault(x => x.Contains("Data de Fundação:")).Replace("Data de Fundação:", "").Trim()))
+            {
+                retorno.DataFundacao = Convert.ToDateTime(htmlDadosClube.Split('\n')
+                    .FirstOrDefault(x => x.Contains("Data de Fundação:")).Replace("Data de Fundação:", "").Trim());
             }
 
             return retorno;
@@ -173,7 +226,7 @@ namespace ConsoleTeste
             return codigoClubes;
         }
 
-        private static List<Tuple<string,string>> ExtrairCodigoDosSocios(string htmlTexto)
+        private static List<Tuple<string, string>> ExtrairCodigoDosSocios(string htmlTexto)
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
@@ -186,11 +239,16 @@ namespace ConsoleTeste
                             texto = texto.Replace("javascript:AbreFichaSocio('", "");
                             var codigo = texto.Substring(0, texto.IndexOf("')"));
 
-                            var email = x.TextContent
-                                .Split('\n')
-                                .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+                            var email = string.Empty;
 
-                            return new Tuple<string,string>(codigo, email);
+                            if (x.TextContent.Split('\n').FirstOrDefault(a => a.Contains("E-mail:")) != null)
+                            {
+                                email = x.TextContent
+                                    .Split('\n')
+                                    .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+                            }
+
+                            return new Tuple<string, string>(codigo, email);
                         });
 
             var sociosInativos = html
@@ -203,14 +261,19 @@ namespace ConsoleTeste
                     texto = texto.Replace("javascript:AbreFichaSocio('", "");
                     var codigo = texto.Substring(0, texto.IndexOf("')"));
 
-                    var email = x.TextContent
-                        .Split('\n')
-                        .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+                    var email = string.Empty;
+
+                    if (x.TextContent.Split('\n').FirstOrDefault(a => a.Contains("E-mail:")) != null)
+                    {
+                        email = x.TextContent
+                            .Split('\n')
+                            .FirstOrDefault(a => a.Contains("E-mail:")).Replace("E-mail:", "").Trim();
+                    }
 
                     return new Tuple<string, string>(codigo, email);
                 });
 
-            var codigoSocios = new List<Tuple<string,string>>();
+            var codigoSocios = new List<Tuple<string, string>>();
 
             codigoSocios.AddRange(sociosAtivos);
             codigoSocios.AddRange(sociosInativos);
@@ -218,12 +281,12 @@ namespace ConsoleTeste
             return codigoSocios;
         }
 
-        private static CadastrarSocioInput ExtratirDadosSocio(string htmlTexto, string email, string codigo)
+        private static CadastroCargoDistritoInput ExtratirDadosSocio(string htmlTexto, string email, int codigo)
         {
             var html = new HtmlParser().Parse(htmlTexto);
             var htmlDadosClube = html.QuerySelector("#FichaSocio").TextContent;
 
-            return new CadastrarSocioInput
+            return new CadastroCargoDistritoInput
             {
                 Nome = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Nome:")).Replace("Nome:", "").Trim(),
@@ -236,106 +299,128 @@ namespace ConsoleTeste
             };
         }
 
-        private static List<FiliarSocioInput> ExtrairFilicoesDoSocio(string htmlTexto)
+        private static FiliarSocioListInput ExtrairFilicoesDoSocio(string htmlTexto, int codigoSocio)
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
-            return html.QuerySelectorAll("#Guia_Associacoes tr")
-                .Where(x => x.ClassName != "SistemaLabel")
-                .Select(x =>
+            var retorno = new FiliarSocioListInput
+            {
+                CodigoSocio = codigoSocio
+            };
+
+            retorno.Lista.AddRange(html.QuerySelectorAll("#Guia_Associacoes tr")
+            .Where(x => x.ClassName != "SistemaLabel")
+            .Select(x =>
+            {
+                var input = new FiliarSocioInput
                 {
-                    var input = new FiliarSocioInput
-                    {
-                        NumeroDistrito = x.QuerySelectorAll("td")[0].TextContent,
-                        NomeClube = x.QuerySelectorAll("td")[1].TextContent,
-                        Posse = Convert.ToDateTime(x.QuerySelectorAll("td")[2].TextContent)
-                    };
+                    NumeroDistrito = x.QuerySelectorAll("td")[0].TextContent,
+                    NomeClube = x.QuerySelectorAll("td")[1].TextContent,
+                    Posse = Convert.ToDateTime(x.QuerySelectorAll("td")[2].TextContent)
+                };
 
-                    if (!string.IsNullOrEmpty(x.QuerySelectorAll("td")[3].TextContent))
-                        input.Desligamento = Convert.ToDateTime(x.QuerySelectorAll("td")[3].TextContent);
+                if (!string.IsNullOrEmpty(x.QuerySelectorAll("td")[3].TextContent))
+                    input.Desligamento = Convert.ToDateTime(x.QuerySelectorAll("td")[3].TextContent);
 
-                    return input;
-                }).ToList();
+                return input;
+            }).ToList());
+
+            return retorno;
         }
 
-        private static List<CadastrarCargoSocioInput> ExtrairCargosDoSocioNosClubes(string htmlTexto)
+        private static CadastrarCargoSocioInput ExtrairCargosDoSocioNosClubes(string htmlTexto, int codigoSocio)
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
-            return html.QuerySelectorAll("#Guia_CargosClube tr")
+            var input = new CadastrarCargoSocioInput
+            {
+                CodigoSocio = codigoSocio
+            };
+
+            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosClube tr")
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
                     var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
                     var cargoClube = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var input = new CadastrarCargoSocioInput
+                    return new CargoSocioInput
                     {
                         Cargo = cargoClube.Substring(0, cargoClube.LastIndexOf("(")).Trim(),
                         Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
                         De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
-                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até","").Trim())
+                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
                     };
-                    
-                    return input;
-                }).ToList();
+                }).ToList());
+
+            return input;
         }
 
-        private static List<CadastroCargoDistritoInput> ExtrairCargosDoSocioDistritais(string htmlTexto)
+        private static CadastroCargoDistritoInput ExtrairCargosDoSocioDistritais(string htmlTexto, int codigoSocio)
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
-            return html.QuerySelectorAll("#Guia_CargosDistrito tr")
+            var input = new CadastroCargoDistritoInput
+            {
+                CodigoSocio = codigoSocio
+            };
+
+            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosDistrito tr")
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
                     var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
                     var cargoDistrito = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var input = new CadastroCargoDistritoInput
+                    return new CargoDistritoInput
                     {
                         Cargo = cargoDistrito.Substring(0, cargoDistrito.LastIndexOf("(")).Trim(),
                         Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
                         De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
                         Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
                     };
+                }).ToList());
 
-                    return input;
-                }).ToList();
+            return input;
         }
 
-        private static List<CadastroCargoRotaractBrasilInput> ExtrairCargosRotaractBrasilDoSocio(string htmlTexto)
+        private static CadastroCargoRotaractBrasilInput ExtrairCargosRotaractBrasilDoSocio(string htmlTexto, int codigoSocio)
         {
             var html = new HtmlParser().Parse(htmlTexto);
 
-            return html.QuerySelectorAll("#Guia_CargosOmir tr")
+            var input = new CadastroCargoRotaractBrasilInput
+            {
+                CodigoSocio = codigoSocio
+            };
+
+            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosOmir tr")
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
                     var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
                     var cargo = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var input = new CadastroCargoRotaractBrasilInput
+                    return new CargoRotaractBrasilInput
                     {
                         Cargo = cargo.Trim(),
                         De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
                         Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
                     };
+                }).ToList());
 
-                    return input;
-                }).ToList();
+            return input;
         }
 
         private static int RomanoParaInteiro(string numeroRomano)
         {
             switch (numeroRomano.ToUpper())
             {
-                case "I": return 1; 
+                case "I": return 1;
                 case "II": return 2;
                 case "III": return 3;
-                case "IV": return 4; 
+                case "IV": return 4;
                 case "V": return 5;
-                case "VI": return 6; 
+                case "VI": return 6;
                 case "VII": return 7;
                 case "VIII": return 8;
                 case "IX": return 9;

@@ -11,9 +11,9 @@ namespace Infra.Maps
                 .WithMany(x => x.CargoClubes)
                 .HasForeignKey(x => x.IdCargo);
 
-            HasRequired(x => x.SocioClube)
+            HasRequired(x => x.Socio)
                 .WithMany(x => x.CargosClube)
-                .HasForeignKey(x => x.IdSocioClube);
+                .HasForeignKey(x => x.IdSocio);
         }
     }
 }
