@@ -30,8 +30,7 @@ namespace ConsoleTeste
                 var clubes = new List<Tuple<string, string>>();
                 var socios = new List<Tuple<string, string>>();
 
-                //distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
-                distritos.Add("4430");
+                distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
 
                 distritos.ForEach(numeroDistrito =>
                 {
@@ -66,50 +65,50 @@ namespace ConsoleTeste
 
                 //socios.Add(new Tuple<string, string>("1342", "email@email.com"));
 
-                //socios.ForEach(socio =>
-                //{
-                //    driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
+                socios.ForEach(socio =>
+                {
+                    driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
 
-                //    var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
-                //    cadastrarSocioHandler.Handle(socioInput);
+                    var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
+                    cadastrarSocioHandler.Handle(socioInput);
 
-                //    if (!cadastrarSocioHandler.IsValid())
-                //    {
+                    if (!cadastrarSocioHandler.IsValid())
+                    {
 
-                //    }
+                    }
 
-                //    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
-                //    filiarSocioHandler.Handle(filiacoesInput);
+                    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
+                    filiarSocioHandler.Handle(filiacoesInput);
 
-                //    if (!filiarSocioHandler.IsValid())
-                //    {
+                    if (!filiarSocioHandler.IsValid())
+                    {
 
-                //    }
+                    }
 
-                //    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
-                //    cadastroCargoSocioHandler.Handle(cargosSocioInput);
+                    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
+                    cadastroCargoSocioHandler.Handle(cargosSocioInput);
 
-                //    if (!cadastroCargoSocioHandler.IsValid())
-                //    {
+                    if (!cadastroCargoSocioHandler.IsValid())
+                    {
 
-                //    }
+                    }
 
-                //    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
-                //    cadastroCargoDistritalHandler.Handle(cargosDistritais);
+                    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
+                    cadastroCargoDistritalHandler.Handle(cargosDistritais);
 
-                //    if (!cadastroCargoDistritalHandler.IsValid())
-                //    {
+                    if (!cadastroCargoDistritalHandler.IsValid())
+                    {
 
-                //    }
+                    }
 
-                //    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
-                //    cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
+                    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
+                    cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
 
-                //    if (!cadastroCargoRotaractBrasilHandler.IsValid())
-                //    {
+                    if (!cadastroCargoRotaractBrasilHandler.IsValid())
+                    {
 
-                //    }
-                //});
+                    }
+                });
 
                 driver.Close();
                 driver.Dispose();

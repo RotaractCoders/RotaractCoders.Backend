@@ -42,7 +42,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="FluentValidator, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    <Reference Include="FluentValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidator.1.0.5\lib\net461\FluentValidator.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -77,6 +79,7 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{09ccb964-3efd-4125-965b-3846a982739e}</Project>
       <Name>Domain</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
     </ProjectReference>
     <ProjectReference Include="..\Infra\Infra.csproj">
       <Project>{a620af2c-2a10-45c1-8207-95b7abcfb267}</Project>
