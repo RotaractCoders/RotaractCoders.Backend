@@ -30,10 +30,12 @@ namespace Infra.Repositories
             return _context.Clube.FirstOrDefault(x => x.Nome.ToLower() == nomeClube.ToLower());
         }
         
-        public void Incluir(Clube clube)
+        public Clube Incluir(Clube clube)
         {
-            _context.Clube.Add(clube);
+            clube = _context.Clube.Add(clube);
             _context.SaveChanges();
+
+            return clube;
         }
     }
 }

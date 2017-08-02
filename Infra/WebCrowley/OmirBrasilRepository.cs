@@ -47,8 +47,8 @@ namespace Infra.WebCrowley
                 DataFim = GetProjectEndDate(simpleFields),
                 DataFinalizacao = GetProjectCompletionDate(simpleFields),
                 LancamentosFinanceiros = GetProjectProjectFinancials(simpleFields),
-                Participantes = GetProjectParticipants(simpleFields),
-                PublicoAlvo = GetProjectTargetAudience(simpleFields),
+                Participantes = ExtrairParticipantes(simpleFields),
+                PublicoAlvo = ExtrairPublicoAlvo(simpleFields),
                 MeiosDeDivulgacao = ExtrairMeiosDeDivilgacao(simpleFields),
                 Parcerias = GetProjectPartnerships(simpleFields),
                 Tarefas = GetProjectSchedule(simpleFields),
@@ -60,7 +60,9 @@ namespace Infra.WebCrowley
                 DataUltimaAtualizacao = ExtrairDataUltimaAtualizacao(simpleFields),
                 Fotos = ExtrairFoto(simpleFields),
                 LicoesAprendidas = ExtrairLicoesAprendidas(simpleFields),
-                CodigoClube = GetClubCode(document)
+                CodigoClube = GetClubCode(document),
+                NomeClube = GetClubName(title),
+                NumeroDistrito = GetDistrictNumber(title)
             };
         }
 
@@ -165,13 +167,12 @@ namespace Infra.WebCrowley
                 .ToList();
         }
 
-        private static List<string> GetProjectTargetAudience(List<IElement> listFields)
+        private static List<string> ExtrairPublicoAlvo(List<IElement> listFields)
         {
             var result = GetValueOfSimpleField(listFields, "Público Alvo")
                 .Split('-')
                 .Where(x => x != string.Empty)
                 .Select(x => x
-                    //.Substring(x.IndexOf(' '))
                     .Replace("-", string.Empty)
                     .Trim());
 
@@ -179,11 +180,12 @@ namespace Infra.WebCrowley
                 .ToList();
         }
 
-        private static List<string> GetProjectParticipants(List<IElement> listFields)
+        private static List<string> ExtrairParticipantes(List<IElement> listFields)
         {
             return GetValueOfSimpleField(listFields, "Quem trabalho no Projeto | Ação")
                 .Split('-')
                 .Select(x => RemoverNumeros(x).Trim())
+                .Where(x => !string.IsNullOrEmpty(x))
                 .ToList();
         }
 
@@ -217,7 +219,7 @@ namespace Infra.WebCrowley
                 {
                     Data = Convert.ToDateTime(element[i].Children[0].TextContent),
                     Descricao = element[i].Children[1].TextContent.Trim(),
-                    Valor = Convert.ToDecimal(element[i].Children[2].TextContent.Trim().Replace(",", "."))
+                    Valor = Convert.ToDecimal(element[i].Children[2].TextContent.Trim().Replace(".", ""))
                 });
             }
 

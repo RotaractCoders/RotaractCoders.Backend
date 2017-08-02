@@ -33,12 +33,17 @@ namespace Domain.Entities
         public List<Objetivo> Objetivos { get; private set; }
         public List<ProjetoCategoria> ProjetoCategorias { get; private set; }
 
+        protected Projeto()
+        {
+
+        }
+
         public Projeto(CadastrarProjetoInput command, Guid idClube)
         {
             Codigo = command.Codigo;
             DataUltimaAtualizacao = command.DataUltimaAtualizacao;
             Nome = command.Nome;
-            Justificativa = command.Justificativa ?? string.Empty;
+            Justificativa = command.Justificativa;
             DataInicio = command.DataInicio;
             DataFim = command.DataFim;
             DataFinalizacao = command.DataFinalizacao;
@@ -50,6 +55,23 @@ namespace Domain.Entities
             LicoesAprendidas = command.LicoesAprendidas;
             Resumo = command.Resumo;
             IdClube = idClube;
+        }
+
+        public void Atualizar(CadastrarProjetoInput command)
+        {
+            DataUltimaAtualizacao = command.DataUltimaAtualizacao;
+            Nome = command.Nome;
+            Justificativa = command.Justificativa;
+            DataInicio = command.DataInicio;
+            DataFim = command.DataFim;
+            DataFinalizacao = command.DataFinalizacao;
+            Descricao = command.Descricao;
+            Fotos = command.Fotos;
+            Resultados = command.Resultados;
+            Dificuldade = command.Dificuldade;
+            PalavraChave = command.PalavraChave;
+            LicoesAprendidas = command.LicoesAprendidas;
+            Resumo = command.Resumo;
         }
     }
 }

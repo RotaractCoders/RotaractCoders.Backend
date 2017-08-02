@@ -10,7 +10,7 @@ namespace Domain.Contracts.Repositories
 
         Clube BuscarPorNome(string nomeClube);
 
-        void Incluir(Clube clube);
+        Clube Incluir(Clube clube);
 
         void Atualizar(Clube clube);
     }

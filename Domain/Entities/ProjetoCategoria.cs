@@ -9,7 +9,20 @@ namespace Domain.Entities
         public TipoCategoria TipoCategoria { get; private set; }
         public Guid IdProjeto { get; private set; }
         public Guid IdCategoria { get; private set; }
+
         public Projeto Projeto { get; private set; }
         public Categoria Categoria { get; private set; }
+
+        protected ProjetoCategoria()
+        {
+
+        }
+
+        public ProjetoCategoria(Guid idProjeto, Guid idCategoria, TipoCategoria tipoCategoria)
+        {
+            TipoCategoria = tipoCategoria;
+            IdProjeto = idProjeto;
+            IdCategoria = idCategoria;
+        }
     }
 }

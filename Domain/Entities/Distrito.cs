@@ -21,9 +21,7 @@ namespace Domain.Entities
         {
             new ValidationContract<CriarDistritoInput>(input)
                 .IsRequired(x => x.Numero, "O número é obrigatório")
-                .IsFixedLenght(x => x.Numero, 4, "O número deve ter 4 digitos")
-                .IsLowerThan(x => x.Regiao, 12, "Região invalida")
-                .IsGreaterThan(x => x.Regiao, 0, "Região invalida");
+                .IsFixedLenght(x => x.Numero, 4, "O número deve ter 4 digitos");
 
             if (!IsValid())
                 return;

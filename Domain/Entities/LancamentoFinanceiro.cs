@@ -10,5 +10,18 @@ namespace Domain.Entities
         public decimal Valor { get; private set; }
         public Guid IdProjeto { get; private set; }
         public Projeto Projeto { get; private set; }
+
+        protected LancamentoFinanceiro()
+        {
+
+        }
+
+        public LancamentoFinanceiro(DateTime data, string descricao, decimal valor, Guid idProjeto)
+        {
+            Data = data;
+            Descricao = descricao;
+            Valor = valor;
+            IdProjeto = idProjeto;
+        }
     }
 }

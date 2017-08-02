@@ -10,5 +10,17 @@ namespace Domain.Entities
         public string Descricao { get; private set; }
         public Guid IdProjeto { get; private set; }
         public Projeto Projeto { get; private set; }
+
+        protected Objetivo()
+        {
+
+        }
+
+        public Objetivo(string descricao, Guid idProjeto, TipoObjetivo tipoObjetivo)
+        {
+            Descricao = descricao;
+            IdProjeto = idProjeto;
+            TipoObjetivo = tipoObjetivo;
+        }
     }
 }

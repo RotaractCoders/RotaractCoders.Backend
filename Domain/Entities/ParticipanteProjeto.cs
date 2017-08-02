@@ -14,6 +14,11 @@ namespace Domain.Entities
 
         public Projeto Projeto { get; private set; }
 
+        protected ParticipanteProjeto()
+        {
+
+        }
+
         public ParticipanteProjeto(string descricao, Guid idProjeto)
         {
             Descricao = descricao;

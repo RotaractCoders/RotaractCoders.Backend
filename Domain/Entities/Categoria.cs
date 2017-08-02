@@ -7,5 +7,15 @@ namespace Domain.Entities
     {
         public string Nome { get; private set; }
         public List<ProjetoCategoria> ProjetosCategoria { get; private set; }
+
+        protected Categoria()
+        {
+
+        }
+
+        public Categoria(string nome)
+        {
+            Nome = nome;
+        }
     }
 }

@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201708021314410_OutrasDatasAceitaremNull.Designer.cs">
       <DependentUpon>201708021314410_OutrasDatasAceitaremNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708021544442_EntidadesDeProjeto.cs" />
+    <Compile Include="Migrations\201708021544442_EntidadesDeProjeto.Designer.cs">
+      <DependentUpon>201708021544442_EntidadesDeProjeto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoClubeRepository.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708021314410_OutrasDatasAceitaremNull.resx">
       <DependentUpon>201708021314410_OutrasDatasAceitaremNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708021544442_EntidadesDeProjeto.resx">
+      <DependentUpon>201708021544442_EntidadesDeProjeto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

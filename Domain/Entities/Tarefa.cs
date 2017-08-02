@@ -9,5 +9,17 @@ namespace Domain.Entities
         public string Descricao { get; private set; }
         public Guid IdProjeto { get; private set; }
         public Projeto Projeto { get; private set; }
+
+        protected Tarefa()
+        {
+
+        }
+
+        public Tarefa(DateTime? data, string descricao, Guid idProjeto)
+        {
+            Data = data;
+            Descricao = descricao;
+            IdProjeto = idProjeto;
+        }
     }
 }

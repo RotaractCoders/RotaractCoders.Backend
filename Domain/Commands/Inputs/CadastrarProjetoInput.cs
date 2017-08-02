@@ -32,6 +32,8 @@ namespace Domain.Commands.Inputs
         public string LicoesAprendidas { get; set; }
         public string Resumo { get; set; }
         public int CodigoClube { get; set; }
+        public string NomeClube { get; set; }
+        public string NumeroDistrito { get; set; }
     }
 
     public class LancamentoFinanceiroInput
