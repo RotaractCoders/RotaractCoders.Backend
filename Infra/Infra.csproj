@@ -63,9 +63,13 @@
     <Compile Include="Maps\ClubeMap.cs" />
     <Compile Include="Maps\DistritoMap.cs" />
     <Compile Include="Maps\LancamentoFinanceiroMap.cs" />
+    <Compile Include="Maps\MeioDeDivulgacaoProjetoMap.cs" />
     <Compile Include="Maps\ObjetivoMap.cs" />
+    <Compile Include="Maps\ParceriaProjetoMap.cs" />
+    <Compile Include="Maps\ParticipanteProjetoMap.cs" />
     <Compile Include="Maps\ProjetoCategoriaMap.cs" />
     <Compile Include="Maps\ProjetoMap.cs" />
+    <Compile Include="Maps\PublicoAlvoProjetoMap.cs" />
     <Compile Include="Maps\SocioClubeMap.cs" />
     <Compile Include="Maps\SocioMap.cs" />
     <Compile Include="Maps\TarefaMap.cs" />
@@ -91,10 +95,20 @@
     <Compile Include="Repositories\CargoDistritoRepository.cs" />
     <Compile Include="Repositories\CargoRepository.cs" />
     <Compile Include="Repositories\CargoRotaractBrasilRepository.cs" />
+    <Compile Include="Repositories\CategoriaRepository.cs" />
     <Compile Include="Repositories\ClubeRepository.cs" />
     <Compile Include="Repositories\DistritoRepository.cs" />
+    <Compile Include="Repositories\LancamentoFinanceiroRepository.cs" />
+    <Compile Include="Repositories\MeioDeDivulgacaoProjetoRepository.cs" />
+    <Compile Include="Repositories\ObjetivoRepository.cs" />
+    <Compile Include="Repositories\ParceriaProjetoRepository.cs" />
+    <Compile Include="Repositories\ParticipanteProjetoRepository.cs" />
+    <Compile Include="Repositories\ProjetoCategoriaRepository.cs" />
+    <Compile Include="Repositories\ProjetoRepository.cs" />
+    <Compile Include="Repositories\PublicoAlvoProjetoRepository.cs" />
     <Compile Include="Repositories\SocioClubeRepository.cs" />
     <Compile Include="Repositories\SocioRepository.cs" />
+    <Compile Include="Repositories\TarefaRepository.cs" />
     <Compile Include="WebCrowley\OmirBrasilRepository.cs" />
   </ItemGroup>
   <ItemGroup>

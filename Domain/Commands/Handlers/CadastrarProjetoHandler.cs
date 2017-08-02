@@ -8,7 +8,10 @@ namespace Domain.Commands.Handlers
     public class CadastrarProjetoHandler : Notifiable,
         ICommandHandler<CadastrarProjetoInput>
     {
+        public CadastrarProjetoHandler()
+        {
 
+        }
 
         public ICommandResult Handle(CadastrarProjetoInput command)
         {

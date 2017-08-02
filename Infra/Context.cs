@@ -15,9 +15,13 @@ namespace Infra
         public DbSet<Clube> Clube { get; set; }
         public DbSet<Distrito> Distrito { get; set; }
         public DbSet<LancamentoFinanceiro> LancamentoFinanceiro { get; set; }
+        public DbSet<MeioDeDivulgacaoProjeto> MeioDeDivulgacaoProjeto { get; set; }
         public DbSet<Objetivo> Objetivo { get; set; }
+        public DbSet<ParceriaProjeto> ParceriaProjeto { get; set; }
+        public DbSet<ParticipanteProjeto> ParticipanteProjeto { get; set; }
         public DbSet<Projeto> Projeto { get; set; }
         public DbSet<ProjetoCategoria> ProjetoCategoria { get; set; }
+        public DbSet<PublicoAlvoProjeto> PublicoAlvoProjeto { get; set; }
         public DbSet<SocioClube> SocioClube { get; set; }
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
@@ -51,9 +55,13 @@ namespace Infra
             modelBuilder.Configurations.Add(new ClubeMap());
             modelBuilder.Configurations.Add(new DistritoMap());
             modelBuilder.Configurations.Add(new LancamentoFinanceiroMap());
+            modelBuilder.Configurations.Add(new MeioDeDivulgacaoProjetoMap());
             modelBuilder.Configurations.Add(new ObjetivoMap());
+            modelBuilder.Configurations.Add(new ParceriaProjetoMap());
+            modelBuilder.Configurations.Add(new ParticipanteProjetoMap());
             modelBuilder.Configurations.Add(new ProjetoMap());
             modelBuilder.Configurations.Add(new ProjetoCategoriaMap());
+            modelBuilder.Configurations.Add(new PublicoAlvoProjetoMap());
             modelBuilder.Configurations.Add(new SocioClubeMap());
             modelBuilder.Configurations.Add(new SocioMap());
             modelBuilder.Configurations.Add(new TarefaMap());
