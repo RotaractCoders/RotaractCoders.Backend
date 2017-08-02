@@ -22,6 +22,8 @@ namespace Infra.Repositories
         public Cargo Incluir(Cargo cargo)
         {
             cargo = _context.Cargo.Add(cargo);
+            _context.SaveChanges();
+
             return cargo;
         }
     }

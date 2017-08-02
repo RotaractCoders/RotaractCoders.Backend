@@ -31,6 +31,7 @@ namespace ConsoleTeste
                 var socios = new List<Tuple<string, string>>();
 
                 distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
+                //distritos.Add("4430");
 
                 distritos.ForEach(numeroDistrito =>
                 {
@@ -62,8 +63,6 @@ namespace ConsoleTeste
 
                     socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
                 });
-
-                //socios.Add(new Tuple<string, string>("1342", "email@email.com"));
 
                 socios.ForEach(socio =>
                 {
@@ -280,12 +279,12 @@ namespace ConsoleTeste
             return codigoSocios;
         }
 
-        private static CadastroCargoDistritoInput ExtratirDadosSocio(string htmlTexto, string email, int codigo)
+        private static CadastroSocioInput ExtratirDadosSocio(string htmlTexto, string email, int codigo)
         {
             var html = new HtmlParser().Parse(htmlTexto);
             var htmlDadosClube = html.QuerySelector("#FichaSocio").TextContent;
 
-            return new CadastroCargoDistritoInput
+            return new CadastroSocioInput
             {
                 Nome = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Nome:")).Replace("Nome:", "").Trim(),

@@ -51,8 +51,8 @@ namespace Domain.Commands.Handlers
                     AddNotification("Socio", "Erro");
                     break;
                 }
-
-                var clube = _clubeRepository.BuscarPorNomeEDistrito(input.NomeClube);
+                
+                var clube = _clubeRepository.BuscarPorNome(input.NomeClube);
                 if (clube == null)
                 {
                     AddNotification("Clube", "Erro");

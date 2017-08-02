@@ -14,6 +14,11 @@ namespace Domain.Entities
         public Distrito Distrito { get; private set; }
         public Cargo Cargo { get; private set; }
 
+        protected CargoDistrito()
+        {
+
+        }
+
         public CargoDistrito(Guid idSocio, Guid idDistrito, Guid idCargo, DateTime de, DateTime ate)
         {
             IdSocio = idSocio;

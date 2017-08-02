@@ -8,7 +8,7 @@ namespace Domain.Commands.Inputs
     public class CadastroCargoDistritoInput : Notifiable, ICommand
     {
         public int CodigoSocio { get; set; }
-        public List<CargoDistritoInput> Lista { get; set; }
+        public List<CargoDistritoInput> Lista { get; set; } = new List<CargoDistritoInput>();
     }
 
     public class CargoDistritoInput

@@ -45,9 +45,9 @@ namespace Domain.Commands.Handlers
                     cargo = _cargoRepository.Incluir(new Cargo(input.Cargo, TipoCargo.Clube));
                 }
 
-                var clube = _clubeRepository.BuscarPorNomeEDistrito(input.Clube);
+                var clube = _clubeRepository.BuscarPorNome(input.Clube);
 
-                var cargoClube = new CargoClube(socio.Id, cargo.Id, input.De, input.Ate);
+                var cargoClube = new CargoClube(socio.Id, cargo.Id, clube.Id, input.De, input.Ate);
                 _cargoClubeRepository.Incluir(cargoClube);
             });
 

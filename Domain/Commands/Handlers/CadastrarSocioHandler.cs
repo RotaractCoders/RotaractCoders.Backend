@@ -7,7 +7,7 @@ using FluentValidator;
 namespace Domain.Commands.Handlers
 {
     public class CadastrarSocioHandler : Notifiable,
-        ICommandHandler<CadastroCargoDistritoInput>
+        ICommandHandler<CadastroSocioInput>
     {
         private ISocioRepository _socioRepository;
 
@@ -16,7 +16,7 @@ namespace Domain.Commands.Handlers
             _socioRepository = socioRepository;
         }
 
-        public ICommandResult Handle(CadastroCargoDistritoInput input)
+        public ICommandResult Handle(CadastroSocioInput input)
         {
             var socioCadastrado = _socioRepository.Buscar(input.Codigo);
 

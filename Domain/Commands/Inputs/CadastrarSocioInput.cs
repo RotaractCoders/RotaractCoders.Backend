@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Commands.Inputs
 {
-    public class CadastroCargoDistritoInput : Notifiable, ICommand
+    public class CadastroSocioInput : Notifiable, ICommand
     {
         public int Codigo { get; set; }
         public string Nome { get; set; }

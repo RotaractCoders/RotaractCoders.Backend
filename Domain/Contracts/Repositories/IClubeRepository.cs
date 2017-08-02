@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Contracts.Repositories
 {
@@ -7,7 +8,7 @@ namespace Domain.Contracts.Repositories
     {
         Clube Buscar(int codigo);
 
-        Clube BuscarPorNomeEDistrito(string nomeClube);
+        Clube BuscarPorNome(string nomeClube);
 
         void Incluir(Clube clube);
 

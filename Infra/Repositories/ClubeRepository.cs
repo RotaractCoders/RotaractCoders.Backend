@@ -2,7 +2,6 @@
 using System.Linq;
 using Domain.Entities;
 using System.Data.Entity;
-using System;
 
 namespace Infra.Repositories
 {
@@ -26,7 +25,7 @@ namespace Infra.Repositories
             return _context.Clube.FirstOrDefault(x => x.Codigo == codigo);
         }
 
-        public Clube BuscarPorNomeEDistrito(string nomeClube)
+        public Clube BuscarPorNome(string nomeClube)
         {
             return _context.Clube.FirstOrDefault(x => x.Nome.ToLower() == nomeClube.ToLower());
         }

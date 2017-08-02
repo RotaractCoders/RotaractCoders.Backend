@@ -23,7 +23,7 @@ namespace Domain.Entities
 
         }
 
-        public Socio(CadastroCargoDistritoInput input)
+        public Socio(CadastroSocioInput input)
         {
             AdicionarValidacoes(input);
 
@@ -37,7 +37,7 @@ namespace Domain.Entities
             Email = input.Email;
         }
 
-        public void Atualizar(CadastroCargoDistritoInput input)
+        public void Atualizar(CadastroSocioInput input)
         {
             AdicionarValidacoes(input);
 
@@ -50,9 +50,9 @@ namespace Domain.Entities
             Email = input.Email;
         }
 
-        private void AdicionarValidacoes(CadastroCargoDistritoInput input)
+        private void AdicionarValidacoes(CadastroSocioInput input)
         {
-            new ValidationContract<CadastroCargoDistritoInput>(input)
+            new ValidationContract<CadastroSocioInput>(input)
                 .IsGreaterThan(x => x.Codigo, 0, "O código é obrigatório")
                 .IsRequired(x => x.Nome, "O nome é obrigatório");
         }
