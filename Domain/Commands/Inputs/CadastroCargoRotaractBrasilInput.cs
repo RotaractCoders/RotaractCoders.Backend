@@ -14,7 +14,7 @@ namespace Domain.Commands.Inputs
     public class CargoRotaractBrasilInput
     {
         public string Cargo { get; set; }
-        public DateTime De { get; set; }
-        public DateTime Ate { get; set; }
+        public DateTime? De { get; set; }
+        public DateTime? Ate { get; set; }
     }
 }

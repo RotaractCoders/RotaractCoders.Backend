@@ -8,8 +8,8 @@ namespace Domain.Entities
         public Guid IdSocio { get; private set; }
         public Guid IdDistrito { get; private set; }
         public Guid IdCargo { get; private set; }
-        public DateTime De { get; private set; }
-        public DateTime Ate { get; private set; }
+        public DateTime? De { get; private set; }
+        public DateTime? Ate { get; private set; }
         public Socio Socio { get; private set; }
         public Distrito Distrito { get; private set; }
         public Cargo Cargo { get; private set; }
@@ -19,7 +19,7 @@ namespace Domain.Entities
 
         }
 
-        public CargoDistrito(Guid idSocio, Guid idDistrito, Guid idCargo, DateTime de, DateTime ate)
+        public CargoDistrito(Guid idSocio, Guid idDistrito, Guid idCargo, DateTime? de, DateTime? ate)
         {
             IdSocio = idSocio;
             IdDistrito = idDistrito;

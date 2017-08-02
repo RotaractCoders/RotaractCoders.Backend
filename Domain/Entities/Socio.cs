@@ -11,7 +11,7 @@ namespace Domain.Entities
         public int Codigo { get; private set; }
         public string Nome { get; private set; }
         public string Apelido { get; private set; }
-        public DateTime DataNascimento { get; private set; }
+        public DateTime? DataNascimento { get; private set; }
         public string Email { get; private set; }
         public List<SocioClube> SocioClubes { get; private set; }
         public List<CargoDistrito> CargosDistritais { get; private set; }

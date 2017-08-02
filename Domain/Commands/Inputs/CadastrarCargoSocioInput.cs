@@ -15,7 +15,7 @@ namespace Domain.Commands.Inputs
     {
         public string Cargo { get; set; }
         public string Clube { get; set; }
-        public DateTime De { get; set; }
-        public DateTime Ate { get; set; }
+        public DateTime? De { get; set; }
+        public DateTime? Ate { get; set; }
     }
 }

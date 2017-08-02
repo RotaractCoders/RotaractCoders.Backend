@@ -30,8 +30,8 @@ namespace ConsoleTeste
                 var clubes = new List<Tuple<string, string>>();
                 var socios = new List<Tuple<string, string>>();
 
-                distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
-                //distritos.Add("4430");
+                //distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
+                distritos.Add("4430");
 
                 distritos.ForEach(numeroDistrito =>
                 {
@@ -49,6 +49,8 @@ namespace ConsoleTeste
                         .Select(clube => new Tuple<string, string>(numeroDistrito, clube)).ToList());
                 });
 
+                clubes = clubes.Take(2).ToList();
+
                 clubes.ForEach(clube =>
                 {
                     driver.ExecuteScript($"javascript:AbreFichaClube('{clube.Item2}');");
@@ -63,6 +65,8 @@ namespace ConsoleTeste
 
                     socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
                 });
+
+                socios = socios.Distinct().ToList();
 
                 socios.ForEach(socio =>
                 {
@@ -284,17 +288,22 @@ namespace ConsoleTeste
             var html = new HtmlParser().Parse(htmlTexto);
             var htmlDadosClube = html.QuerySelector("#FichaSocio").TextContent;
 
-            return new CadastroSocioInput
+            var retorno = new CadastroSocioInput
             {
                 Nome = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Nome:")).Replace("Nome:", "").Trim(),
                 Apelido = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Apelido:")).Replace("Apelido:", "").Trim(),
-                DataNascimento = Convert.ToDateTime(htmlDadosClube.Split('\n')
-                    .FirstOrDefault(x => x.Contains("Data de Nasc.:")).Replace("Data de Nasc.:", "").Trim()),
                 Email = email,
                 Codigo = codigo
             };
+
+            if (!string.IsNullOrEmpty(htmlDadosClube.Split('\n').FirstOrDefault(x => x.Contains("Data de Nasc.:")).Replace("Data de Nasc.:", "").Trim()))
+            {
+                retorno.DataNascimento = Convert.ToDateTime(htmlDadosClube.Split('\n').FirstOrDefault(x => x.Contains("Data de Nasc.:")).Replace("Data de Nasc.:", "").Trim());
+            }
+
+            return retorno;
         }
 
         private static FiliarSocioListInput ExtrairFilicoesDoSocio(string htmlTexto, int codigoSocio)
@@ -339,16 +348,37 @@ namespace ConsoleTeste
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var datas = x.QuerySelectorAll("td")[1].TextContent;
                     var cargoClube = x.QuerySelectorAll("td")[0].TextContent;
 
-                    return new CargoSocioInput
+                    var retorno = new CargoSocioInput
                     {
                         Cargo = cargoClube.Substring(0, cargoClube.LastIndexOf("(")).Trim(),
-                        Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
-                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
-                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
+                        Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
                     };
+
+                    if (datas.Contains("até") && datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+                    }
+                    else if (datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+                        retorno.Ate = null;
+                    }
+                    else if (datas.Contains("até"))
+                    {
+                        retorno.De = null;
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+                    }
+                    else
+                    {
+                        retorno.De = null;
+                        retorno.Ate = null;
+                    }
+
+                    return retorno;
                 }).ToList());
 
             return input;
@@ -367,16 +397,37 @@ namespace ConsoleTeste
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var datas = x.QuerySelectorAll("td")[1].TextContent;
                     var cargoDistrito = x.QuerySelectorAll("td")[0].TextContent;
 
-                    return new CargoDistritoInput
+                    var retorno = new CargoDistritoInput
                     {
                         Cargo = cargoDistrito.Substring(0, cargoDistrito.LastIndexOf("(")).Trim(),
-                        Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim(),
-                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
-                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
+                        Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
                     };
+
+                    if (datas.Contains("até") && datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+                    }
+                    else if (datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+                        retorno.Ate = null;
+                    }
+                    else if (datas.Contains("até"))
+                    {
+                        retorno.De = null;
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+                    }
+                    else
+                    {
+                        retorno.De = null;
+                        retorno.Ate = null;
+                    }
+
+                    return retorno;
                 }).ToList());
 
             return input;
@@ -395,15 +446,36 @@ namespace ConsoleTeste
                 .Where(x => x.ClassName != "SistemaLabel")
                 .Select(x =>
                 {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent.Replace("desde", "");
+                    var datas = x.QuerySelectorAll("td")[1].TextContent;
                     var cargo = x.QuerySelectorAll("td")[0].TextContent;
 
-                    return new CargoRotaractBrasilInput
+                    var retorno = new CargoRotaractBrasilInput
                     {
-                        Cargo = cargo.Trim(),
-                        De = Convert.ToDateTime(datas.Substring(0, datas.IndexOf("até")).Trim()),
-                        Ate = Convert.ToDateTime(datas.Substring(datas.IndexOf("até")).Replace("até", "").Trim())
+                        Cargo = cargo.Trim()
                     };
+
+                    if (datas.Contains("até") && datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+                    }
+                    else if (datas.Contains("desde"))
+                    {
+                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+                        retorno.Ate = null;
+                    }
+                    else if (datas.Contains("até"))
+                    {
+                        retorno.De = null;
+                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+                    }
+                    else
+                    {
+                        retorno.De = null;
+                        retorno.Ate = null;
+                    }
+
+                    return retorno;
                 }).ToList());
 
             return input;

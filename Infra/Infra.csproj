@@ -63,6 +63,23 @@
     <Compile Include="Maps\SocioClubeMap.cs" />
     <Compile Include="Maps\SocioMap.cs" />
     <Compile Include="Maps\TarefaMap.cs" />
+    <Compile Include="Migrations\201708012100438_InitialCreate.cs" />
+    <Compile Include="Migrations\201708012100438_InitialCreate.Designer.cs">
+      <DependentUpon>201708012100438_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708021228282_SocioDataNascimentoNull.cs" />
+    <Compile Include="Migrations\201708021228282_SocioDataNascimentoNull.Designer.cs">
+      <DependentUpon>201708021228282_SocioDataNascimentoNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708021243281_DatasAceitaremNull.cs" />
+    <Compile Include="Migrations\201708021243281_DatasAceitaremNull.Designer.cs">
+      <DependentUpon>201708021243281_DatasAceitaremNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708021314410_OutrasDatasAceitaremNull.cs" />
+    <Compile Include="Migrations\201708021314410_OutrasDatasAceitaremNull.Designer.cs">
+      <DependentUpon>201708021314410_OutrasDatasAceitaremNull.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CargoClubeRepository.cs" />
     <Compile Include="Repositories\CargoDistritoRepository.cs" />
@@ -82,6 +99,20 @@
       <Project>{09ccb964-3efd-4125-965b-3846a982739e}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201708012100438_InitialCreate.resx">
+      <DependentUpon>201708012100438_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708021228282_SocioDataNascimentoNull.resx">
+      <DependentUpon>201708021228282_SocioDataNascimentoNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708021243281_DatasAceitaremNull.resx">
+      <DependentUpon>201708021243281_DatasAceitaremNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708021314410_OutrasDatasAceitaremNull.resx">
+      <DependentUpon>201708021314410_OutrasDatasAceitaremNull.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
