@@ -30,10 +30,9 @@ namespace ConsoleTeste
                 var clubes = new List<Tuple<string, string>>();
                 var socios = new List<Tuple<string, string>>();
 
-                //distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
-                distritos.Add("4430");
+                distritos = ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
 
-                distritos.ForEach(numeroDistrito =>
+                distritos.Distinct().ToList().ForEach(numeroDistrito =>
                 {
                     driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
 
@@ -49,9 +48,7 @@ namespace ConsoleTeste
                         .Select(clube => new Tuple<string, string>(numeroDistrito, clube)).ToList());
                 });
 
-                clubes = clubes.Take(2).ToList();
-
-                clubes.ForEach(clube =>
+                clubes.Distinct().ToList().ForEach(clube =>
                 {
                     driver.ExecuteScript($"javascript:AbreFichaClube('{clube.Item2}');");
 
@@ -66,9 +63,7 @@ namespace ConsoleTeste
                     socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
                 });
 
-                socios = socios.Distinct().ToList();
-
-                socios.ForEach(socio =>
+                socios.Distinct().ToList().ForEach(socio =>
                 {
                     driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
 

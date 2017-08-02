@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Handlers\CadastrarProjetoHandler.cs" />
     <Compile Include="Commands\Handlers\CadastrarSocioHandler.cs" />
     <Compile Include="Commands\Handlers\CadastroCargoDistritalHandler.cs" />
     <Compile Include="Commands\Handlers\CadastroCargoSocioHandler.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
     <Compile Include="Commands\Handlers\FiliarSocioHandler.cs" />
     <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
+    <Compile Include="Commands\Inputs\CadastrarProjetoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastroCargoRotaractBrasilInput.cs" />
     <Compile Include="Commands\Inputs\CadastroCargoDistritoInput.cs" />
