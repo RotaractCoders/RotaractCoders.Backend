@@ -60,6 +60,9 @@
     <Compile Include="Commands\Inputs\FiliarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
+    <Compile Include="Commands\Inputs\ListaProjetosInput.cs" />
+    <Compile Include="Commands\Results\ConsultaProjetoResult.cs" />
+    <Compile Include="Commands\Results\ListaProjetosResult.cs" />
     <Compile Include="Contracts\Commands\ICommand.cs" />
     <Compile Include="Contracts\Commands\ICommandHandler.cs" />
     <Compile Include="Contracts\Commands\ICommandResult.cs" />
@@ -108,8 +111,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\Results\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

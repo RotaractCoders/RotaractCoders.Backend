@@ -317,9 +317,17 @@ namespace ConsoleTeste
                 var input = new FiliarSocioInput
                 {
                     NumeroDistrito = x.QuerySelectorAll("td")[0].TextContent,
-                    NomeClube = x.QuerySelectorAll("td")[1].TextContent,
-                    Posse = Convert.ToDateTime(x.QuerySelectorAll("td")[2].TextContent)
+                    NomeClube = x.QuerySelectorAll("td")[1].TextContent
                 };
+
+                if (!string.IsNullOrEmpty(x.QuerySelectorAll("td")[2].TextContent.Trim()))
+                {
+                    input.Posse = Convert.ToDateTime(x.QuerySelectorAll("td")[2].TextContent);
+                }
+                else
+                {
+                    input.Posse = new DateTime(1900, 1, 1);
+                }
 
                 if (!string.IsNullOrEmpty(x.QuerySelectorAll("td")[3].TextContent))
                     input.Desligamento = Convert.ToDateTime(x.QuerySelectorAll("td")[3].TextContent);

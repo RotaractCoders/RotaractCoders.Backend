@@ -27,7 +27,7 @@ namespace Infra.Repositories
 
         public Clube BuscarPorNome(string nomeClube)
         {
-            return _context.Clube.FirstOrDefault(x => x.Nome.ToLower() == nomeClube.ToLower());
+            return _context.Clube.FirstOrDefault(x => x.Nome.ToLower().Contains(nomeClube.ToLower()));
         }
         
         public Clube Incluir(Clube clube)
