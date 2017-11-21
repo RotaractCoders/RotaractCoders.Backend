@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Domain</RootNamespace>
     <AssemblyName>Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -52,6 +52,7 @@
     <Compile Include="Commands\Handlers\CriarClubeHandler.cs" />
     <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
     <Compile Include="Commands\Handlers\FiliarSocioHandler.cs" />
+    <Compile Include="Commands\Inputs\AtualizarEventoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarProjetoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
@@ -60,9 +61,13 @@
     <Compile Include="Commands\Inputs\FiliarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirEventoInput.cs" />
     <Compile Include="Commands\Inputs\ListaProjetosInput.cs" />
     <Compile Include="Commands\Results\ConsultaProjetoResult.cs" />
+    <Compile Include="Commands\Results\DetalheEventoResult.cs" />
+    <Compile Include="Commands\Results\ListaEventoResult.cs" />
     <Compile Include="Commands\Results\ListaProjetosResult.cs" />
+    <Compile Include="Commands\Results\ListaTipoEventoResult.cs" />
     <Compile Include="Contracts\Commands\ICommand.cs" />
     <Compile Include="Contracts\Commands\ICommandHandler.cs" />
     <Compile Include="Contracts\Commands\ICommandResult.cs" />
@@ -73,6 +78,7 @@
     <Compile Include="Contracts\Repositories\ICategoriaRepository.cs" />
     <Compile Include="Contracts\Repositories\IClubeRepository.cs" />
     <Compile Include="Contracts\Repositories\IDistritoRepository.cs" />
+    <Compile Include="Contracts\Repositories\IEventoRepository.cs" />
     <Compile Include="Contracts\Repositories\ILancamentoFinanceiroRepository.cs" />
     <Compile Include="Contracts\Repositories\IMeioDeDivulgacaoProjetoRepository.cs" />
     <Compile Include="Contracts\Repositories\IObjetivoRepository.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="Contracts\Repositories\ISocioClubeRepository.cs" />
     <Compile Include="Contracts\Repositories\ISocioRepository.cs" />
     <Compile Include="Contracts\Repositories\ITarefaRepository.cs" />
+    <Compile Include="Contracts\Repositories\ITipoEventoRepository.cs" />
     <Compile Include="Entities\Base\Entity.cs" />
     <Compile Include="Entities\Cargo.cs" />
     <Compile Include="Entities\CargoClube.cs" />
@@ -92,6 +99,7 @@
     <Compile Include="Entities\Categoria.cs" />
     <Compile Include="Entities\Clube.cs" />
     <Compile Include="Entities\Distrito.cs" />
+    <Compile Include="Entities\Evento.cs" />
     <Compile Include="Entities\LancamentoFinanceiro.cs" />
     <Compile Include="Entities\MeioDeDivulgacaoProjeto.cs" />
     <Compile Include="Entities\Objetivo.cs" />
@@ -103,6 +111,7 @@
     <Compile Include="Entities\Socio.cs" />
     <Compile Include="Entities\SocioClube.cs" />
     <Compile Include="Entities\Tarefa.cs" />
+    <Compile Include="Entities\TipoEvento.cs" />
     <Compile Include="Enum\TipoCargo.cs" />
     <Compile Include="Enum\TipoCategoria.cs" />
     <Compile Include="Enum\TipoObjetivo.cs" />

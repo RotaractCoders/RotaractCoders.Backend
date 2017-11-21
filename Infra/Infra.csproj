@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Infra</RootNamespace>
     <AssemblyName>Infra</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -62,6 +62,7 @@
     <Compile Include="Maps\CategoriaMap.cs" />
     <Compile Include="Maps\ClubeMap.cs" />
     <Compile Include="Maps\DistritoMap.cs" />
+    <Compile Include="Maps\EventoMap.cs" />
     <Compile Include="Maps\LancamentoFinanceiroMap.cs" />
     <Compile Include="Maps\MeioDeDivulgacaoProjetoMap.cs" />
     <Compile Include="Maps\ObjetivoMap.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Maps\SocioClubeMap.cs" />
     <Compile Include="Maps\SocioMap.cs" />
     <Compile Include="Maps\TarefaMap.cs" />
+    <Compile Include="Maps\TipoEventoMap.cs" />
     <Compile Include="Migrations\201708012100438_InitialCreate.cs" />
     <Compile Include="Migrations\201708012100438_InitialCreate.Designer.cs">
       <DependentUpon>201708012100438_InitialCreate.cs</DependentUpon>
@@ -102,6 +104,7 @@
     <Compile Include="Repositories\CategoriaRepository.cs" />
     <Compile Include="Repositories\ClubeRepository.cs" />
     <Compile Include="Repositories\DistritoRepository.cs" />
+    <Compile Include="Repositories\EventoRepository.cs" />
     <Compile Include="Repositories\LancamentoFinanceiroRepository.cs" />
     <Compile Include="Repositories\MeioDeDivulgacaoProjetoRepository.cs" />
     <Compile Include="Repositories\ObjetivoRepository.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="Repositories\SocioClubeRepository.cs" />
     <Compile Include="Repositories\SocioRepository.cs" />
     <Compile Include="Repositories\TarefaRepository.cs" />
+    <Compile Include="Repositories\TipoEventoRepository.cs" />
     <Compile Include="WebCrowley\OmirBrasilRepository.cs" />
   </ItemGroup>
   <ItemGroup>

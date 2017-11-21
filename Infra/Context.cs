@@ -25,6 +25,8 @@ namespace Infra
         public DbSet<SocioClube> SocioClube { get; set; }
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
+        public DbSet<Evento> Evento { get; set; }
+        public DbSet<TipoEvento> TipoEvento { get; set; }
 
         public Context()
             : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RotaractDB;Integrated Security=True")
@@ -65,6 +67,8 @@ namespace Infra
             modelBuilder.Configurations.Add(new SocioClubeMap());
             modelBuilder.Configurations.Add(new SocioMap());
             modelBuilder.Configurations.Add(new TarefaMap());
+            modelBuilder.Configurations.Add(new EventoMap());
+            modelBuilder.Configurations.Add(new TipoEventoMap());
         }
     }
 }
