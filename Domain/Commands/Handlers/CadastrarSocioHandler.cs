@@ -24,17 +24,11 @@ namespace Domain.Commands.Handlers
             {
                 socioCadastrado = new Socio(input);
 
-                if (!socioCadastrado.IsValid())
-                    return null;
-
                 _socioRepository.Incluir(socioCadastrado);
             }
             else
             {
                 socioCadastrado.Atualizar(input);
-
-                if (!socioCadastrado.IsValid())
-                    return null;
 
                 _socioRepository.Atualizar(socioCadastrado);
             }

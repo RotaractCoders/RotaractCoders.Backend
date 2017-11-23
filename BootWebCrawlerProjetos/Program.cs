@@ -38,10 +38,6 @@ namespace BootWebCrawlerProjetos
                     else
                     {
                         cadastroProjetoHandler.Handle(projeto);
-                        if (!cadastroProjetoHandler.IsValid())
-                        {
-
-                        }
 
                         Console.WriteLine($"Projeto {i} - Cadastrado");
                     }

@@ -3,7 +3,7 @@ namespace Infra.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class teste : DbMigration
     {
         public override void Up()
         {
@@ -25,8 +25,8 @@ namespace Infra.Migrations
                         IdSocio = c.Guid(nullable: false),
                         IdCargo = c.Guid(nullable: false),
                         IdClube = c.Guid(nullable: false),
-                        De = c.DateTime(nullable: false),
-                        Ate = c.DateTime(nullable: false),
+                        De = c.DateTime(),
+                        Ate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Cargo", t => t.IdCargo)
@@ -76,8 +76,8 @@ namespace Infra.Migrations
                         IdSocio = c.Guid(nullable: false),
                         IdDistrito = c.Guid(nullable: false),
                         IdCargo = c.Guid(nullable: false),
-                        De = c.DateTime(nullable: false),
-                        Ate = c.DateTime(nullable: false),
+                        De = c.DateTime(),
+                        Ate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Cargo", t => t.IdCargo)
@@ -95,7 +95,7 @@ namespace Infra.Migrations
                         Codigo = c.Int(nullable: false),
                         Nome = c.String(maxLength: 8000, unicode: false),
                         Apelido = c.String(maxLength: 8000, unicode: false),
-                        DataNascimento = c.DateTime(nullable: false),
+                        DataNascimento = c.DateTime(),
                         Email = c.String(maxLength: 8000, unicode: false),
                     })
                 .PrimaryKey(t => t.Id);
@@ -107,8 +107,8 @@ namespace Infra.Migrations
                         Id = c.Guid(nullable: false, identity: true),
                         IdSocio = c.Guid(nullable: false),
                         IdCargo = c.Guid(nullable: false),
-                        De = c.DateTime(nullable: false),
-                        Ate = c.DateTime(nullable: false),
+                        De = c.DateTime(),
+                        Ate = c.DateTime(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Cargo", t => t.IdCargo)
@@ -172,11 +172,47 @@ namespace Infra.Migrations
                 .Index(t => t.IdProjeto);
             
             CreateTable(
+                "dbo.MeioDeDivulgacaoProjeto",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                        IdProjeto = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Projeto", t => t.IdProjeto)
+                .Index(t => t.IdProjeto);
+            
+            CreateTable(
                 "dbo.Objetivo",
                 c => new
                     {
                         Id = c.Guid(nullable: false, identity: true),
                         TipoObjetivo = c.Int(nullable: false),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                        IdProjeto = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Projeto", t => t.IdProjeto)
+                .Index(t => t.IdProjeto);
+            
+            CreateTable(
+                "dbo.ParceriaProjeto",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                        IdProjeto = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Projeto", t => t.IdProjeto)
+                .Index(t => t.IdProjeto);
+            
+            CreateTable(
+                "dbo.ParticipanteProjeto",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
                         Descricao = c.String(maxLength: 8000, unicode: false),
                         IdProjeto = c.Guid(nullable: false),
                     })
@@ -209,6 +245,18 @@ namespace Infra.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.PublicoAlvoProjeto",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                        IdProjeto = c.Guid(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Projeto", t => t.IdProjeto)
+                .Index(t => t.IdProjeto);
+            
+            CreateTable(
                 "dbo.Tarefa",
                 c => new
                     {
@@ -221,16 +269,46 @@ namespace Infra.Migrations
                 .ForeignKey("dbo.Projeto", t => t.IdProjeto)
                 .Index(t => t.IdProjeto);
             
+            CreateTable(
+                "dbo.Evento",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Nome = c.String(maxLength: 8000, unicode: false),
+                        Realizador = c.String(maxLength: 8000, unicode: false),
+                        IdTipoEvento = c.Guid(nullable: false),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                        DataCriacao = c.DateTime(nullable: false),
+                        DataEvento = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.TipoEvento", t => t.IdTipoEvento)
+                .Index(t => t.IdTipoEvento);
+            
+            CreateTable(
+                "dbo.TipoEvento",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false, identity: true),
+                        Descricao = c.String(maxLength: 8000, unicode: false),
+                    })
+                .PrimaryKey(t => t.Id);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.Evento", "IdTipoEvento", "dbo.TipoEvento");
             DropForeignKey("dbo.CargoClube", "IdSocio", "dbo.Socio");
             DropForeignKey("dbo.CargoClube", "IdClube", "dbo.Clube");
             DropForeignKey("dbo.Tarefa", "IdProjeto", "dbo.Projeto");
+            DropForeignKey("dbo.PublicoAlvoProjeto", "IdProjeto", "dbo.Projeto");
             DropForeignKey("dbo.ProjetoCategoria", "IdProjeto", "dbo.Projeto");
             DropForeignKey("dbo.ProjetoCategoria", "IdCategoria", "dbo.Categoria");
+            DropForeignKey("dbo.ParticipanteProjeto", "IdProjeto", "dbo.Projeto");
+            DropForeignKey("dbo.ParceriaProjeto", "IdProjeto", "dbo.Projeto");
             DropForeignKey("dbo.Objetivo", "IdProjeto", "dbo.Projeto");
+            DropForeignKey("dbo.MeioDeDivulgacaoProjeto", "IdProjeto", "dbo.Projeto");
             DropForeignKey("dbo.LancamentoFinanceiro", "IdProjeto", "dbo.Projeto");
             DropForeignKey("dbo.Projeto", "IdClube", "dbo.Clube");
             DropForeignKey("dbo.Clube", "IdDistrito", "dbo.Distrito");
@@ -242,10 +320,15 @@ namespace Infra.Migrations
             DropForeignKey("dbo.CargoDistrito", "IdDistrito", "dbo.Distrito");
             DropForeignKey("dbo.CargoDistrito", "IdCargo", "dbo.Cargo");
             DropForeignKey("dbo.CargoClube", "IdCargo", "dbo.Cargo");
+            DropIndex("dbo.Evento", new[] { "IdTipoEvento" });
             DropIndex("dbo.Tarefa", new[] { "IdProjeto" });
+            DropIndex("dbo.PublicoAlvoProjeto", new[] { "IdProjeto" });
             DropIndex("dbo.ProjetoCategoria", new[] { "IdCategoria" });
             DropIndex("dbo.ProjetoCategoria", new[] { "IdProjeto" });
+            DropIndex("dbo.ParticipanteProjeto", new[] { "IdProjeto" });
+            DropIndex("dbo.ParceriaProjeto", new[] { "IdProjeto" });
             DropIndex("dbo.Objetivo", new[] { "IdProjeto" });
+            DropIndex("dbo.MeioDeDivulgacaoProjeto", new[] { "IdProjeto" });
             DropIndex("dbo.LancamentoFinanceiro", new[] { "IdProjeto" });
             DropIndex("dbo.Projeto", new[] { "IdClube" });
             DropIndex("dbo.SocioClube", new[] { "IdSocio" });
@@ -259,10 +342,16 @@ namespace Infra.Migrations
             DropIndex("dbo.CargoClube", new[] { "IdClube" });
             DropIndex("dbo.CargoClube", new[] { "IdCargo" });
             DropIndex("dbo.CargoClube", new[] { "IdSocio" });
+            DropTable("dbo.TipoEvento");
+            DropTable("dbo.Evento");
             DropTable("dbo.Tarefa");
+            DropTable("dbo.PublicoAlvoProjeto");
             DropTable("dbo.Categoria");
             DropTable("dbo.ProjetoCategoria");
+            DropTable("dbo.ParticipanteProjeto");
+            DropTable("dbo.ParceriaProjeto");
             DropTable("dbo.Objetivo");
+            DropTable("dbo.MeioDeDivulgacaoProjeto");
             DropTable("dbo.LancamentoFinanceiro");
             DropTable("dbo.Projeto");
             DropTable("dbo.SocioClube");

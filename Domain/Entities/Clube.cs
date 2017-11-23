@@ -29,11 +29,6 @@ namespace Domain.Entities
 
         public Clube(CriarClubeInput input, Guid idDistrito)
         {
-            AdicionarValidacoes(input);
-
-            if (!IsValid())
-                return;
-
             Codigo = input.Codigo;
             Nome = input.Nome;
             Site = input.Site;
@@ -47,11 +42,6 @@ namespace Domain.Entities
 
         public Clube Atualizar(CriarClubeInput input, Guid idDistrito)
         {
-            AdicionarValidacoes(input);
-
-            if (!IsValid())
-                return null;
-
             Nome = input.Nome;
             Site = input.Site;
             Facebook = input.Facebook;
@@ -62,14 +52,6 @@ namespace Domain.Entities
             IdDistrito = idDistrito;
 
             return this;
-        }
-
-        private void AdicionarValidacoes(CriarClubeInput input)
-        {
-            new ValidationContract<CriarClubeInput>(input)
-                .IsGreaterThan(x => x.Codigo, 0, "O código é obrigatório")
-                .IsRequired(x => x.Nome, "O nome é obrigatório")
-                .IsRequired(x => x.numeroDistrito, "O número do distrito é obrigatório");
         }
     }
 }

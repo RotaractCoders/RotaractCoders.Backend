@@ -34,17 +34,11 @@ namespace Domain.Commands.Handlers
             {
                 clubeCadastrado = new Clube(input, distrito.Id);
 
-                if (!clubeCadastrado.IsValid())
-                    return null;
-
                 _clubeRepository.Incluir(clubeCadastrado);
             }
             else
             {
                 clubeCadastrado.Atualizar(input, distrito.Id);
-
-                if (!clubeCadastrado.IsValid())
-                    return null;
 
                 _clubeRepository.Atualizar(clubeCadastrado);
             }

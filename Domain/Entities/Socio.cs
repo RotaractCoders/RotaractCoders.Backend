@@ -27,9 +27,6 @@ namespace Domain.Entities
         {
             AdicionarValidacoes(input);
 
-            if (!IsValid())
-                return;
-
             Codigo = input.Codigo;
             Nome = input.Nome;
             Apelido = input.Apelido;
@@ -41,9 +38,7 @@ namespace Domain.Entities
         {
             AdicionarValidacoes(input);
 
-            if (!IsValid())
-                return;
-
+            
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -52,9 +47,6 @@ namespace Domain.Entities
 
         private void AdicionarValidacoes(CadastroSocioInput input)
         {
-            new ValidationContract<CadastroSocioInput>(input)
-                .IsGreaterThan(x => x.Codigo, 0, "O código é obrigatório")
-                .IsRequired(x => x.Nome, "O nome é obrigatório");
         }
     }
 }

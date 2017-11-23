@@ -26,11 +26,6 @@ namespace Domain.Entities
             IdSocio = idSocio;
             Posse = posse;
             Desligamento = desligamento;
-
-            new ValidationContract<SocioClube>(this)
-                .IsNotNull(IdClube, "Obrigatório")
-                .IsNotNull(IdSocio, "Obrigatório")
-                .IsNotNull(Posse, "Obrigatório");
         }
     }
 }

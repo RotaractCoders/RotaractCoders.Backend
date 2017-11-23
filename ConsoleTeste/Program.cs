@@ -39,11 +39,6 @@ namespace ConsoleTeste
                     var distritoInput = ExtratirDadosDistrito(driver.PageSource, numeroDistrito);
                     criarDistritoHandler.Handle(distritoInput);
 
-                    if (!criarDistritoHandler.IsValid())
-                    {
-
-                    }
-
                     clubes.AddRange(ExtrairCodigoDosClubesDoDistrito(driver.PageSource)
                         .Select(clube => new Tuple<string, string>(numeroDistrito, clube)).ToList());
                 });
@@ -55,11 +50,6 @@ namespace ConsoleTeste
                     var clubeInput = ExtratirDadosClube(driver.PageSource, Convert.ToInt32(clube.Item2), clube.Item1);
                     criarClubeHandler.Handle(clubeInput);
 
-                    if (!criarClubeHandler.IsValid())
-                    {
-
-                    }
-
                     socios.AddRange(ExtrairCodigoDosSocios(driver.PageSource));
                 });
 
@@ -70,42 +60,17 @@ namespace ConsoleTeste
                     var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
                     cadastrarSocioHandler.Handle(socioInput);
 
-                    if (!cadastrarSocioHandler.IsValid())
-                    {
-
-                    }
-
                     var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
                     filiarSocioHandler.Handle(filiacoesInput);
-
-                    if (!filiarSocioHandler.IsValid())
-                    {
-
-                    }
 
                     var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
                     cadastroCargoSocioHandler.Handle(cargosSocioInput);
 
-                    if (!cadastroCargoSocioHandler.IsValid())
-                    {
-
-                    }
-
                     var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
                     cadastroCargoDistritalHandler.Handle(cargosDistritais);
 
-                    if (!cadastroCargoDistritalHandler.IsValid())
-                    {
-
-                    }
-
                     var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
                     cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
-
-                    if (!cadastroCargoRotaractBrasilHandler.IsValid())
-                    {
-
-                    }
                 });
 
                 driver.Close();

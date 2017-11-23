@@ -18,14 +18,7 @@ namespace Domain.Entities
         protected Distrito() { }
 
         public Distrito(CriarDistritoInput input)
-        {
-            new ValidationContract<CriarDistritoInput>(input)
-                .IsRequired(x => x.Numero, "O número é obrigatório")
-                .IsFixedLenght(x => x.Numero, 4, "O número deve ter 4 digitos");
-
-            if (!IsValid())
-                return;
-
+        {            
             Numero = input.Numero;
             Regiao = input.Regiao;
             Mascote = input.Mascote;
@@ -39,10 +32,6 @@ namespace Domain.Entities
             Mascote = mascote;
             Site = site;
             Email = email;
-
-            new ValidationContract<Distrito>(this)
-                .IsLowerThan(x => x.Regiao, 12, "Região invalida")
-                .IsGreaterThan(x => x.Regiao, 0, "Região invalida");
         }
     }
 }

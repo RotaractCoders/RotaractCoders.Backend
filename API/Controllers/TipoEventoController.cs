@@ -15,47 +15,31 @@ namespace API.Controllers
     [Route("api/TipoEvento")]
     public class TipoEventoController : Controller
     {
-        private IEventoRepository _eventoRepository;
+        private ITipoEventoRepository _tipoEventoRepository;
 
         public TipoEventoController()
         {
-            _eventoRepository = new EventoRepository();
+            _tipoEventoRepository = new TipoEventoRepository();
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(_eventoRepository.Listar());
-        }
-
-        [HttpGet("{id}")]
-        public IActionResult Buscar(Guid id)
-        {
-            return Ok(_eventoRepository.Buscar(id));
+            return Ok(_tipoEventoRepository.Listar());
         }
 
         [HttpPost]
-        public IActionResult Incluir(IncluirEventoInput input)
+        public IActionResult Incluir(string descricao)
         {
-            _eventoRepository.Incluir(new Evento(input));
-            return Ok();
-        }
-
-        [HttpPut]
-        public IActionResult Atualizar(AtualizarEventoInput input)
-        {
-            var evento = _eventoRepository.Obter(input.Id);
-
-            evento.Atualizar(input);
-
-            _eventoRepository.Atualizar(evento);
+            _tipoEventoRepository.Incluir(new TipoEvento(descricao));
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult Deletar(Guid id)
         {
-            _eventoRepository.Deletar(id);
+            _tipoEventoRepository.Deletar(id);
+
             return Ok();
         }
     }

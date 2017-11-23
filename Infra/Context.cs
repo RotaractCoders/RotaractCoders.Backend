@@ -69,6 +69,9 @@ namespace Infra
             modelBuilder.Configurations.Add(new TarefaMap());
             modelBuilder.Configurations.Add(new EventoMap());
             modelBuilder.Configurations.Add(new TipoEventoMap());
+
+            Database.SetInitializer<Context>(null);
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Domain.Contracts.Repositories;
 using Infra.Repositories;
 using Domain.Entities;
+using Domain.Commands.Inputs;
 
 namespace API.Controllers
 {
@@ -13,31 +11,47 @@ namespace API.Controllers
     [Route("api/Evento")]
     public class EventoController : Controller
     {
-        private ITipoEventoRepository _tipoEventoRepository;
+        private IEventoRepository _eventoRepository;
 
         public EventoController()
         {
-            _tipoEventoRepository = new TipoEventoRepository();
+            _eventoRepository = new EventoRepository();
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(_tipoEventoRepository.Listar());
+            return Ok(_eventoRepository.Listar());
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult Buscar(Guid id)
+        {
+            return Ok(_eventoRepository.Buscar(id));
         }
 
         [HttpPost]
-        public IActionResult Incluir(string descricao)
+        public IActionResult Incluir(IncluirEventoInput input)
         {
-            _tipoEventoRepository.Incluir(new TipoEvento(descricao));
+            _eventoRepository.Incluir(new Evento(input));
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Atualizar(AtualizarEventoInput input)
+        {
+            var evento = _eventoRepository.Obter(input.Id);
+
+            evento.Atualizar(input);
+
+            _eventoRepository.Atualizar(evento);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult Deletar(Guid id)
         {
-            _tipoEventoRepository.Deletar(id);
-
+            _eventoRepository.Deletar(id);
             return Ok();
         }
     }

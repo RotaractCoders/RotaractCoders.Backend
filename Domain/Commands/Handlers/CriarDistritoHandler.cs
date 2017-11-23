@@ -21,9 +21,6 @@ namespace Domain.Commands.Handlers
         {
             var distrito = new Distrito(input);
 
-            if (!IsValid())
-                return null;
-
             var distritoCadastrado = _repository.Buscar(distrito.Numero);
             
             if (distritoCadastrado == null)
@@ -33,9 +30,6 @@ namespace Domain.Commands.Handlers
             else
             {
                 distritoCadastrado.Atualizar(input.Regiao, input.Mascote, input.Site, input.Email);
-
-                if (!IsValid())
-                    return null;
 
                 _repository.Atualizar(distritoCadastrado);
             }
