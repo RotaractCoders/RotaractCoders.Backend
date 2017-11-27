@@ -64,6 +64,7 @@
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
     <Compile Include="Commands\Inputs\IncluirEventoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirTipoEventoInput.cs" />
     <Compile Include="Commands\Inputs\ListaProjetosInput.cs" />
     <Compile Include="Commands\Results\ConsultaProjetoResult.cs" />
     <Compile Include="Commands\Results\DetalheEventoResult.cs" />

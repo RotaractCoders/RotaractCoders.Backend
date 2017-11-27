@@ -29,9 +29,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Incluir(string descricao)
+        public IActionResult Incluir([FromBody] IncluirTipoEventoInput input)
         {
-            _tipoEventoRepository.Incluir(new TipoEvento(descricao));
+            _tipoEventoRepository.Incluir(new TipoEvento(input.Descricao));
             return Ok();
         }
 
