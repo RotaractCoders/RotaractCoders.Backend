@@ -18,20 +18,20 @@ namespace Domain.Commands.Handlers
 
         public ICommandResult Handle(CadastroSocioInput input)
         {
-            var socioCadastrado = _socioRepository.Buscar(input.Codigo);
+            //var socioCadastrado = _socioRepository.Buscar(input.Codigo);
 
-            if (socioCadastrado == null)
-            {
-                socioCadastrado = new Socio(input);
+            //if (socioCadastrado == null)
+            //{
+            //    socioCadastrado = new Socio(input);
 
-                _socioRepository.Incluir(socioCadastrado);
-            }
-            else
-            {
-                socioCadastrado.Atualizar(input);
+            //    _socioRepository.Incluir(socioCadastrado);
+            //}
+            //else
+            //{
+            //    socioCadastrado.Atualizar(input);
 
-                _socioRepository.Atualizar(socioCadastrado);
-            }
+            //    _socioRepository.Atualizar(socioCadastrado);
+            //}
 
             return null;
         }

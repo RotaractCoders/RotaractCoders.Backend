@@ -7,15 +7,9 @@ namespace Domain.Commands.Inputs
 {
     public class CadastrarCargoSocioInput : Notifiable, ICommand
     {
-        public int CodigoSocio { get; set; }
-        public List<CargoSocioInput> Lista { get; set; } = new List<CargoSocioInput>();
-    }
-
-    public class CargoSocioInput
-    {
-        public string Cargo { get; set; }
-        public string Clube { get; set; }
-        public DateTime? De { get; set; }
-        public DateTime? Ate { get; set; }
+        public string Nome { get; set; }
+        public string TipoCargo { get; set; }
+        public int GestaoDe { get; set; }
+        public int GestaoAte { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Domain.Contracts.Repositories;
 using Infra.Repositories;
 using Domain.Entities;
 using Domain.Commands.Inputs;
+using Infra.AzureTables;
 
 namespace API.Controllers
 {
@@ -11,7 +12,7 @@ namespace API.Controllers
     [Route("api/Evento")]
     public class EventoController : Controller
     {
-        private IEventoRepository _eventoRepository;
+        private EventoRepository _eventoRepository;
 
         public EventoController()
         {
@@ -25,13 +26,13 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Buscar(Guid id)
+        public IActionResult Buscar(string id)
         {
             return Ok(_eventoRepository.Buscar(id));
         }
 
         [HttpPost]
-        public IActionResult Incluir(IncluirEventoInput input)
+        public IActionResult Incluir([FromBody]IncluirEventoInput input)
         {
             _eventoRepository.Incluir(new Evento(input));
             return Ok();
@@ -49,7 +50,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Deletar(Guid id)
+        public IActionResult Deletar(string id)
         {
             _eventoRepository.Deletar(id);
             return Ok();

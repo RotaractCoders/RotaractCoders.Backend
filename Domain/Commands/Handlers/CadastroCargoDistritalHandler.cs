@@ -7,8 +7,7 @@ using FluentValidator;
 
 namespace Domain.Commands.Handlers
 {
-    public class CadastroCargoDistritalHandler : Notifiable,
-        ICommandHandler<CadastroCargoDistritoInput>
+    public class CadastroCargoDistritalHandler : Notifiable
     {
         private ICargoRepository _cargoRepository;
         private ISocioRepository _socioRepository;
@@ -27,29 +26,29 @@ namespace Domain.Commands.Handlers
             _distritoRepository = distritoRepository;
         }
 
-        public ICommandResult Handle(CadastroCargoDistritoInput command)
+        public ICommandResult Handle()
         {
-            var socio = _socioRepository.Buscar(command.CodigoSocio);
+            //var socio = _socioRepository.Buscar(command.CodigoSocio);
 
-            _cargoDistritoRepository.ListarPorSocio(socio.Id).ForEach(x =>
-            {
-                _cargoDistritoRepository.Excluir(x.Id);
-            });
+            //_cargoDistritoRepository.ListarPorSocio(socio.Id).ForEach(x =>
+            //{
+            //    _cargoDistritoRepository.Excluir(x.Id);
+            //});
 
-            command.Lista.ForEach(input =>
-            {
-                var cargo = _cargoRepository.Buscar(input.Cargo, TipoCargo.Distrital);
+            //command.Lista.ForEach(input =>
+            //{
+            //    var cargo = _cargoRepository.Buscar(input.Cargo, TipoCargo.Distrital);
 
-                if (cargo == null)
-                {
-                    cargo = _cargoRepository.Incluir(new Cargo(input.Cargo, TipoCargo.Distrital));
-                }
+            //    if (cargo == null)
+            //    {
+            //        cargo = _cargoRepository.Incluir(new Cargo(input.Cargo, TipoCargo.Distrital));
+            //    }
 
-                var distrito = _distritoRepository.Buscar(input.Distrito);
+            //    var distrito = _distritoRepository.Buscar(input.Distrito);
 
-                var cargoDistrito = new CargoDistrito(socio.Id, distrito.Id, cargo.Id, input.De, input.Ate);
-                _cargoDistritoRepository.Incluir(cargoDistrito);
-            });
+            //    var cargoDistrito = new CargoDistrito(socio.Id, distrito.Id, cargo.Id, input.De, input.Ate);
+            //    _cargoDistritoRepository.Incluir(cargoDistrito);
+            //});
 
             return null;
         }

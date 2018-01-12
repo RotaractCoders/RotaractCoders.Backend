@@ -20,28 +20,28 @@ namespace Domain.Commands.Handlers
 
         public ICommandResult Handle(CriarClubeInput input)
         {
-            var clubeCadastrado = _clubeRepository.Buscar(input.Codigo);
+            //var clubeCadastrado = _clubeRepository.Buscar(input.Codigo);
 
-            var distrito = _distritoRepository.Buscar(input.numeroDistrito);
+            //var distrito = _distritoRepository.Buscar(input.numeroDistrito);
 
-            if (distrito == null)
-            {
-                AddNotification("numeroDistrito", "O número do distrito é obrigatório");
-                return null;
-            }
+            //if (distrito == null)
+            //{
+            //    AddNotification("numeroDistrito", "O número do distrito é obrigatório");
+            //    return null;
+            //}
 
-            if (clubeCadastrado == null)
-            {
-                clubeCadastrado = new Clube(input, distrito.Id);
+            //if (clubeCadastrado == null)
+            //{
+            //    clubeCadastrado = new Clube(input, distrito.Id);
 
-                _clubeRepository.Incluir(clubeCadastrado);
-            }
-            else
-            {
-                clubeCadastrado.Atualizar(input, distrito.Id);
+            //    _clubeRepository.Incluir(clubeCadastrado);
+            //}
+            //else
+            //{
+            //    clubeCadastrado.Atualizar(input, distrito.Id);
 
-                _clubeRepository.Atualizar(clubeCadastrado);
-            }
+            //    _clubeRepository.Atualizar(clubeCadastrado);
+            //}
 
             return null;
         }

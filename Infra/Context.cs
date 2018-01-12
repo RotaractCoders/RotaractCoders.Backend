@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Infra.Maps;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -26,7 +25,6 @@ namespace Infra
         public DbSet<Socio> Socio { get; set; }
         public DbSet<Tarefa> Tarefa { get; set; }
         public DbSet<Evento> Evento { get; set; }
-        public DbSet<TipoEvento> TipoEvento { get; set; }
 
         public Context()
             : base(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=RotaractDB;Integrated Security=True")
@@ -48,27 +46,6 @@ namespace Infra
 
             modelBuilder.Properties<string>()
                 .Configure(p => p.HasColumnType("varchar"));
-
-            modelBuilder.Configurations.Add(new CargoClubeMap());
-            modelBuilder.Configurations.Add(new CargoDistritoMap());
-            modelBuilder.Configurations.Add(new CargoRotaractBrasilMap());
-            modelBuilder.Configurations.Add(new CargoMap());
-            modelBuilder.Configurations.Add(new CategoriaMap());
-            modelBuilder.Configurations.Add(new ClubeMap());
-            modelBuilder.Configurations.Add(new DistritoMap());
-            modelBuilder.Configurations.Add(new LancamentoFinanceiroMap());
-            modelBuilder.Configurations.Add(new MeioDeDivulgacaoProjetoMap());
-            modelBuilder.Configurations.Add(new ObjetivoMap());
-            modelBuilder.Configurations.Add(new ParceriaProjetoMap());
-            modelBuilder.Configurations.Add(new ParticipanteProjetoMap());
-            modelBuilder.Configurations.Add(new ProjetoMap());
-            modelBuilder.Configurations.Add(new ProjetoCategoriaMap());
-            modelBuilder.Configurations.Add(new PublicoAlvoProjetoMap());
-            modelBuilder.Configurations.Add(new SocioClubeMap());
-            modelBuilder.Configurations.Add(new SocioMap());
-            modelBuilder.Configurations.Add(new TarefaMap());
-            modelBuilder.Configurations.Add(new EventoMap());
-            modelBuilder.Configurations.Add(new TipoEventoMap());
 
             Database.SetInitializer<Context>(null);
             base.OnModelCreating(modelBuilder);

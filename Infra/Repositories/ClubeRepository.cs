@@ -22,7 +22,7 @@ namespace Infra.Repositories
 
         public Clube Buscar(int codigo)
         {
-            return _context.Clube.FirstOrDefault(x => x.Codigo == codigo);
+            return null;// _context.Clube.FirstOrDefault(x => x.Codigo == codigo);
         }
 
         public Clube BuscarPorNome(string nomeClube)

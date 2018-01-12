@@ -22,7 +22,7 @@ namespace Infra.Repositories
 
         public Socio Buscar(int codigo)
         {
-            return _context.Socio.FirstOrDefault(x => x.Codigo == codigo);
+            return null;// _context.Socio.FirstOrDefault(x => x.Codigo == codigo);
         }
 
         public void Incluir(Socio socio)

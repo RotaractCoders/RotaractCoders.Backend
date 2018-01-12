@@ -21,7 +21,7 @@ namespace Domain.Commands.Results
             Nome = projeto.Nome;
             Resumo = projeto.Resumo;
             Clube = projeto.Clube.Nome;
-            Distrito = projeto.Clube.Distrito.Numero;
+            //Distrito = projeto.Clube.Distrito.Numero;
             Categorias = projeto.ProjetoCategorias
                 .Where(x => x.TipoCategoria == TipoCategoria.Principal)
                 .Select(x => x.Categoria.Nome).ToList();

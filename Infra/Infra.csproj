@@ -48,34 +48,51 @@
     <Reference Include="FluentValidator, Version=2.0.4.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentValidator.2.0.4\lib\netstandard1.3\FluentValidator.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureTables\ArquivoRepository.cs" />
+    <Compile Include="AzureTables\BaseRepository.cs" />
+    <Compile Include="AzureTables\ClubeRepository.cs" />
+    <Compile Include="AzureTables\DadoEstaticoRepository.cs" />
+    <Compile Include="AzureTables\EventoRepository.cs" />
+    <Compile Include="AzureTables\FaqRepository.cs" />
+    <Compile Include="AzureTables\SocioRepository.cs" />
     <Compile Include="Context.cs" />
-    <Compile Include="Maps\CargoDistritoMap.cs" />
-    <Compile Include="Maps\CargoClubeMap.cs" />
-    <Compile Include="Maps\CargoMap.cs" />
-    <Compile Include="Maps\CargoRotaractBrasilMap.cs" />
-    <Compile Include="Maps\CategoriaMap.cs" />
-    <Compile Include="Maps\ClubeMap.cs" />
-    <Compile Include="Maps\DistritoMap.cs" />
-    <Compile Include="Maps\EventoMap.cs" />
-    <Compile Include="Maps\LancamentoFinanceiroMap.cs" />
-    <Compile Include="Maps\MeioDeDivulgacaoProjetoMap.cs" />
-    <Compile Include="Maps\ObjetivoMap.cs" />
-    <Compile Include="Maps\ParceriaProjetoMap.cs" />
-    <Compile Include="Maps\ParticipanteProjetoMap.cs" />
-    <Compile Include="Maps\ProjetoCategoriaMap.cs" />
-    <Compile Include="Maps\ProjetoMap.cs" />
-    <Compile Include="Maps\PublicoAlvoProjetoMap.cs" />
-    <Compile Include="Maps\SocioClubeMap.cs" />
-    <Compile Include="Maps\SocioMap.cs" />
-    <Compile Include="Maps\TarefaMap.cs" />
-    <Compile Include="Maps\TipoEventoMap.cs" />
     <Compile Include="Migrations\201711231348313_teste.cs" />
     <Compile Include="Migrations\201711231348313_teste.Designer.cs">
       <DependentUpon>201711231348313_teste.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712061256515_teste1.cs" />
+    <Compile Include="Migrations\201712061256515_teste1.Designer.cs">
+      <DependentUpon>201712061256515_teste1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,7 +103,6 @@
     <Compile Include="Repositories\CategoriaRepository.cs" />
     <Compile Include="Repositories\ClubeRepository.cs" />
     <Compile Include="Repositories\DistritoRepository.cs" />
-    <Compile Include="Repositories\EventoRepository.cs" />
     <Compile Include="Repositories\LancamentoFinanceiroRepository.cs" />
     <Compile Include="Repositories\MeioDeDivulgacaoProjetoRepository.cs" />
     <Compile Include="Repositories\ObjetivoRepository.cs" />
@@ -98,7 +114,6 @@
     <Compile Include="Repositories\SocioClubeRepository.cs" />
     <Compile Include="Repositories\SocioRepository.cs" />
     <Compile Include="Repositories\TarefaRepository.cs" />
-    <Compile Include="Repositories\TipoEventoRepository.cs" />
     <Compile Include="WebCrowley\OmirBrasilRepository.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +129,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711231348313_teste.resx">
       <DependentUpon>201711231348313_teste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712061256515_teste1.resx">
+      <DependentUpon>201712061256515_teste1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

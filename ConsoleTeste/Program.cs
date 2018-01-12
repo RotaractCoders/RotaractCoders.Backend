@@ -60,17 +60,17 @@ namespace ConsoleTeste
                     var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
                     cadastrarSocioHandler.Handle(socioInput);
 
-                    var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
-                    filiarSocioHandler.Handle(filiacoesInput);
+                    //var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
+                    //filiarSocioHandler.Handle(filiacoesInput);
 
-                    var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
-                    cadastroCargoSocioHandler.Handle(cargosSocioInput);
+                    //var cargosSocioInput = ExtrairCargosDoSocioNosClubes(driver.PageSource, socioInput.Codigo);
+                    //cadastroCargoSocioHandler.Handle(cargosSocioInput);
 
-                    var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
-                    cadastroCargoDistritalHandler.Handle(cargosDistritais);
+                    //var cargosDistritais = ExtrairCargosDoSocioDistritais(driver.PageSource, socioInput.Codigo);
+                    //cadastroCargoDistritalHandler.Handle(cargosDistritais);
 
-                    var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
-                    cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
+                    //var cargosRotaractBrasil = ExtrairCargosRotaractBrasilDoSocio(driver.PageSource, socioInput.Codigo);
+                    //cadastroCargoRotaractBrasilHandler.Handle(cargosRotaractBrasil);
                 });
 
                 driver.Close();
@@ -125,8 +125,8 @@ namespace ConsoleTeste
 
             var retorno = new CriarClubeInput
             {
-                Codigo = codigoClube,
-                numeroDistrito = numeroDistrito,
+                //Codigo = codigoClube,
+                //numeroDistrito = numeroDistrito,
                 Nome = htmlDadosClube.Substring(0, htmlDadosClube.IndexOf("D.")).Replace("\n", "").Trim(),
                 RotaryPadrinho = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("R.C Padrinho:")).Replace("R.C Padrinho:", "").Trim(),
@@ -255,7 +255,7 @@ namespace ConsoleTeste
                 Apelido = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Apelido:")).Replace("Apelido:", "").Trim(),
                 Email = email,
-                Codigo = codigo
+                //Codigo = codigo
             };
 
             if (!string.IsNullOrEmpty(htmlDadosClube.Split('\n').FirstOrDefault(x => x.Contains("Data de Nasc.:")).Replace("Data de Nasc.:", "").Trim()))
@@ -309,144 +309,150 @@ namespace ConsoleTeste
 
             var input = new CadastrarCargoSocioInput
             {
-                CodigoSocio = codigoSocio
+                //CodigoSocio = codigoSocio
             };
 
-            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosClube tr")
-                .Where(x => x.ClassName != "SistemaLabel")
-                .Select(x =>
-                {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent;
-                    var cargoClube = x.QuerySelectorAll("td")[0].TextContent;
+            //input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosClube tr")
+            //    .Where(x => x.ClassName != "SistemaLabel")
+            //    .Select(x =>
+            //    {
+            //        var datas = x.QuerySelectorAll("td")[1].TextContent;
+            //        var cargoClube = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var retorno = new CargoSocioInput
-                    {
-                        Cargo = cargoClube.Substring(0, cargoClube.LastIndexOf("(")).Trim(),
-                        Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
-                    };
+            //        var retorno = new CargoSocioInput
+            //        {
+            //            Cargo = cargoClube.Substring(0, cargoClube.LastIndexOf("(")).Trim(),
+            //            Clube = cargoClube.Substring(cargoClube.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
+            //        };
 
-                    if (datas.Contains("até") && datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
-                    }
-                    else if (datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
-                        retorno.Ate = null;
-                    }
-                    else if (datas.Contains("até"))
-                    {
-                        retorno.De = null;
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
-                    }
-                    else
-                    {
-                        retorno.De = null;
-                        retorno.Ate = null;
-                    }
+            //        if (datas.Contains("até") && datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+            //        }
+            //        else if (datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+            //            retorno.Ate = null;
+            //        }
+            //        else if (datas.Contains("até"))
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+            //        }
+            //        else
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = null;
+            //        }
 
-                    return retorno;
-                }).ToList());
+            //        return retorno;
+            //    }).ToList());
 
             return input;
         }
 
-        private static CadastroCargoDistritoInput ExtrairCargosDoSocioDistritais(string htmlTexto, int codigoSocio)
+        //private static CadastroCargoDistritoInput ExtrairCargosDoSocioDistritais(string htmlTexto, int codigoSocio)
+        private static string ExtrairCargosDoSocioDistritais(string htmlTexto, int codigoSocio)
         {
-            var html = new HtmlParser().Parse(htmlTexto);
+            //var html = new HtmlParser().Parse(htmlTexto);
 
-            var input = new CadastroCargoDistritoInput
-            {
-                CodigoSocio = codigoSocio
-            };
+            //var input = new CadastroCargoDistritoInput
+            //{
+            //    CodigoSocio = codigoSocio
+            //};
 
-            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosDistrito tr")
-                .Where(x => x.ClassName != "SistemaLabel")
-                .Select(x =>
-                {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent;
-                    var cargoDistrito = x.QuerySelectorAll("td")[0].TextContent;
+            //input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosDistrito tr")
+            //    .Where(x => x.ClassName != "SistemaLabel")
+            //    .Select(x =>
+            //    {
+            //        var datas = x.QuerySelectorAll("td")[1].TextContent;
+            //        var cargoDistrito = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var retorno = new CargoDistritoInput
-                    {
-                        Cargo = cargoDistrito.Substring(0, cargoDistrito.LastIndexOf("(")).Trim(),
-                        Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
-                    };
+            //        var retorno = new CargoDistritoInput
+            //        {
+            //            Cargo = cargoDistrito.Substring(0, cargoDistrito.LastIndexOf("(")).Trim(),
+            //            Distrito = cargoDistrito.Substring(cargoDistrito.LastIndexOf("(")).Replace("(", "").Replace(")", "").Trim()
+            //        };
 
-                    if (datas.Contains("até") && datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
-                    }
-                    else if (datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
-                        retorno.Ate = null;
-                    }
-                    else if (datas.Contains("até"))
-                    {
-                        retorno.De = null;
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
-                    }
-                    else
-                    {
-                        retorno.De = null;
-                        retorno.Ate = null;
-                    }
+            //        if (datas.Contains("até") && datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+            //        }
+            //        else if (datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+            //            retorno.Ate = null;
+            //        }
+            //        else if (datas.Contains("até"))
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+            //        }
+            //        else
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = null;
+            //        }
 
-                    return retorno;
-                }).ToList());
+            //        return retorno;
+            //    }).ToList());
 
-            return input;
+            //return input;
+
+            return null;
         }
 
-        private static CadastroCargoRotaractBrasilInput ExtrairCargosRotaractBrasilDoSocio(string htmlTexto, int codigoSocio)
+        //private static CadastroCargoRotaractBrasilInput ExtrairCargosRotaractBrasilDoSocio(string htmlTexto, int codigoSocio)
+        private static string ExtrairCargosRotaractBrasilDoSocio(string htmlTexto, int codigoSocio)
         {
-            var html = new HtmlParser().Parse(htmlTexto);
+            //var html = new HtmlParser().Parse(htmlTexto);
 
-            var input = new CadastroCargoRotaractBrasilInput
-            {
-                CodigoSocio = codigoSocio
-            };
+            //var input = new CadastroCargoRotaractBrasilInput
+            //{
+            //    CodigoSocio = codigoSocio
+            //};
 
-            input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosOmir tr")
-                .Where(x => x.ClassName != "SistemaLabel")
-                .Select(x =>
-                {
-                    var datas = x.QuerySelectorAll("td")[1].TextContent;
-                    var cargo = x.QuerySelectorAll("td")[0].TextContent;
+            //input.Lista.AddRange(html.QuerySelectorAll("#Guia_CargosOmir tr")
+            //    .Where(x => x.ClassName != "SistemaLabel")
+            //    .Select(x =>
+            //    {
+            //        var datas = x.QuerySelectorAll("td")[1].TextContent;
+            //        var cargo = x.QuerySelectorAll("td")[0].TextContent;
 
-                    var retorno = new CargoRotaractBrasilInput
-                    {
-                        Cargo = cargo.Trim()
-                    };
+            //        var retorno = new CargoRotaractBrasilInput
+            //        {
+            //            Cargo = cargo.Trim()
+            //        };
 
-                    if (datas.Contains("até") && datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
-                    }
-                    else if (datas.Contains("desde"))
-                    {
-                        retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
-                        retorno.Ate = null;
-                    }
-                    else if (datas.Contains("até"))
-                    {
-                        retorno.De = null;
-                        retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
-                    }
-                    else
-                    {
-                        retorno.De = null;
-                        retorno.Ate = null;
-                    }
+            //        if (datas.Contains("até") && datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Substring(0, datas.Replace("desde", "").IndexOf("até")).Trim());
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("desde", "").Substring(datas.Replace("desde", "").IndexOf("até")).Replace("até", "").Trim());
+            //        }
+            //        else if (datas.Contains("desde"))
+            //        {
+            //            retorno.De = Convert.ToDateTime(datas.Replace("desde", "").Trim());
+            //            retorno.Ate = null;
+            //        }
+            //        else if (datas.Contains("até"))
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = Convert.ToDateTime(datas.Replace("até", "").Trim());
+            //        }
+            //        else
+            //        {
+            //            retorno.De = null;
+            //            retorno.Ate = null;
+            //        }
 
-                    return retorno;
-                }).ToList());
+            //        return retorno;
+            //    }).ToList());
 
-            return input;
+            //return input;
+
+            return null;
         }
 
         private static int RomanoParaInteiro(string numeroRomano)

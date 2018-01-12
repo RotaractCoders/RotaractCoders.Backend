@@ -50,8 +50,8 @@ namespace Infra.Repositories
             if (input.IdCategoria != Guid.Empty)
                 filtroCategoria = new Func<Projeto, bool>(x => x.ProjetoCategorias.Any(a => a.TipoCategoria == TipoCategoria.Principal && a.IdCategoria == input.IdCategoria));
 
-            if (input.IdDistrito != Guid.Empty)
-                filtroDistrito = new Func<Projeto, bool>(x => x.Clube.IdDistrito == input.IdDistrito);
+            //if (input.IdDistrito != Guid.Empty)
+            //    filtroDistrito = new Func<Projeto, bool>(x => x.Clube.IdDistrito == input.IdDistrito);
 
             if (input.IdClube != Guid.Empty)
                 filtroClube = new Func<Projeto, bool>(x => x.IdClube == input.IdClube);
@@ -60,39 +60,44 @@ namespace Infra.Repositories
             if (consulta == null)
                 consulta = new Func<Projeto, bool>(x => true);
 
-            return _context.Projeto
-                .Include(x => x.ProjetoCategorias)
-                .Include("ProjetoCategorias.Categoria")
-                .Include(x => x.Clube)
-                .Include(x => x.Clube.Distrito)
-                .AsNoTracking()
-                .Where(consulta)
-                .Take(10)
-                .ToList()
-                .Select(x => new ListaProjetosResult(x))
-                .ToList();
+            //return _context.Projeto
+            //    .Include(x => x.ProjetoCategorias)
+            //    .Include("ProjetoCategorias.Categoria")
+            //    .Include(x => x.Clube)
+            //    .Include(x => x.Clube.Distrito)
+            //    .AsNoTracking()
+            //    .Where(consulta)
+            //    .Take(10)
+            //    .ToList()
+            //    .Select(x => new ListaProjetosResult(x))
+            //    .ToList();
+
+            return null;
         }
 
         public ConsultaProjetoResult Obter(Guid idProjeto)
         {
-            var projeto = _context.Projeto
-                .Include(x => x.LancamentosFinanceiros)
-                .Include(x => x.MeiosDeDivulgacao)
-                .Include(x => x.Objetivos)
-                .Include(x => x.Parcerias)
-                .Include(x => x.Participantes)
-                .Include(x => x.ProjetoCategorias)
-                .Include("ProjetoCategorias.Categoria")
-                .Include(x => x.PublicoAlvo)
-                .Include(x => x.Tarefas)
-                .Include(x => x.Clube)
-                .Include(x => x.Clube.Distrito)
-                .AsNoTracking()
-                .FirstOrDefault(x => x.Id == idProjeto);
-            if (projeto == null)
-                return null;
+            //var projeto = _context.Projeto
+            //    .Include(x => x.LancamentosFinanceiros)
+            //    .Include(x => x.MeiosDeDivulgacao)
+            //    .Include(x => x.Objetivos)
+            //    .Include(x => x.Parcerias)
+            //    .Include(x => x.Participantes)
+            //    .Include(x => x.ProjetoCategorias)
+            //    .Include("ProjetoCategorias.Categoria")
+            //    .Include(x => x.PublicoAlvo)
+            //    .Include(x => x.Tarefas)
+            //    .Include(x => x.Clube)
+            //    .Include(x => x.Clube.Distrito)
+            //    .AsNoTracking()
+            //    .FirstOrDefault(x => x.Id == idProjeto);
 
-            return new ConsultaProjetoResult(projeto);
+            //if (projeto == null)
+            //    return null;
+
+            //return new ConsultaProjetoResult(projeto);
+
+            return null;
         }
     }
 }

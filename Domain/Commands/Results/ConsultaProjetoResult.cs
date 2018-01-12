@@ -58,7 +58,7 @@ namespace Domain.Commands.Results
             MeiosDeDivulgacao = projeto.MeiosDeDivulgacao.Select(x => x.Descricao).ToList();
             Parcerias = projeto.Parcerias.Select(x => x.Descricao).ToList();
             Clube = projeto.Clube.Nome;
-            Distrito = projeto.Clube.Distrito.Numero;
+            //Distrito = projeto.Clube.Distrito.Numero;
 
             LancamentosFinanceiros = projeto.LancamentosFinanceiros
                 .Select(x => new ConsultaProjetoLancamentoFinanceiroResult

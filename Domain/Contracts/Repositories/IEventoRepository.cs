@@ -7,11 +7,11 @@ namespace Domain.Contracts.Repositories
 {
     public interface IEventoRepository
     {
-        List<ListaEventoResult> Listar();
-        DetalheEventoResult Buscar(Guid id);
-        Evento Obter(Guid id);
+        List<Evento> Listar();
+        DetalheEventoResult Buscar(string id);
+        Evento Obter(string id);
         void Incluir(Evento evento);
         void Atualizar(Evento evento);
-        void Deletar(Guid id);
+        void Deletar(string id);
     }
 }

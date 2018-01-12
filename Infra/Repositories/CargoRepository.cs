@@ -16,7 +16,7 @@ namespace Infra.Repositories
 
         public Cargo Buscar(string nome, TipoCargo tipoCargo)
         {
-            return _context.Cargo.FirstOrDefault(x => x.Nome == nome && x.TipoCargo == tipoCargo);
+            return null;// _context.Cargo.FirstOrDefault(x => x.Nome == nome && x.TipoCargo == tipoCargo);
         }
 
         public Cargo Incluir(Cargo cargo)

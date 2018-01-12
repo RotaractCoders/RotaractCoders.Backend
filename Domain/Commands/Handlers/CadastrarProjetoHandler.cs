@@ -92,11 +92,11 @@ namespace Domain.Commands.Handlers
                     distrito = _distritoRepository.Incluir(distrito);
                 }
 
-                clube = new Clube(new CriarClubeInput
-                {
-                    Codigo = command.CodigoClube,
-                    Nome = command.NomeClube
-                }, distrito.Id);
+                //clube = new Clube(new CriarClubeInput
+                //{
+                //    Codigo = command.CodigoClube,
+                //    Nome = command.NomeClube
+                //}, distrito.Id);
 
                 _clubeRepository.Incluir(clube);
             }
@@ -110,7 +110,7 @@ namespace Domain.Commands.Handlers
 
             if (projeto == null)
             {
-                projeto = new Projeto(command, clube.Id);
+                //projeto = new Projeto(command, clube.Id);
                 projeto = _projetoRepository.Incluir(projeto);
             }
             else

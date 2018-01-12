@@ -29,27 +29,27 @@ namespace Domain.Commands.Handlers
 
         public ICommandResult Handle(CadastrarCargoSocioInput command)
         {
-            var socio = _socioRepository.Buscar(command.CodigoSocio);
+            //var socio = _socioRepository.Buscar(command.CodigoSocio);
 
-            _cargoClubeRepository.ListarPorSocio(socio.Id).ForEach(x =>
-            {
-                _cargoClubeRepository.Excluir(x.Id);
-            });
+            //_cargoClubeRepository.ListarPorSocio(socio.Id).ForEach(x =>
+            //{
+            //    _cargoClubeRepository.Excluir(x.Id);
+            //});
 
-            command.Lista.ForEach(input =>
-            {
-                var cargo = _cargoRepository.Buscar(input.Cargo, TipoCargo.Clube);
+            //command.Lista.ForEach(input =>
+            //{
+            //    var cargo = _cargoRepository.Buscar(input.Cargo, TipoCargo.Clube);
 
-                if (cargo == null)
-                {
-                    cargo = _cargoRepository.Incluir(new Cargo(input.Cargo, TipoCargo.Clube));
-                }
+            //    if (cargo == null)
+            //    {
+            //        cargo = _cargoRepository.Incluir(new Cargo(input.Cargo, TipoCargo.Clube));
+            //    }
 
-                var clube = _clubeRepository.BuscarPorNome(input.Clube);
+            //    var clube = _clubeRepository.BuscarPorNome(input.Clube);
 
-                var cargoClube = new CargoClube(socio.Id, cargo.Id, clube.Id, input.De, input.Ate);
-                _cargoClubeRepository.Incluir(cargoClube);
-            });
+            //    //var cargoClube = new CargoClube(socio.Id, cargo.Id, clube.Id, input.De, input.Ate);
+            //    //_cargoClubeRepository.Incluir(cargoClube);
+            //});
 
             return null;
         }
