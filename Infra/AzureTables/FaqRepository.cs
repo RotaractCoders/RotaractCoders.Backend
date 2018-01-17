@@ -28,7 +28,13 @@ namespace Infra.AzureTables
         public Faq Obter(string guid)
         {
             var query = new TableQuery<Faq>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, guid));
-            return query.Execute().FirstOrDefault();
+
+            var retorno = _baseRepository.Faq.ExecuteQuery(query);
+
+            if (retorno == null)
+                return null;
+
+            return retorno.FirstOrDefault();
         }
 
         public List<Faq> Listar()

@@ -28,7 +28,7 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public IActionResult Buscar(string id)
         {
-            return Ok(_eventoRepository.Buscar(id));
+            return Ok(_eventoRepository.Obter(id));
         }
 
         [HttpPost]
@@ -39,9 +39,9 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Atualizar(AtualizarEventoInput input)
+        public IActionResult Atualizar([FromBody]IncluirEventoInput input)
         {
-            var evento = _eventoRepository.Obter(input.Id);
+            var evento = _eventoRepository.Obter(input.RowKey);
 
             evento.Atualizar(input);
 

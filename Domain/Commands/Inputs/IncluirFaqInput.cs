@@ -8,7 +8,7 @@ namespace Domain.Commands.Inputs
 {
     public class IncluirFaqInput
     {
-        public string id { get; set; }
+        public string RowKey { get; set; }
         public string Pergunta { get; set; }
         public string Resposta { get; set; }
         public int Posicao { get; set; }

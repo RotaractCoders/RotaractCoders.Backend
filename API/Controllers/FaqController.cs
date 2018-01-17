@@ -23,12 +23,25 @@ namespace API.Controllers
             return Ok(_faqRepository.Listar());
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Buscar(string id)
+        {
+            return Ok(_faqRepository.Obter(id));
+        }
+
         [HttpPost]
         public IActionResult Incluir([FromBody]IncluirFaqInput input)
         {
             var lista = _faqRepository.Listar();
 
-            var faq = new Faq(input.Pergunta, input.Resposta, lista.Max(x => x.Posicao) + 1);
+            var posicao = 0;
+
+            if (lista.Count > 0)
+            {
+                posicao = lista.Max(x => x.Posicao);
+            }
+
+            var faq = new Faq(input.Pergunta, input.Resposta, posicao + 1);
             _faqRepository.Incluir(faq);
 
             return Ok();
@@ -37,7 +50,7 @@ namespace API.Controllers
         [HttpPut]
         public IActionResult Atualizar([FromBody]IncluirFaqInput input)
         {
-            var faq = _faqRepository.Obter(input.id);
+            var faq = _faqRepository.Obter(input.RowKey);
 
             faq.Atualizar(input.Pergunta, input.Resposta, input.Posicao);
             _faqRepository.Atualizar(faq);
@@ -45,7 +58,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult Deletar(string id)
         {
             _faqRepository.Excluir(id);

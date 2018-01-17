@@ -5,10 +5,10 @@ namespace Domain.Entities
 {
     public class Faq : TableEntity
     {
-        public int Posicao { get; protected set; }
-        public string Pergunta { get; protected set; }
-        public string Resposta { get; protected set; }
-        public DateTime DataAtualizacao { get; protected set; }
+        public int Posicao { get; set; }
+        public string Pergunta { get; set; }
+        public string Resposta { get; set; }
+        public DateTime DataAtualizacao { get; set; }
 
         public Faq()
         {
@@ -23,7 +23,7 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = DataAtualizacao.ToString("dd/MM/yyyy");
+            PartitionKey = Pergunta;
         }
 
         public void Atualizar(string pergunta, string resposta, int posicao)
@@ -33,7 +33,7 @@ namespace Domain.Entities
             Posicao = posicao;
             DataAtualizacao = DateTime.Now;
 
-            PartitionKey = DataAtualizacao.ToString("dd/MM/yyyy");
+            PartitionKey = Pergunta;
         }
     }
 }
