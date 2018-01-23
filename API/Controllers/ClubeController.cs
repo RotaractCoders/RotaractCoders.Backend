@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Incluir(CriarClubeInput input)
+        public IActionResult Incluir([FromBody]CriarClubeInput input)
         {
             var clube = new Clube(input);
 
@@ -39,9 +39,9 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public IActionResult Atualizar(CriarClubeInput input)
+        public IActionResult Atualizar([FromBody]CriarClubeInput input)
         {
-            var clube = _clubeRepository.Obter(input.Id);
+            var clube = _clubeRepository.Obter(input.RowKey);
 
             if (clube == null)
                 return BadRequest();
@@ -53,7 +53,7 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public IActionResult Deletar(string id)
         {
             _clubeRepository.Excluir(id);

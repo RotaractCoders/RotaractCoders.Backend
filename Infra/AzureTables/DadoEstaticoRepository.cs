@@ -31,17 +31,17 @@ namespace Infra.AzureTables
 
         public void Atualizar(DadoEstatico dadoEstatico)
         {
-            var atualizar = Obter(dadoEstatico.RowKey);
+            var atualizar = Obter(dadoEstatico.Nome);
 
             atualizar.AtualizarDescricao(dadoEstatico.Descricao);
 
             var updateOperation = TableOperation.Replace(atualizar);
-            _baseRepository.Evento.Execute(updateOperation);
+            _baseRepository.DadoEstatico.Execute(updateOperation);
         }
 
         public DadoEstatico Obter(string nome)
         {
-            var query = new TableQuery<DadoEstatico>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, nome));
+            var query = new TableQuery<DadoEstatico>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, nome));
 
             var retorno = _baseRepository.DadoEstatico.ExecuteQuery(query);
 

@@ -14,6 +14,9 @@ namespace Domain.Commands.Inputs
         public string TipoEvento { get; set; }
         public string Programa { get; set; }
         public string Descricao { get; set; }
+        public string Endereco { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public DateTime DataEvento { get; set; }
     }
 }

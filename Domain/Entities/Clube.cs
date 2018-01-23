@@ -6,16 +6,16 @@ namespace Domain.Entities
 {
     public class Clube : TableEntity
     {
-        public string Nome { get; private set; }
-        public string Site { get; private set; }
-        public string Facebook { get; private set; }
-        public string Instagram { get; private set; }
-        public string Email { get; private set; }
-        public DateTime? DataFundacao { get; private set; }
-        public string RotaryPadrinho { get; private set; }
-        public DateTime? DataFechamento { get; private set; }
-        public string NumeroDistrito { get; private set; }
-        public DateTime DataAtualizacao { get; private set; }
+        public string Nome { get; set; }
+        public string Site { get; set; }
+        public string Facebook { get; set; }
+        public string Instagram { get; set; }
+        public string Email { get; set; }
+        public DateTime? DataFundacao { get; set; }
+        public string RotaryPadrinho { get; set; }
+        public DateTime? DataFechamento { get; set; }
+        public string NumeroDistrito { get; set; }
+        public DateTime DataAtualizacao { get; set; }
 
         public Clube()
         {

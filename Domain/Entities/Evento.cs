@@ -12,6 +12,9 @@ namespace Domain.Entities
         public string TipoEvento { get; set; }
         public string Programa { get; set; }
         public string Descricao { get; set; }
+        public string Endereco { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataEvento { get; set; }
         public DateTime DataAtualizacao { get; set; }
@@ -30,6 +33,9 @@ namespace Domain.Entities
             DataEvento = input.DataEvento;
             DataCriacao = DateTime.Now;
             Programa = input.Programa;
+            Endereco = input.Endereco;
+            Latitude = input.Latitude;
+            Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = input.Nome;
@@ -44,6 +50,9 @@ namespace Domain.Entities
             Descricao = input.Descricao;
             DataEvento = input.DataEvento;
             Programa = input.Programa;
+            Endereco = input.Endereco;
+            Latitude = input.Latitude;
+            Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = input.Nome;
@@ -57,6 +66,9 @@ namespace Domain.Entities
             Descricao = input.Descricao;
             DataEvento = input.DataEvento;
             Programa = input.Programa;
+            Endereco = input.Endereco;
+            Latitude = input.Latitude;
+            Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = input.Nome;
