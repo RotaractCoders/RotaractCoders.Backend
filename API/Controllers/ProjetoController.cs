@@ -1,11 +1,13 @@
 using Domain.Commands.Inputs;
 using Domain.Contracts.Repositories;
 using Infra.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace API.Controllers
 {
+    [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/Projeto")]
     public class ProjetoController : Controller

@@ -9,10 +9,10 @@ namespace Domain.Entities
 {
     public class Arquivo : TableEntity
     {
-        public string Nome { get; protected set; }
-        public string Categoria { get; protected set; }
-        public string Link { get; protected set; }
-        public DateTime DataAtualizacao { get; protected set; }
+        public string Nome { get; set; }
+        public string Categoria { get; set; }
+        public string Link { get; set; }
+        public DateTime DataAtualizacao { get; set; }
 
         public Arquivo()
         {

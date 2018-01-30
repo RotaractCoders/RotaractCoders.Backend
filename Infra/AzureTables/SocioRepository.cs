@@ -39,7 +39,12 @@ namespace Infra.AzureTables
         {
             var query = new TableQuery<Socio>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, id));
 
-            return query.Execute().FirstOrDefault();
+            var retorno = _baseRepository.Socio.ExecuteQuery(query);
+
+            if (retorno == null)
+                return null;
+
+            return retorno.FirstOrDefault();
         }
 
         public void Excluir(string id)

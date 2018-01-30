@@ -8,7 +8,7 @@ namespace Domain.Commands.Inputs
 {
     public class IncluirArquivoInput
     {
-        public string Id { get; set; }
+        public string RowKey { get; set; }
         public string Nome { get; set; }
         public string Categoria { get; set; }
         public string Link { get; set; }

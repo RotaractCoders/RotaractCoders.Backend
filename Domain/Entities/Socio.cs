@@ -9,17 +9,27 @@ namespace Domain.Entities
 {
     public class Socio : TableEntity
     {
-        public string Nome { get; private set; }
-        public string Apelido { get; private set; }
-        public DateTime? DataNascimento { get; private set; }
-        public string Email { get; private set; }
-        public string Facebook { get; private set; }
-        public string Instagram { get; private set; }
-        public string Celular { get; private set; }
-        public string CargosSerializado { get; private set; }
-        public DateTime DataAtualizacao { get; private set; }
+        public string Nome { get; set; }
+        public string Apelido { get; set; }
+        public DateTime? DataNascimento { get; set; }
+        public string Email { get; set; }
+        public string Facebook { get; set; }
+        public string Instagram { get; set; }
+        public string Celular { get; set; }
+        public string Clube { get; set; }
+        public string CargosSerializado { get; set; }
+        public DateTime DataAtualizacao { get; set; }
 
-        public List<Cargo> Cargos => JsonConvert.DeserializeObject<List<Cargo>>(CargosSerializado);
+        public List<Cargo> Cargos
+        {
+            get
+            {
+                if (CargosSerializado == null)
+                    return null;
+
+                return JsonConvert.DeserializeObject<List<Cargo>>(CargosSerializado);
+            }
+        }
 
         public Socio()
         {
@@ -35,10 +45,18 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
+            Clube = input.Clube;
             DataAtualizacao = DateTime.Now;
 
-            var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
-            CargosSerializado = JsonConvert.SerializeObject(cargos);
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
 
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = Nome;
@@ -53,10 +71,18 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
+            Clube = input.Clube;
             DataAtualizacao = DateTime.Now;
 
-            var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
-            CargosSerializado = JsonConvert.SerializeObject(cargos);
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
 
             PartitionKey = Nome;
         }
@@ -70,10 +96,18 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
+            Clube = input.Clube;
             DataAtualizacao = DateTime.Now;
 
-            var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
-            CargosSerializado = JsonConvert.SerializeObject(cargos);
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
 
             PartitionKey = Nome;
         }

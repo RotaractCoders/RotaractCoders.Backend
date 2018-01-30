@@ -5,9 +5,11 @@ using Infra.Repositories;
 using Domain.Entities;
 using Domain.Commands.Inputs;
 using Infra.AzureTables;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/Evento")]
     public class EventoController : Controller

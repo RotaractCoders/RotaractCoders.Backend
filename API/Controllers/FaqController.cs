@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Infra.AzureTables;
 using Domain.Commands.Inputs;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace API.Controllers
 {
+    [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/Faq")]
     public class FaqController : Controller

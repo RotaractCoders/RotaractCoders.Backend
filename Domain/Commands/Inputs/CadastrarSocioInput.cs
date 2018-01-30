@@ -7,7 +7,7 @@ namespace Domain.Commands.Inputs
 {
     public class CadastroSocioInput : Notifiable, ICommand
     {
-        public string Id { get; set; }
+        public string RowKey { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public DateTime? DataNascimento { get; set; }
@@ -15,6 +15,7 @@ namespace Domain.Commands.Inputs
         public string Facebook { get; set; }
         public string Instagram { get; set; }
         public string Celular { get; set; }
+        public string Clube { get; set; }
         public List<CadastrarCargoSocioInput> Cargos { get; set; }
     }
 }
