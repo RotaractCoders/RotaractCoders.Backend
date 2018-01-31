@@ -17,6 +17,7 @@ namespace Domain.Entities
         public string Instagram { get; set; }
         public string Celular { get; set; }
         public string Clube { get; set; }
+        public string Foto { get; set; }
         public string CargosSerializado { get; set; }
         public DateTime DataAtualizacao { get; set; }
 
@@ -46,6 +47,7 @@ namespace Domain.Entities
             Instagram = input.Instagram;
             Celular = input.Celular;
             Clube = input.Clube;
+            Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
 
             if (input.Cargos != null)
@@ -72,6 +74,7 @@ namespace Domain.Entities
             Instagram = input.Instagram;
             Celular = input.Celular;
             Clube = input.Clube;
+            Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
 
             if (input.Cargos != null)
@@ -97,6 +100,7 @@ namespace Domain.Entities
             Instagram = input.Instagram;
             Celular = input.Celular;
             Clube = input.Clube;
+            Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
 
             if (input.Cargos != null)

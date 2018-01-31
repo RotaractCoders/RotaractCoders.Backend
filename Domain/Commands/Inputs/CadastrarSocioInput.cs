@@ -16,6 +16,7 @@ namespace Domain.Commands.Inputs
         public string Instagram { get; set; }
         public string Celular { get; set; }
         public string Clube { get; set; }
+        public string Foto { get; set; }
         public List<CadastrarCargoSocioInput> Cargos { get; set; }
     }
 }

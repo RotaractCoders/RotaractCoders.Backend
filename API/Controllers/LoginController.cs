@@ -31,8 +31,8 @@ namespace API.Controllers
                 );
 
                 DateTime dataCriacao = DateTime.Now;
-                DateTime dataExpiracao = dataCriacao +
-                    TimeSpan.FromSeconds(tokenConfigurations.Seconds);
+                DateTime dataExpiracao = dataCriacao;
+                dataExpiracao = dataExpiracao.AddYears(1);
 
                 var handler = new JwtSecurityTokenHandler();
                 var securityToken = handler.CreateToken(new SecurityTokenDescriptor
