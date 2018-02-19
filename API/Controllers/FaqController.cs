@@ -20,6 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Listar()
         {
             return Ok(_faqRepository.Listar());
