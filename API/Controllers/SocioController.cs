@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Infra.AzureTables;
 using Domain.Commands.Inputs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System;
 
 namespace API.Controllers
 {
@@ -29,7 +25,6 @@ namespace API.Controllers
         {
             return Ok(_socioRepository.Listar());
         }
-
 
         [HttpGet("{id}")]
         public IActionResult Obter(string id)
@@ -63,7 +58,13 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            _socioRepository.Excluir(id);
+            var socio = _socioRepository.Obter(id);
+
+            if (socio == null)
+                return BadRequest();
+
+            socio.Inativar();
+            _socioRepository.Atualizar(socio);
 
             return Ok();
         }

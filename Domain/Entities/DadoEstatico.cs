@@ -8,6 +8,7 @@ namespace Domain.Entities
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public DadoEstatico()
         {
@@ -22,8 +23,6 @@ namespace Domain.Entities
 
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = Nome;
-            //RowKey = nome;
-            //PartitionKey = DataAtualizacao.ToString("dd/MM/yyyy");
         }
 
         public void AtualizarDescricao(string novaDescricao)
@@ -32,7 +31,12 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = Nome;
-            //PartitionKey = DataAtualizacao.ToString("dd/MM/yyyy");
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

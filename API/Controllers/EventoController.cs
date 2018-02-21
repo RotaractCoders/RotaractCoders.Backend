@@ -55,7 +55,14 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            _eventoRepository.Deletar(id);
+            var evento = _eventoRepository.Obter(id);
+
+            if (evento == null)
+                return BadRequest();
+
+            evento.Inativar();
+            _eventoRepository.Atualizar(evento);
+
             return Ok();
         }
     }

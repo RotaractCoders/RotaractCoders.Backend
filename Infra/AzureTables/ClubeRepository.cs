@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.WindowsAzure.Storage.Table;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,6 +24,15 @@ namespace Infra.AzureTables
             continuationToken = tableQueryResult.ContinuationToken;
 
             return tableQueryResult.Results;
+        }
+
+        public List<Clube> Listar(DateTime dataUltimaAtualizacao)
+        {
+            var query = new TableQuery<Clube>()
+                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+            var retorno = _baseRepository.Clube.ExecuteQuery(query);
+
+            return retorno.ToList();
         }
 
         public void Atualizar(Clube clube)

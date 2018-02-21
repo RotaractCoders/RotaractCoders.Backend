@@ -64,7 +64,13 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            _faqRepository.Excluir(id);
+            var faq = _faqRepository.Obter(id);
+
+            if (faq == null)
+                return BadRequest();
+
+            faq.Inativar();
+            _faqRepository.Atualizar(faq);
 
             return Ok();
         }

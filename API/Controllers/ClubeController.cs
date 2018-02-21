@@ -59,7 +59,13 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            _clubeRepository.Excluir(id);
+            var clube = _clubeRepository.Obter(id);
+
+            if (clube == null)
+                return BadRequest();
+
+            clube.Inativar();
+            _clubeRepository.Atualizar(clube);
 
             return Ok();
         }

@@ -18,6 +18,7 @@ namespace Domain.Entities
         public DateTime DataCriacao { get; set; }
         public DateTime DataEvento { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public Evento()
         {
@@ -72,6 +73,12 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = input.Nome;
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

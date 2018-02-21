@@ -50,10 +50,16 @@ namespace API.Controllers
             return Ok();
         }
 
-        [HttpDelete()]
+        [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            _arquivoRepository.Excluir(id);
+            var arquivo = _arquivoRepository.Obter(id);
+
+            if (arquivo == null)
+                return BadRequest();
+
+            arquivo.Inativar();
+            _arquivoRepository.Atualizar(arquivo);
 
             return Ok();
         }

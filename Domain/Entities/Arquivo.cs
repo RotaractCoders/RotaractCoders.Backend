@@ -13,6 +13,7 @@ namespace Domain.Entities
         public string Categoria { get; set; }
         public string Link { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public Arquivo()
         {
@@ -38,6 +39,12 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = Categoria;
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

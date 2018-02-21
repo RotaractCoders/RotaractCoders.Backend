@@ -3,6 +3,7 @@ using System.Linq;
 using Domain.Commands.Results;
 using Domain.Entities;
 using Microsoft.WindowsAzure.Storage.Table;
+using System;
 
 namespace Infra.AzureTables
 {
@@ -49,6 +50,15 @@ namespace Infra.AzureTables
             continuationToken = tableQueryResult.ContinuationToken;
 
             return tableQueryResult.Results;
+        }
+
+        public List<Evento> Listar(DateTime dataUltimaAtualizacao)
+        {
+            var query = new TableQuery<Evento>()
+                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+            var retorno = _baseRepository.Faq.ExecuteQuery(query);
+
+            return retorno.ToList();
         }
 
         public Evento Obter(string id)

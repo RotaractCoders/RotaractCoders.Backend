@@ -20,6 +20,7 @@ namespace Domain.Entities
         public string Foto { get; set; }
         public string CargosSerializado { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public List<Cargo> Cargos
         {
@@ -114,6 +115,12 @@ namespace Domain.Entities
             }
 
             PartitionKey = Nome;
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = true;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

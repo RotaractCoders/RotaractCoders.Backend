@@ -16,6 +16,7 @@ namespace Domain.Entities
         public DateTime? DataFechamento { get; set; }
         public string NumeroDistrito { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public Clube()
         {
@@ -73,6 +74,12 @@ namespace Domain.Entities
             PartitionKey = NumeroDistrito;
 
             return this;
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

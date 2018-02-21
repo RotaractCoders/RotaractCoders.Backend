@@ -9,6 +9,7 @@ namespace Domain.Entities
         public string Pergunta { get; set; }
         public string Resposta { get; set; }
         public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
         public Faq()
         {
@@ -34,6 +35,12 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = Pergunta;
+        }
+
+        public void Inativar()
+        {
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }

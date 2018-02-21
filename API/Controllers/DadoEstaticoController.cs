@@ -47,5 +47,19 @@ namespace API.Controllers
 
             return Ok();
         }
+
+        [HttpDelete]
+        public IActionResult Deletar(string id)
+        {
+            var dadoEstatico = _dadoEstaticoRepository.Obter(id);
+
+            if (dadoEstatico == null)
+                return BadRequest();
+
+            dadoEstatico.Inativar();
+            _dadoEstaticoRepository.Atualizar(dadoEstatico);
+
+            return Ok();
+        }
     }
 }

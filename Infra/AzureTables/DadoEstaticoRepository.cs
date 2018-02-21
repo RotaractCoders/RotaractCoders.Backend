@@ -23,6 +23,15 @@ namespace Infra.AzureTables
             return tableQueryResult.Results;
         }
 
+        public List<DadoEstatico> Listar(DateTime dataUltimaAtualizacao)
+        {
+            var query = new TableQuery<DadoEstatico>()
+                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+            var retorno = _baseRepository.DadoEstatico.ExecuteQuery(query);
+
+            return retorno.ToList();
+        }
+
         public void Incluir(DadoEstatico dadoEstatico)
         {
             var insertOperation = TableOperation.Insert(dadoEstatico);

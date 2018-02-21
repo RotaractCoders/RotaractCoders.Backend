@@ -18,22 +18,22 @@ namespace Infra.AzureTables
             var tableClient = storageAccount.CreateCloudTableClient();
 
             Evento = tableClient.GetTableReference("Evento");
-            Evento.CreateIfNotExists();
+            //Evento.CreateIfNotExists();
 
             DadoEstatico = tableClient.GetTableReference("DadoEstatico");
-            DadoEstatico.CreateIfNotExists();
+            //DadoEstatico.CreateIfNotExists();
 
             Faq = tableClient.GetTableReference("Faq");
-            Faq.CreateIfNotExists();
+            //Faq.CreateIfNotExists();
 
             Arquivo = tableClient.GetTableReference("Arquivo");
-            Arquivo.CreateIfNotExists();
+            //Arquivo.CreateIfNotExists();
 
             Clube = tableClient.GetTableReference("Clube");
-            Clube.CreateIfNotExists();
+            //Clube.CreateIfNotExists();
 
             Socio = tableClient.GetTableReference("Socio");
-            Socio.CreateIfNotExists();
+            //Socio.CreateIfNotExists();
         }
     }
 }
