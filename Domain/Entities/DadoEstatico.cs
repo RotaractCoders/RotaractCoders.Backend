@@ -33,6 +33,15 @@ namespace Domain.Entities
             PartitionKey = Nome;
         }
 
+        public void Atualizar(DadoEstatico dadoEstatico)
+        {
+            Descricao = dadoEstatico.Descricao;
+            BitAtivo = dadoEstatico.BitAtivo;
+            DataAtualizacao = DateTime.Now;
+
+            PartitionKey = Nome;
+        }
+
         public void Inativar()
         {
             BitAtivo = false;

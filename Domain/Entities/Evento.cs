@@ -38,6 +38,7 @@ namespace Domain.Entities
             Latitude = input.Latitude;
             Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
+            BitAtivo = true;
 
             PartitionKey = input.Nome;
             RowKey = Guid.NewGuid().ToString();
@@ -71,6 +72,7 @@ namespace Domain.Entities
             Latitude = input.Latitude;
             Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
 
             PartitionKey = input.Nome;
         }

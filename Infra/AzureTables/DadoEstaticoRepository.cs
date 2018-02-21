@@ -20,7 +20,7 @@ namespace Infra.AzureTables
             TableQuerySegment<DadoEstatico> tableQueryResult = _baseRepository.DadoEstatico.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<DadoEstatico> Listar(DateTime dataUltimaAtualizacao)
@@ -29,7 +29,7 @@ namespace Infra.AzureTables
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
             var retorno = _baseRepository.DadoEstatico.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public void Incluir(DadoEstatico dadoEstatico)
@@ -42,7 +42,7 @@ namespace Infra.AzureTables
         {
             var atualizar = Obter(dadoEstatico.Nome);
 
-            atualizar.AtualizarDescricao(dadoEstatico.Descricao);
+            atualizar.Atualizar(dadoEstatico);
 
             var updateOperation = TableOperation.Replace(atualizar);
             _baseRepository.DadoEstatico.Execute(updateOperation);

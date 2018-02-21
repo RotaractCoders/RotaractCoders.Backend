@@ -16,7 +16,7 @@ namespace Domain.Entities
         public DateTime? DataFechamento { get; set; }
         public string NumeroDistrito { get; set; }
         public DateTime DataAtualizacao { get; set; }
-        public bool BitAtivo { get; set; } = true;
+        public bool BitAtivo { get; set; }
 
         public Clube()
         {
@@ -35,6 +35,7 @@ namespace Domain.Entities
             DataFechamento = input.DataFechamento;
             NumeroDistrito = input.NumeroDistrito;
             DataAtualizacao = DateTime.Now;
+            BitAtivo = true;
 
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = NumeroDistrito;
@@ -52,6 +53,7 @@ namespace Domain.Entities
             DataFechamento = input.DataFechamento;
             NumeroDistrito = input.NumeroDistrito;
             DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
 
             PartitionKey = NumeroDistrito;
 

@@ -49,16 +49,16 @@ namespace Infra.AzureTables
             TableQuerySegment<Evento> tableQueryResult = _baseRepository.Evento.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<Evento> Listar(DateTime dataUltimaAtualizacao)
         {
             var query = new TableQuery<Evento>()
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
-            var retorno = _baseRepository.Faq.ExecuteQuery(query);
+            var retorno = _baseRepository.Evento.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public Evento Obter(string id)

@@ -23,7 +23,7 @@ namespace Infra.AzureTables
             TableQuerySegment<Socio> tableQueryResult = _baseRepository.Socio.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<Socio> Listar(DateTime dataUltimaAtualizacao)
@@ -32,7 +32,7 @@ namespace Infra.AzureTables
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
             var retorno = _baseRepository.Socio.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public void Atualizar(Socio socio)

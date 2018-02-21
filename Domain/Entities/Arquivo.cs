@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
+﻿using Domain.Commands.Inputs;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +32,23 @@ namespace Domain.Entities
             PartitionKey = Categoria;
         }
 
-        public void Atualizar(string nome, string categoria, string link)
+        public void Atualizar(IncluirArquivoInput input)
         {
-            Nome = nome;
-            Categoria = categoria;
-            Link = link;
+            Nome = input.Nome;
+            Categoria = input.Categoria;
+            Link = input.Link;
             DataAtualizacao = DateTime.Now;
+
+            PartitionKey = Categoria;
+        }
+
+        public void Atualizar(Arquivo input)
+        {
+            Nome = input.Nome;
+            Categoria = input.Categoria;
+            Link = input.Link;
+            DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
 
             PartitionKey = Categoria;
         }

@@ -23,7 +23,7 @@ namespace Infra.AzureTables
             TableQuerySegment<Arquivo> tableQueryResult = _baseRepository.Arquivo.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<Arquivo> Listar(DateTime dataUltimaAtualizacao)
@@ -32,14 +32,14 @@ namespace Infra.AzureTables
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
             var retorno = _baseRepository.Arquivo.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public void Atualizar(Arquivo arquivo)
         {
             var atualizar = Obter(arquivo.RowKey);
 
-            atualizar.Atualizar(arquivo.Nome, arquivo.Categoria, arquivo.Link);
+            atualizar.Atualizar(arquivo);
 
             var updateOperation = TableOperation.Replace(atualizar);
             _baseRepository.Arquivo.Execute(updateOperation);

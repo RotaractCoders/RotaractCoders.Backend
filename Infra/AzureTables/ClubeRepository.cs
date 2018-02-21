@@ -23,7 +23,7 @@ namespace Infra.AzureTables
             TableQuerySegment<Clube> tableQueryResult = _baseRepository.Clube.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<Clube> Listar(DateTime dataUltimaAtualizacao)
@@ -32,7 +32,7 @@ namespace Infra.AzureTables
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
             var retorno = _baseRepository.Clube.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public void Atualizar(Clube clube)

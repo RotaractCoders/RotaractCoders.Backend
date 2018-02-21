@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
+﻿using Domain.Commands.Inputs;
+using Microsoft.WindowsAzure.Storage.Table;
 using System;
 
 namespace Domain.Entities
@@ -16,23 +17,34 @@ namespace Domain.Entities
 
         }
 
-        public Faq(string pergunta, string resposta, int posicao)
+        public Faq(IncluirFaqInput input)
         {
-            Pergunta = pergunta;
-            Resposta = resposta;
-            Posicao = posicao;
+            Pergunta = input.Pergunta;
+            Resposta = input.Resposta;
+            Posicao = input.Posicao;
             DataAtualizacao = DateTime.Now;
 
             RowKey = Guid.NewGuid().ToString();
             PartitionKey = Pergunta;
         }
 
-        public void Atualizar(string pergunta, string resposta, int posicao)
+        public void Atualizar(IncluirFaqInput input)
         {
-            Pergunta = pergunta;
-            Resposta = resposta;
-            Posicao = posicao;
+            Pergunta = input.Pergunta;
+            Resposta = input.Resposta;
+            Posicao = input.Posicao;
             DataAtualizacao = DateTime.Now;
+
+            PartitionKey = Pergunta;
+        }
+
+        public void Atualizar(Faq input)
+        {
+            Pergunta = input.Pergunta;
+            Resposta = input.Resposta;
+            Posicao = input.Posicao;
+            DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
 
             PartitionKey = Pergunta;
         }

@@ -44,7 +44,7 @@ namespace API.Controllers
         {
             var arquivo = _arquivoRepository.Obter(input.RowKey);
 
-            arquivo.Atualizar(input.Nome, input.Categoria, input.Link);
+            arquivo.Atualizar(input);
             _arquivoRepository.Atualizar(arquivo);
 
             return Ok();

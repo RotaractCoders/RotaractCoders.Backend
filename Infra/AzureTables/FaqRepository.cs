@@ -20,7 +20,7 @@ namespace Infra.AzureTables
         {
             var atualizar = Obter(faq.RowKey);
 
-            atualizar.Atualizar(faq.Pergunta, faq.Resposta, faq.Posicao);
+            atualizar.Atualizar(faq);
 
             var updateOperation = TableOperation.Replace(atualizar);
             _baseRepository.Faq.Execute(updateOperation);
@@ -45,7 +45,7 @@ namespace Infra.AzureTables
             TableQuerySegment<Faq> tableQueryResult = _baseRepository.Faq.ExecuteQuerySegmented(tableQuery, continuationToken);
             continuationToken = tableQueryResult.ContinuationToken;
 
-            return tableQueryResult.Results;
+            return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
         public List<Faq> Listar(DateTime dataUltimaAtualizacao)
@@ -54,7 +54,7 @@ namespace Infra.AzureTables
                 .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
             var retorno = _baseRepository.Faq.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno.Where(x => x.BitAtivo == true).ToList();
         }
 
         public void Excluir(string id)

@@ -22,7 +22,11 @@ namespace API.Controllers
         [AllowAnonymous]
         public IActionResult Listar()
         {
-            return Ok(_clubeRepository.Listar());
+            var lista = _clubeRepository.Listar();
+
+            //lista.ForEach(x => _clubeRepository.Atualizar(x));
+
+            return Ok(lista);
         }
 
         [HttpGet("{id}")]

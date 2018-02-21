@@ -44,7 +44,9 @@ namespace API.Controllers
                 posicao = lista.Max(x => x.Posicao);
             }
 
-            var faq = new Faq(input.Pergunta, input.Resposta, posicao + 1);
+            input.Posicao += 1;
+
+            var faq = new Faq(input);
             _faqRepository.Incluir(faq);
 
             return Ok();
@@ -55,7 +57,7 @@ namespace API.Controllers
         {
             var faq = _faqRepository.Obter(input.RowKey);
 
-            faq.Atualizar(input.Pergunta, input.Resposta, input.Posicao);
+            faq.Atualizar(input);
             _faqRepository.Atualizar(faq);
 
             return Ok();

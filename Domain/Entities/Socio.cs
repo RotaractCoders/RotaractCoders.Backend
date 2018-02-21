@@ -77,6 +77,7 @@ namespace Domain.Entities
             Clube = input.Clube;
             Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
 
             if (input.Cargos != null)
             {
@@ -119,7 +120,7 @@ namespace Domain.Entities
 
         public void Inativar()
         {
-            BitAtivo = true;
+            BitAtivo = false;
             DataAtualizacao = DateTime.Now;
         }
     }
