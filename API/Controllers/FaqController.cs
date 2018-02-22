@@ -44,7 +44,7 @@ namespace API.Controllers
                 posicao = lista.Max(x => x.Posicao);
             }
 
-            input.Posicao += 1;
+            input.Posicao = posicao + 1;
 
             var faq = new Faq(input);
             _faqRepository.Incluir(faq);

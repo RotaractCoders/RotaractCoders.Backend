@@ -1,6 +1,7 @@
 ﻿using Domain.Commands.Inputs;
 using Microsoft.WindowsAzure.Storage.Table;
 using System;
+using System.Linq;
 
 namespace Domain.Entities
 {
@@ -25,7 +26,7 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
 
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = Pergunta;
+            PartitionKey = string.Concat(Pergunta.Where(x => char.IsLetterOrDigit(x)));
         }
 
         public void Atualizar(IncluirFaqInput input)
@@ -35,7 +36,7 @@ namespace Domain.Entities
             Posicao = input.Posicao;
             DataAtualizacao = DateTime.Now;
 
-            PartitionKey = Pergunta;
+            PartitionKey = string.Concat(Pergunta.Where(x => char.IsLetterOrDigit(x)));
         }
 
         public void Atualizar(Faq input)
@@ -46,7 +47,7 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
             BitAtivo = input.BitAtivo;
 
-            PartitionKey = Pergunta;
+            PartitionKey = string.Concat(Pergunta.Where(x => char.IsLetterOrDigit(x)));
         }
 
         public void Inativar()
