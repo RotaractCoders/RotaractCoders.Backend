@@ -15,6 +15,7 @@ namespace Domain.Entities
         public string RotaryPadrinho { get; set; }
         public DateTime? DataFechamento { get; set; }
         public string NumeroDistrito { get; set; }
+        public string Programa { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public bool BitAtivo { get; set; }
 
@@ -34,6 +35,7 @@ namespace Domain.Entities
             RotaryPadrinho = input.RotaryPadrinho;
             DataFechamento = input.DataFechamento;
             NumeroDistrito = input.NumeroDistrito;
+            Programa = input.Programa;
             DataAtualizacao = DateTime.Now;
             BitAtivo = true;
 
@@ -52,6 +54,7 @@ namespace Domain.Entities
             RotaryPadrinho = input.RotaryPadrinho;
             DataFechamento = input.DataFechamento;
             NumeroDistrito = input.NumeroDistrito;
+            Programa = input.Programa;
             DataAtualizacao = DateTime.Now;
             BitAtivo = input.BitAtivo;
 
@@ -71,6 +74,7 @@ namespace Domain.Entities
             RotaryPadrinho = input.RotaryPadrinho;
             DataFechamento = input.DataFechamento;
             NumeroDistrito = input.NumeroDistrito;
+            Programa = input.Programa;
             DataAtualizacao = DateTime.Now;
 
             PartitionKey = NumeroDistrito;

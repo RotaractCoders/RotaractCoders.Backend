@@ -16,5 +16,6 @@ namespace Domain.Commands.Inputs
         public string RotaryPadrinho { get; set; }
         public DateTime? DataFechamento { get; set; }
         public string NumeroDistrito { get; set; }
+        public string Programa { get; set; }
     }
 }

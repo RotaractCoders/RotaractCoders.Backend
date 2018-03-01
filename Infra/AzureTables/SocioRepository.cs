@@ -10,10 +10,12 @@ namespace Infra.AzureTables
     {
         private BaseRepository _baseRepository = new BaseRepository();
 
-        public void Incluir(Socio socio)
+        public Socio Incluir(Socio socio)
         {
             var insertOperation = TableOperation.Insert(socio);
             _baseRepository.Socio.Execute(insertOperation);
+
+            return socio;
         }
 
         public List<Socio> Listar()

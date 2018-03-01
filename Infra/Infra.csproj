@@ -78,6 +78,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AzureBlobs\BaseBlob.cs" />
+    <Compile Include="AzureBlobs\SocioBlob.cs" />
     <Compile Include="AzureTables\ArquivoRepository.cs" />
     <Compile Include="AzureTables\BaseRepository.cs" />
     <Compile Include="AzureTables\ClubeRepository.cs" />

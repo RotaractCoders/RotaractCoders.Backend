@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Infra.AzureTables;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -33,7 +34,8 @@ namespace API.Controllers
             return Ok(new
             {
                 Arquivos = _arquivoRepository.Listar(dataUltimaAtualizacao),
-                Clubes = _clubeRepository.Listar(dataUltimaAtualizacao),
+                Clubes = _clubeRepository.Listar(dataUltimaAtualizacao)
+                    .Where(x => x.DataFechamento == null && x.Programa == "Rotaract").ToList(),
                 DadosEstaticos = _dadoEstaticoRepository.Listar(dataUltimaAtualizacao),
                 Eventos = _eventoRepository.Listar(dataUltimaAtualizacao),
                 Faqs = _faqRepository.Listar(dataUltimaAtualizacao),

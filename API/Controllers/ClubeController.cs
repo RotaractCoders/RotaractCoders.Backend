@@ -24,8 +24,6 @@ namespace API.Controllers
         {
             var lista = _clubeRepository.Listar();
 
-            //lista.ForEach(x => _clubeRepository.Atualizar(x));
-
             return Ok(lista);
         }
 

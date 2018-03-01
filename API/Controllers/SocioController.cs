@@ -4,6 +4,12 @@ using Domain.Commands.Inputs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
+using System.Threading.Tasks;
+using System.Linq;
+using System.IO;
+using Infra.AzureBlobs;
 
 namespace API.Controllers
 {
@@ -13,10 +19,12 @@ namespace API.Controllers
     public class SocioController : Controller
     {
         private SocioRepository _socioRepository;
+        private SocioBlob _socioBlob;
 
         public SocioController()
         {
             _socioRepository = new SocioRepository();
+            _socioBlob = new SocioBlob();
         }
 
         [HttpGet]
@@ -36,9 +44,7 @@ namespace API.Controllers
         public IActionResult Incluir([FromBody] CadastroSocioInput input)
         {
             var socio = new Socio(input);
-            _socioRepository.Incluir(socio);
-
-            return Ok();
+            return Ok(_socioRepository.Incluir(socio));
         }
 
         [HttpPut]
@@ -53,6 +59,27 @@ namespace API.Controllers
             _socioRepository.Atualizar(socio);
 
             return Ok();
+        }
+
+        [HttpPost("ImportarFoto")]
+        [AllowAnonymous]
+        public async Task<IActionResult> ImportarFoto(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+            var nomeFoto = Guid.NewGuid().ToString();
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    using (var stream = formFile.OpenReadStream())
+                    {
+                        return Ok(_socioBlob.SalvarFotoPerfil(nomeFoto + ".jpg", stream));
+                    }
+                }
+            }
+
+            return BadRequest();
         }
 
         [HttpDelete]
