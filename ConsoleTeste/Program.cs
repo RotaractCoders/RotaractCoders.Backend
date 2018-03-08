@@ -1,7 +1,5 @@
 ﻿using AngleSharp.Parser.Html;
-using Domain.Commands.Handlers;
 using Domain.Commands.Inputs;
-using Infra.Repositories;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;

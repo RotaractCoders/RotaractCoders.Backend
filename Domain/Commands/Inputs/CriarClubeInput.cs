@@ -1,11 +1,9 @@
-﻿using Domain.Contracts.Commands;
-using FluentValidator;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Domain.Commands.Inputs
 {
-    public class CriarClubeInput : Notifiable, ICommand
+    public class CriarClubeInput
     {
         public string RowKey { get; set; }
         public string Codigo { get; set; }

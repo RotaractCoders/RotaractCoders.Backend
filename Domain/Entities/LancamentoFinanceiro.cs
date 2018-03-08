@@ -16,12 +16,11 @@ namespace Domain.Entities
 
         }
 
-        public LancamentoFinanceiro(DateTime data, string descricao, decimal valor, Guid idProjeto)
+        public LancamentoFinanceiro(DateTime data, string descricao, decimal valor)
         {
             Data = data;
             Descricao = descricao;
             Valor = valor;
-            IdProjeto = idProjeto;
         }
     }
 }

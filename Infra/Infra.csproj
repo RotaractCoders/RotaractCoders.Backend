@@ -90,6 +90,7 @@
     <Compile Include="AzureTables\DadoEstaticoRepository.cs" />
     <Compile Include="AzureTables\EventoRepository.cs" />
     <Compile Include="AzureTables\FaqRepository.cs" />
+    <Compile Include="AzureTables\ProjetoRepository.cs" />
     <Compile Include="AzureTables\SocioRepository.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Migrations\201711231348313_teste.cs" />
@@ -102,24 +103,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\CargoClubeRepository.cs" />
-    <Compile Include="Repositories\CargoDistritoRepository.cs" />
-    <Compile Include="Repositories\CargoRepository.cs" />
-    <Compile Include="Repositories\CargoRotaractBrasilRepository.cs" />
-    <Compile Include="Repositories\CategoriaRepository.cs" />
-    <Compile Include="Repositories\ClubeRepository.cs" />
-    <Compile Include="Repositories\DistritoRepository.cs" />
-    <Compile Include="Repositories\LancamentoFinanceiroRepository.cs" />
-    <Compile Include="Repositories\MeioDeDivulgacaoProjetoRepository.cs" />
-    <Compile Include="Repositories\ObjetivoRepository.cs" />
-    <Compile Include="Repositories\ParceriaProjetoRepository.cs" />
-    <Compile Include="Repositories\ParticipanteProjetoRepository.cs" />
-    <Compile Include="Repositories\ProjetoCategoriaRepository.cs" />
-    <Compile Include="Repositories\ProjetoRepository.cs" />
-    <Compile Include="Repositories\PublicoAlvoProjetoRepository.cs" />
-    <Compile Include="Repositories\SocioClubeRepository.cs" />
-    <Compile Include="Repositories\SocioRepository.cs" />
-    <Compile Include="Repositories\TarefaRepository.cs" />
+    <Compile Include="WebCrowley\OmirBrasilProjetoRepository.cs" />
     <Compile Include="WebCrowley\OmirBrasilRepository.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,8 @@
-﻿using Domain.Contracts.Commands;
-using FluentValidator;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Domain.Commands.Inputs
 {
-    public class CadastrarCargoSocioInput : Notifiable, ICommand
+    public class CadastrarCargoSocioInput
     {
         public string Nome { get; set; }
         public string TipoCargo { get; set; }

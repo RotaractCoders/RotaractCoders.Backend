@@ -1,10 +1,8 @@
-﻿using Domain.Contracts.Commands;
-using FluentValidator;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Domain.Commands.Inputs
 {
-    public class CriarDistritoInput : Notifiable, ICommand
+    public class CriarDistritoInput
     {
         public string Numero { get; set; }
         public int Regiao { get; set; }

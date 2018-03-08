@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Domain.Contracts.Repositories;
-using Infra.Repositories;
 using Domain.Entities;
 using Domain.Commands.Inputs;
 using Infra.AzureTables;

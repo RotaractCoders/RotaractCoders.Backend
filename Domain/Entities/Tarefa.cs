@@ -15,11 +15,10 @@ namespace Domain.Entities
 
         }
 
-        public Tarefa(DateTime? data, string descricao, Guid idProjeto)
+        public Tarefa(DateTime? data, string descricao)
         {
             Data = data;
             Descricao = descricao;
-            IdProjeto = idProjeto;
         }
     }
 }

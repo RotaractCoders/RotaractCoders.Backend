@@ -12,6 +12,7 @@ namespace Infra.AzureTables
         public CloudTable Arquivo { get; private set; }
         public CloudTable Clube { get; private set; }
         public CloudTable Socio { get; private set; }
+        public CloudTable Projeto { get; private set; }
 
         public BaseRepository()
         {
@@ -36,6 +37,9 @@ namespace Infra.AzureTables
 
             Socio = tableClient.GetTableReference("Socio");
             Socio.CreateIfNotExists();
+
+            Projeto = tableClient.GetTableReference("Projeto");
+            Projeto.CreateIfNotExists();
         }
     }
 }

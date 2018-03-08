@@ -1,6 +1,5 @@
 ﻿using Domain.Commands.Inputs;
 using Domain.Entities.Base;
-using FluentValidator;
 using System.Collections.Generic;
 
 namespace Domain.Entities
