@@ -9,6 +9,7 @@ namespace Domain.Entities
 {
     public class Socio : TableEntity
     {
+        public string Codigo { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public DateTime? DataNascimento { get; set; }
@@ -16,9 +17,10 @@ namespace Domain.Entities
         public string Facebook { get; set; }
         public string Instagram { get; set; }
         public string Celular { get; set; }
-        public string Clube { get; set; }
+        
         public string Foto { get; set; }
         public string CargosSerializado { get; set; }
+        public string ClubesSerializado { get; set; }
         public DateTime DataAtualizacao { get; set; }
         public bool BitAtivo { get; set; } = true;
 
@@ -33,6 +35,17 @@ namespace Domain.Entities
             }
         }
 
+        public List<SocioClube> Clubes
+        {
+            get
+            {
+                if (ClubesSerializado == null)
+                    return null;
+
+                return JsonConvert.DeserializeObject<List<SocioClube>>(ClubesSerializado);
+            }
+        }
+
         public Socio()
         {
 
@@ -40,6 +53,7 @@ namespace Domain.Entities
 
         public Socio(CadastroSocioInput input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -47,13 +61,12 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
-            Clube = input.Clube;
             Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
 
             if (input.Cargos != null)
             {
-                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.De, x.Ate));
                 CargosSerializado = JsonConvert.SerializeObject(cargos);
             }
             else
@@ -61,12 +74,23 @@ namespace Domain.Entities
                 CargosSerializado = null;
             }
 
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
+                CargosSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = Nome;
+            PartitionKey = Codigo;
         }
 
         public void Atualizar(Socio input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -74,7 +98,6 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
-            Clube = input.Clube;
             Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
             BitAtivo = input.BitAtivo;
@@ -89,11 +112,22 @@ namespace Domain.Entities
                 CargosSerializado = null;
             }
 
-            PartitionKey = Nome;
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.Nome, x.Posse, x.Desligamento));
+                CargosSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
+            PartitionKey = Codigo;
         }
 
         public void Atualizar(CadastroSocioInput input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -101,13 +135,12 @@ namespace Domain.Entities
             Facebook = input.Facebook;
             Instagram = input.Instagram;
             Celular = input.Celular;
-            Clube = input.Clube;
             Foto = input.Foto;
             DataAtualizacao = DateTime.Now;
 
             if (input.Cargos != null)
             {
-                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.De, x.Ate));
                 CargosSerializado = JsonConvert.SerializeObject(cargos);
             }
             else
@@ -115,7 +148,17 @@ namespace Domain.Entities
                 CargosSerializado = null;
             }
 
-            PartitionKey = Nome;
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
+                CargosSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
+            PartitionKey = Codigo;
         }
 
         public void Inativar()

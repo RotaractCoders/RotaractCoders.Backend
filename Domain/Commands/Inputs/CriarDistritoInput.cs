@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts.Commands;
 using FluentValidator;
+using System.Collections.Generic;
 
 namespace Domain.Commands.Inputs
 {
@@ -10,5 +11,6 @@ namespace Domain.Commands.Inputs
         public string Mascote { get; set; }
         public string Site { get; set; }
         public string Email { get; set; }
+        public List<string> CodigoClubes { get; set; }
     }
 }

@@ -17,19 +17,19 @@ namespace Infra.Repositories
 
         public SocioClube Buscar(Guid idSocio, Guid idClube)
         {
-            return _context.SocioClube.FirstOrDefault(x => x.IdSocio == idSocio && x.IdClube == idClube);
+            return null;// _context.SocioClube.FirstOrDefault(x => x.Nome == idSocio.ToString() && x == idClube);
         }
 
         public List<SocioClube> BuscarPorSocio(Guid idSocio)
         {
-            return _context.SocioClube
-                .Where(x => x.IdSocio == idSocio)
-                .ToList();
+            return null; // _context.SocioClube
+                //.Where(x => x.IdSocio == idSocio)
+                //.ToList();
         }
 
         public void Excluir(Guid idSocioClube)
         {
-            _context.SocioClube.Remove(_context.SocioClube.FirstOrDefault(x => x.Id == idSocioClube));
+            //_context.SocioClube.Remove(_context.SocioClube.FirstOrDefault(x => x.Id == idSocioClube));
         }
 
         public void Incluir(SocioClube socioClube)

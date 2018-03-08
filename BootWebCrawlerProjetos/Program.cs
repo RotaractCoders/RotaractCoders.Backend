@@ -29,7 +29,7 @@ namespace BootWebCrawlerProjetos
             {
                 try
                 {
-                    var projeto = omirBrasilRepository.GetByCode(i);
+                    var projeto = omirBrasilRepository.BuscarProjetoPorCodigo(i);
 
                     if (projeto == null)
                     {
@@ -37,7 +37,7 @@ namespace BootWebCrawlerProjetos
                     }
                     else
                     {
-                        cadastroProjetoHandler.Handle(projeto);
+                        //cadastroProjetoHandler.Handle(projeto);
 
                         Console.WriteLine($"Projeto {i} - Cadastrado");
                     }

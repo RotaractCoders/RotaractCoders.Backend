@@ -6,6 +6,7 @@ namespace Domain.Entities
 {
     public class Clube : TableEntity
     {
+        public string Codigo { get; set; }
         public string Nome { get; set; }
         public string Site { get; set; }
         public string Facebook { get; set; }
@@ -26,6 +27,7 @@ namespace Domain.Entities
 
         public Clube(CriarClubeInput input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Site = input.Site;
             Facebook = input.Facebook;
@@ -40,11 +42,12 @@ namespace Domain.Entities
             BitAtivo = true;
 
             RowKey = Guid.NewGuid().ToString();
-            PartitionKey = NumeroDistrito;
+            PartitionKey = Codigo;
         }
 
         public Clube Atualizar(Clube input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Site = input.Site;
             Facebook = input.Facebook;
@@ -58,13 +61,14 @@ namespace Domain.Entities
             DataAtualizacao = DateTime.Now;
             BitAtivo = input.BitAtivo;
 
-            PartitionKey = NumeroDistrito;
+            PartitionKey = Codigo;
 
             return this;
         }
 
         public Clube Atualizar(CriarClubeInput input)
         {
+            Codigo = input.Codigo;
             Nome = input.Nome;
             Site = input.Site;
             Facebook = input.Facebook;
@@ -77,7 +81,7 @@ namespace Domain.Entities
             Programa = input.Programa;
             DataAtualizacao = DateTime.Now;
 
-            PartitionKey = NumeroDistrito;
+            PartitionKey = Codigo;
 
             return this;
         }

@@ -1,12 +1,14 @@
 ﻿using Domain.Contracts.Commands;
 using FluentValidator;
 using System;
+using System.Collections.Generic;
 
 namespace Domain.Commands.Inputs
 {
     public class CriarClubeInput : Notifiable, ICommand
     {
         public string RowKey { get; set; }
+        public string Codigo { get; set; }
         public string Nome { get; set; }
         public string Site { get; set; }
         public string Facebook { get; set; }

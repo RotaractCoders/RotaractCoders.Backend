@@ -32,10 +32,10 @@ namespace Infra.AzureTables
             //Arquivo.CreateIfNotExists();
 
             Clube = tableClient.GetTableReference("Clube");
-            //Clube.CreateIfNotExists();
+            Clube.CreateIfNotExists();
 
             Socio = tableClient.GetTableReference("Socio");
-            //Socio.CreateIfNotExists();
+            Socio.CreateIfNotExists();
         }
     }
 }

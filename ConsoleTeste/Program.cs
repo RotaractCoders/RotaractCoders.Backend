@@ -15,7 +15,7 @@ namespace ConsoleTeste
         {
             var criarDistritoHandler = new CriarDistritoHandler(new DistritoRepository());
             var criarClubeHandler = new CriarClubeHandler(new ClubeRepository(), new DistritoRepository());
-            var cadastrarSocioHandler = new CadastrarSocioHandler(new SocioRepository());
+            //var cadastrarSocioHandler = new CadastrarSocioHandler(new SocioRepository());
             var filiarSocioHandler = new FiliarSocioHandler(new DistritoRepository(), new SocioRepository(), new ClubeRepository(), new SocioClubeRepository());
             var cadastroCargoSocioHandler = new CadastroCargoSocioHandler(new CargoRepository(), new CargoClubeRepository(), new ClubeRepository(), new SocioRepository());
             var cadastroCargoDistritalHandler = new CadastroCargoDistritalHandler(new CargoRepository(), new SocioRepository(), new CargoDistritoRepository(), new DistritoRepository());
@@ -58,7 +58,7 @@ namespace ConsoleTeste
                     driver.ExecuteScript($"javascript:AbreFichaSocio('{socio.Item1}');");
 
                     var socioInput = ExtratirDadosSocio(driver.PageSource, socio.Item2, Convert.ToInt32(socio.Item1));
-                    cadastrarSocioHandler.Handle(socioInput);
+                    //cadastrarSocioHandler.Handle(socioInput);
 
                     //var filiacoesInput = ExtrairFilicoesDoSocio(driver.PageSource, socioInput.Codigo);
                     //filiarSocioHandler.Handle(filiacoesInput);

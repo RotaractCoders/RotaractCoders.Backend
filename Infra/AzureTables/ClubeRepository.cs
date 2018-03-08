@@ -57,6 +57,18 @@ namespace Infra.AzureTables
             return retorno.FirstOrDefault();
         }
 
+        public Clube ObterPorCodigo(string codigo)
+        {
+            var query = new TableQuery<Clube>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigo));
+
+            var retorno = _baseRepository.Clube.ExecuteQuery(query);
+
+            if (retorno == null)
+                return null;
+
+            return retorno.FirstOrDefault();
+        }
+
         public void Excluir(string id)
         {
             var deletar = Obter(id);

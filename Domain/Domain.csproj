@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Handlers\CadastrarProjetoHandler.cs" />
-    <Compile Include="Commands\Handlers\CadastrarSocioHandler.cs" />
     <Compile Include="Commands\Handlers\CadastroCargoDistritalHandler.cs" />
     <Compile Include="Commands\Handlers\CadastroCargoSocioHandler.cs" />
     <Compile Include="Commands\Handlers\CadastroCargoRotaractBrasilHandler.cs" />
@@ -80,6 +79,7 @@
     <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarProjetoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
+    <Compile Include="Commands\Inputs\CadastroSocioClubeInput.cs" />
     <Compile Include="Commands\Inputs\FiliarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
@@ -89,6 +89,17 @@
     <Compile Include="Commands\Inputs\IncluirFaqInput.cs" />
     <Compile Include="Commands\Inputs\IncluirTipoEventoInput.cs" />
     <Compile Include="Commands\Inputs\ListaProjetosInput.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirClubeSocioResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirDistritoResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoLancamentoFinanceiroResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoTarefaResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoDistritalResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoRotaractBrasilResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioResult.cs" />
     <Compile Include="Commands\Results\ConsultaProjetoResult.cs" />
     <Compile Include="Commands\Results\DetalheEventoResult.cs" />
     <Compile Include="Commands\Results\ListaEventoResult.cs" />
