@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infra", "Infra\Infra.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{EFDBDBEF-2A7F-441A-9391-02929532CDCE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teste", "Teste\Teste.csproj", "{1877682B-5183-48FE-BA1E-552D4645BC3B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerSocios", "BootWebCrawlerSocios\BootWebCrawlerSocios.csproj", "{3731123A-3AC0-45E7-B8C4-139F22444606}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerProjeto", "BootWebCrawlerProjeto\BootWebCrawlerProjeto.csproj", "{CF254448-E164-4659-9B9A-8F2BBA94EE4B}"
@@ -33,10 +31,6 @@ Global
 		{EFDBDBEF-2A7F-441A-9391-02929532CDCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFDBDBEF-2A7F-441A-9391-02929532CDCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFDBDBEF-2A7F-441A-9391-02929532CDCE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1877682B-5183-48FE-BA1E-552D4645BC3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1877682B-5183-48FE-BA1E-552D4645BC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1877682B-5183-48FE-BA1E-552D4645BC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1877682B-5183-48FE-BA1E-552D4645BC3B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3731123A-3AC0-45E7-B8C4-139F22444606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3731123A-3AC0-45E7-B8C4-139F22444606}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3731123A-3AC0-45E7-B8C4-139F22444606}.Release|Any CPU.ActiveCfg = Release|Any CPU

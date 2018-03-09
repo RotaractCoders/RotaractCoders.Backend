@@ -277,6 +277,8 @@ namespace Infra.WebCrowley
                     .FirstOrDefault(x => x.Contains("Nome:")).Replace("Nome:", "").Trim(),
                 Apelido = htmlDadosClube.Split('\n')
                     .FirstOrDefault(x => x.Contains("Apelido:")).Replace("Apelido:", "").Trim(),
+                ClubeAtual = htmlDadosClube.Split('\n')
+                    .FirstOrDefault(x => x.Contains("Clube:")).Replace("Clube:", "").Trim(),
                 Clubes = ExtrairFilicoesDoSocio(htmlTexto, codigo),
                 CargosClube = ExtrairCargosDoSocioNosClubes(htmlTexto),
                 CargosDistritais = ExtrairCargosDoSocioDistritais(htmlTexto),

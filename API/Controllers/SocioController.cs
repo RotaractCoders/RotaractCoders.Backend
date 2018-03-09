@@ -35,9 +35,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult Obter(string id)
+        public IActionResult Obter(string codigoSocio, string codigoClube)
         {
-            return Ok(_socioRepository.Obter(id));
+            return Ok(_socioRepository.ObterPorCodigo(codigoSocio, codigoClube));
         }
 
         [HttpPost]
@@ -50,7 +50,7 @@ namespace API.Controllers
         [HttpPut]
         public IActionResult Atualizar([FromBody] CadastroSocioInput input)
         {
-            var socio = _socioRepository.Obter(input.RowKey);
+            var socio = _socioRepository.ObterPorCodigo(input.CodigoSocio, input.CodigoClube);
 
             if (socio == null)
                 return BadRequest();
@@ -83,9 +83,9 @@ namespace API.Controllers
         }
 
         [HttpDelete]
-        public IActionResult Deletar(string id)
+        public IActionResult Deletar(string codigoSocio, string codigoClube)
         {
-            var socio = _socioRepository.Obter(id);
+            var socio = _socioRepository.ObterPorCodigo(codigoSocio, codigoClube);
 
             if (socio == null)
                 return BadRequest();

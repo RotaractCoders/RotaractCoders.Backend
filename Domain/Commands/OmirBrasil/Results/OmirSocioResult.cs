@@ -13,6 +13,7 @@ namespace Domain.Commands.OmirBrasil.Results
         public string FotoUrl { get; set; }
         public string Apelido { get; set; }
         public DateTime? DataNascimento { get; set; }
+        public string ClubeAtual { get; set; }
 
         public List<OmirSocioClubeResult> Clubes { get; set; }
         public List<OmirSocioCargoClubeResult> CargosClube { get; set; } = new List<OmirSocioCargoClubeResult>();

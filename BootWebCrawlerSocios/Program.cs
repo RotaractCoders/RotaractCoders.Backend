@@ -19,15 +19,15 @@ namespace BootWebCrawlerSocios
             {
                 var clubes = omir.BuscarDistritoPorNumero("4430");
 
-                clubes.CodigoClubes.ForEach(codigo =>
+                clubes.CodigoClubes.ForEach(codigoClube =>
                 {
-                    var clube = omir.BuscarClubePorCodigo(codigo);
+                    var clube = omir.BuscarClubePorCodigo(codigoClube);
                     SalvarClube(clube);
 
                     clube.Socios.ForEach(socio =>
                     {
                         var socioOmir = omir.BuscarSocioPorCodigo(socio.Codigo);
-                        SalvarSocio(socioOmir, socio.Email);
+                        SalvarSocio(socioOmir, socio.Email, codigoClube);
                     });
                 });
             }
@@ -74,10 +74,12 @@ namespace BootWebCrawlerSocios
             }
         }
 
-        private static void SalvarSocio(OmirSocioResult socio, string email)
+        private static void SalvarSocio(OmirSocioResult socio, string email, string codigoClube)
         {
             var socioRepository = new SocioRepository();
-            var socioSalvo = socioRepository.ObterPorCodigo(socio.Codigo);
+            var clubeRepository = new ClubeRepository();
+
+            var socioSalvo = socioRepository.ObterPorCodigo(socio.Codigo, codigoClube);
 
             var cargos = new List<CadastrarCargoSocioInput>();
 
@@ -118,7 +120,8 @@ namespace BootWebCrawlerSocios
             {
                 socioRepository.Incluir(new Socio(new CadastroSocioInput()
                 {
-                    Codigo = socio.Codigo,
+                    CodigoSocio = socio.Codigo,
+                    CodigoClube = codigoClube,
                     Nome = socio.Nome,
                     Apelido = socio.Apelido,
                     DataNascimento = socio.DataNascimento,
@@ -138,8 +141,8 @@ namespace BootWebCrawlerSocios
             {
                 socioSalvo.Atualizar(new CadastroSocioInput()
                 {
-                    RowKey = socioSalvo.RowKey,
-                    Codigo = socio.Codigo,
+                    CodigoSocio = socio.Codigo,
+                    CodigoClube = codigoClube,
                     Nome = socio.Nome,
                     Apelido = socio.Apelido,
                     DataNascimento = socio.DataNascimento,

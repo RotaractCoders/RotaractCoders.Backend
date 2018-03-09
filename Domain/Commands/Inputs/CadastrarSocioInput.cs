@@ -5,8 +5,8 @@ namespace Domain.Commands.Inputs
 {
     public class CadastroSocioInput
     {
-        public string RowKey { get; set; }
-        public string Codigo { get; set; }
+        public string CodigoSocio { get; set; }
+        public string CodigoClube { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public DateTime? DataNascimento { get; set; }

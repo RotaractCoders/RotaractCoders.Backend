@@ -16,6 +16,7 @@ namespace API.Controllers
         private EventoRepository _eventoRepository;
         private FaqRepository _faqRepository;
         private SocioRepository _socioRepository;
+        private ProjetoRepository _projetoRepository;
 
         public ConsolidadoController()
         {
@@ -34,13 +35,29 @@ namespace API.Controllers
             return Ok(new
             {
                 Arquivos = _arquivoRepository.Listar(dataUltimaAtualizacao),
-                Clubes = _clubeRepository.Listar(dataUltimaAtualizacao)
-                    .Where(x => x.DataFechamento == null && x.Programa == "Rotaract").ToList(),
                 DadosEstaticos = _dadoEstaticoRepository.Listar(dataUltimaAtualizacao),
                 Eventos = _eventoRepository.Listar(dataUltimaAtualizacao),
                 Faqs = _faqRepository.Listar(dataUltimaAtualizacao),
-                Socios = _socioRepository.Listar(dataUltimaAtualizacao),
                 Data = DateTime.Now
+            });
+        }
+
+        [HttpGet("listarClubes")]
+        [AllowAnonymous]
+        public IActionResult ListarClubes()
+        {
+            return Ok(_clubeRepository.Listar("4430").Select(x=> x.Codigo).ToList());
+        }
+
+        [HttpGet("clube/{codigoClube}/{dataUltimaAtualizacao}")]
+        [AllowAnonymous]
+        public IActionResult Listar(string codigoClube, DateTime dataUltimaAtualizacao)
+        {
+            return Ok(new
+            {
+                Clubes = _clubeRepository.Listar(dataUltimaAtualizacao, codigoClube),
+                Socios = _socioRepository.Listar(dataUltimaAtualizacao, codigoClube)
+                //Projetos = _projetoRepository.Listar(dataUltimaAtualizacao, codigoClube)
             });
         }
     }

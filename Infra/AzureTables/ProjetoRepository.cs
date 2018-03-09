@@ -62,10 +62,15 @@ namespace Infra.AzureTables
             return tableQueryResult.Results.ToList();
         }
 
-        public List<Projeto> Listar(DateTime dataUltimaAtualizacao)
+        public List<Projeto> Listar(DateTime dataUltimaAtualizacao, string codigoClube)
         {
-            var query = new TableQuery<Projeto>()
-                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+            
+            var query = new TableQuery<Projeto>().Where(
+                TableQuery.CombineFilters(
+                    TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao),
+                    TableOperators.And,
+                    TableQuery.GenerateFilterCondition("CodigoClube", QueryComparisons.Equal, codigoClube)));
+
             var retorno = _baseRepository.Projeto.ExecuteQuery(query);
 
             return retorno.ToList();

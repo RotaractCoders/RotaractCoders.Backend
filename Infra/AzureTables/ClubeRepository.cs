@@ -26,13 +26,35 @@ namespace Infra.AzureTables
             return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
-        public List<Clube> Listar(DateTime dataUltimaAtualizacao)
+        public List<Clube> Listar(string numeroDistrito)
         {
             var query = new TableQuery<Clube>()
-                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+            {
+                SelectColumns = new List<string>
+                {
+                    "Codigo","BitAtivo"
+                },
+                FilterString = TableQuery.GenerateFilterCondition("NumeroDistrito", QueryComparisons.Equal, numeroDistrito)
+            };
+            
             var retorno = _baseRepository.Clube.ExecuteQuery(query);
 
             return retorno.Where(x => x.BitAtivo == true).ToList();
+        }
+
+        public List<Clube> Listar(DateTime dataUltimaAtualizacao, string codigoClube)
+        {
+            string date1 = TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao);
+
+            string date2 = TableQuery.GenerateFilterCondition("Codigo", QueryComparisons.Equal, codigoClube);
+
+            string finalFilter = TableQuery.CombineFilters(date1, TableOperators.And, date2);
+
+            var query = new TableQuery<Clube>()
+                .Where(finalFilter);
+            var retorno = _baseRepository.Clube.ExecuteQuery(query);
+
+            return retorno.ToList();
         }
 
         public void Atualizar(Clube clube)
@@ -60,6 +82,18 @@ namespace Infra.AzureTables
         public Clube ObterPorCodigo(string codigo)
         {
             var query = new TableQuery<Clube>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigo));
+
+            var retorno = _baseRepository.Clube.ExecuteQuery(query);
+
+            if (retorno == null)
+                return null;
+
+            return retorno.FirstOrDefault();
+        }
+
+        public Clube ObterPorNome(string nome)
+        {
+            var query = new TableQuery<Clube>().Where(TableQuery.GenerateFilterCondition("Nome", QueryComparisons.Equal, nome));
 
             var retorno = _baseRepository.Clube.ExecuteQuery(query);
 

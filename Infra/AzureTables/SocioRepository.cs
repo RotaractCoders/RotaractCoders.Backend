@@ -28,10 +28,17 @@ namespace Infra.AzureTables
             return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
-        public List<Socio> Listar(DateTime dataUltimaAtualizacao)
+        public List<Socio> Listar(DateTime dataUltimaAtualizacao, string codigoClube)
         {
+            string date1 = TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao);
+
+            string date2 = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigoClube);
+
+            string finalFilter = TableQuery.CombineFilters(date1, TableOperators.And, date2);
+
             var query = new TableQuery<Socio>()
-                .Where(TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao));
+                .Where(finalFilter);
+
             var retorno = _baseRepository.Socio.ExecuteQuery(query);
 
             return retorno.Where(x => x.BitAtivo == true).ToList();
@@ -39,7 +46,7 @@ namespace Infra.AzureTables
 
         public void Atualizar(Socio socio)
         {
-            var atualizar = Obter(socio.RowKey);
+            var atualizar = ObterPorCodigo(socio.CodigoSocio, socio.CodigoClube);
 
             atualizar.Atualizar(socio);
 
@@ -47,10 +54,14 @@ namespace Infra.AzureTables
             _baseRepository.Socio.Execute(updateOperation);
         }
 
-        public Socio Obter(string id)
+        public Socio ObterPorCodigo(string codigoSocio, string codigoClube)
         {
-            var query = new TableQuery<Socio>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, id));
-
+            var query = new TableQuery<Socio>().Where(
+                TableQuery.CombineFilters(
+                    TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigoClube),
+                    TableOperators.And,
+                    TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, codigoSocio)));
+            
             var retorno = _baseRepository.Socio.ExecuteQuery(query);
 
             if (retorno == null)
@@ -59,21 +70,9 @@ namespace Infra.AzureTables
             return retorno.FirstOrDefault();
         }
 
-        public Socio ObterPorCodigo(string codigo)
+        public void Excluir(string codigoSocio, string codigoClube)
         {
-            var query = new TableQuery<Socio>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigo));
-
-            var retorno = _baseRepository.Socio.ExecuteQuery(query);
-
-            if (retorno == null)
-                return null;
-
-            return retorno.FirstOrDefault();
-        }
-
-        public void Excluir(string id)
-        {
-            var deletar = Obter(id);
+            var deletar = ObterPorCodigo(codigoSocio, codigoClube);
 
             var deleteOperation = TableOperation.Delete(deletar);
             _baseRepository.Socio.Execute(deleteOperation);

@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Socio : TableEntity
     {
-        public string Codigo { get; set; }
+        public string CodigoSocio { get; set; }
         public string Nome { get; set; }
         public string Apelido { get; set; }
         public DateTime? DataNascimento { get; set; }
@@ -17,7 +17,7 @@ namespace Domain.Entities
         public string Facebook { get; set; }
         public string Instagram { get; set; }
         public string Celular { get; set; }
-        
+        public string CodigoClube { get; set; }
         public string Foto { get; set; }
         public string CargosSerializado { get; set; }
         public string ClubesSerializado { get; set; }
@@ -53,7 +53,8 @@ namespace Domain.Entities
 
         public Socio(CadastroSocioInput input)
         {
-            Codigo = input.Codigo;
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -84,13 +85,14 @@ namespace Domain.Entities
                 CargosSerializado = null;
             }
 
-            RowKey = Guid.NewGuid().ToString();
-            PartitionKey = Codigo;
+            RowKey = CodigoSocio;
+            PartitionKey = CodigoClube;
         }
 
         public void Atualizar(Socio input)
         {
-            Codigo = input.Codigo;
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -121,13 +123,12 @@ namespace Domain.Entities
             {
                 CargosSerializado = null;
             }
-
-            PartitionKey = Codigo;
         }
 
         public void Atualizar(CadastroSocioInput input)
         {
-            Codigo = input.Codigo;
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
@@ -157,8 +158,6 @@ namespace Domain.Entities
             {
                 CargosSerializado = null;
             }
-
-            PartitionKey = Codigo;
         }
 
         public void Inativar()
