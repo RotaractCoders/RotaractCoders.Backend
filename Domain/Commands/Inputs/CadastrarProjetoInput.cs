@@ -5,7 +5,7 @@ namespace Domain.Commands.Inputs
 {
     public class CadastrarProjetoInput
     {
-        public int Codigo { get; set; }
+        public string Codigo { get; set; }
         public DateTime? DataUltimaAtualizacao { get; set; }
         public string Nome { get; set; }
         public string Justificativa { get; set; }
@@ -29,7 +29,7 @@ namespace Domain.Commands.Inputs
         public string PalavraChave { get; set; }
         public string LicoesAprendidas { get; set; }
         public string Resumo { get; set; }
-        public int CodigoClube { get; set; }
+        public string CodigoClube { get; set; }
         public string NomeClube { get; set; }
         public string NumeroDistrito { get; set; }
     }

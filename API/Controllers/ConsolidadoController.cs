@@ -16,7 +16,6 @@ namespace API.Controllers
         private EventoRepository _eventoRepository;
         private FaqRepository _faqRepository;
         private SocioRepository _socioRepository;
-        private ProjetoRepository _projetoRepository;
 
         public ConsolidadoController()
         {
@@ -47,18 +46,6 @@ namespace API.Controllers
         public IActionResult ListarClubes()
         {
             return Ok(_clubeRepository.Listar("4430").Select(x=> x.Codigo).ToList());
-        }
-
-        [HttpGet("clube/{codigoClube}/{dataUltimaAtualizacao}")]
-        [AllowAnonymous]
-        public IActionResult Listar(string codigoClube, DateTime dataUltimaAtualizacao)
-        {
-            return Ok(new
-            {
-                Clubes = _clubeRepository.Listar(dataUltimaAtualizacao, codigoClube),
-                Socios = _socioRepository.Listar(dataUltimaAtualizacao, codigoClube)
-                //Projetos = _projetoRepository.Listar(dataUltimaAtualizacao, codigoClube)
-            });
         }
     }
 }

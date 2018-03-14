@@ -32,14 +32,14 @@ namespace Infra.AzureTables
             {
                 SelectColumns = new List<string>
                 {
-                    "Codigo","BitAtivo"
+                    "Codigo", "Nome", "DataFechamento"
                 },
                 FilterString = TableQuery.GenerateFilterCondition("NumeroDistrito", QueryComparisons.Equal, numeroDistrito)
             };
             
             var retorno = _baseRepository.Clube.ExecuteQuery(query);
 
-            return retorno.Where(x => x.BitAtivo == true).ToList();
+            return retorno.ToList();
         }
 
         public List<Clube> Listar(DateTime dataUltimaAtualizacao, string codigoClube)
@@ -59,7 +59,7 @@ namespace Infra.AzureTables
 
         public void Atualizar(Clube clube)
         {
-            var atualizar = Obter(clube.RowKey);
+            var atualizar = Obter(clube.Codigo);
 
             atualizar.Atualizar(clube);
 
@@ -67,9 +67,9 @@ namespace Infra.AzureTables
             _baseRepository.Clube.Execute(updateOperation);
         }
 
-        public Clube Obter(string id)
+        public Clube Obter(string codigoClube)
         {
-            var query = new TableQuery<Clube>().Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, id));
+            var query = new TableQuery<Clube>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigoClube));
 
             var retorno = _baseRepository.Clube.ExecuteQuery(query);
 
@@ -103,9 +103,9 @@ namespace Infra.AzureTables
             return retorno.FirstOrDefault();
         }
 
-        public void Excluir(string id)
+        public void Excluir(string codigoClube)
         {
-            var deletar = Obter(id);
+            var deletar = Obter(codigoClube);
 
             var deleteOperation = TableOperation.Delete(deletar);
             _baseRepository.Clube.Execute(deleteOperation);

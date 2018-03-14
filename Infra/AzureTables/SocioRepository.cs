@@ -28,7 +28,23 @@ namespace Infra.AzureTables
             return tableQueryResult.Results.Where(x => x.BitAtivo == true).ToList();
         }
 
-        public List<Socio> Listar(DateTime dataUltimaAtualizacao, string codigoClube)
+        public List<Socio> Listar(string codigoClube)
+        {
+            var query = new TableQuery<Socio>()
+            {
+                SelectColumns = new List<string>
+                {
+                    "Nome", "CodigoSocio", "Foto", "CodigoClube", "ClubesSerializado"
+                },
+                FilterString = TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, codigoClube)
+            };
+
+            var retorno = _baseRepository.Socio.ExecuteQuery(query);
+
+            return retorno.Where(x => x.BitAtivo == true).ToList();
+        }
+
+        public List<Socio> Listar(string codigoClube, DateTime dataUltimaAtualizacao)
         {
             string date1 = TableQuery.GenerateFilterConditionForDate("DataAtualizacao", QueryComparisons.GreaterThan, dataUltimaAtualizacao);
 
@@ -52,6 +68,19 @@ namespace Infra.AzureTables
 
             var updateOperation = TableOperation.Replace(atualizar);
             _baseRepository.Socio.Execute(updateOperation);
+        }
+
+        public Socio ObterPorCodigo(string codigoSocio)
+        {
+            var query = new TableQuery<Socio>()
+                .Where(TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, codigoSocio));
+
+            var retorno = _baseRepository.Socio.ExecuteQuery(query);
+
+            if (retorno == null)
+                return null;
+
+            return retorno.FirstOrDefault();
         }
 
         public Socio ObterPorCodigo(string codigoSocio, string codigoClube)

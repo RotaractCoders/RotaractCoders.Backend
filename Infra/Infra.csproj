@@ -86,22 +86,13 @@
     <Compile Include="AzureBlobs\SocioBlob.cs" />
     <Compile Include="AzureTables\ArquivoRepository.cs" />
     <Compile Include="AzureTables\BaseRepository.cs" />
+    <Compile Include="AzureTables\CargoSocioRepository.cs" />
     <Compile Include="AzureTables\ClubeRepository.cs" />
     <Compile Include="AzureTables\DadoEstaticoRepository.cs" />
     <Compile Include="AzureTables\EventoRepository.cs" />
     <Compile Include="AzureTables\FaqRepository.cs" />
     <Compile Include="AzureTables\ProjetoRepository.cs" />
     <Compile Include="AzureTables\SocioRepository.cs" />
-    <Compile Include="Context.cs" />
-    <Compile Include="Migrations\201711231348313_teste.cs" />
-    <Compile Include="Migrations\201711231348313_teste.Designer.cs">
-      <DependentUpon>201711231348313_teste.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712061256515_teste1.cs" />
-    <Compile Include="Migrations\201712061256515_teste1.Designer.cs">
-      <DependentUpon>201712061256515_teste1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebCrowley\OmirBrasilProjetoRepository.cs" />
     <Compile Include="WebCrowley\OmirBrasilRepository.cs" />
@@ -115,14 +106,6 @@
       <Project>{09ccb964-3efd-4125-965b-3846a982739e}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711231348313_teste.resx">
-      <DependentUpon>201711231348313_teste.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712061256515_teste1.resx">
-      <DependentUpon>201712061256515_teste1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />

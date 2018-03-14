@@ -3,6 +3,7 @@ using Infra.AzureTables;
 using Domain.Commands.Inputs;
 using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -18,19 +19,21 @@ namespace API.Controllers
             _clubeRepository = new ClubeRepository();
         }
 
-        [HttpGet]
+        [HttpGet("{numeroDistrito}")]
         [AllowAnonymous]
-        public IActionResult Listar()
+        public IActionResult Listar(string numeroDistrito)
         {
-            var lista = _clubeRepository.Listar();
+            var lista = _clubeRepository.Listar(numeroDistrito)
+                .Select(x => new { x.Codigo, x.Nome, x.DataFechamento });
 
             return Ok(lista);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult Obter(string id)
+        [HttpGet("obter/{codigo}")]
+        [AllowAnonymous]
+        public IActionResult Obter(string codigo)
         {
-            return Ok(_clubeRepository.Obter(id));
+            return Ok(_clubeRepository.Obter(codigo));
         }
 
         [HttpPost]

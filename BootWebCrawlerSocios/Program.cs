@@ -19,17 +19,21 @@ namespace BootWebCrawlerSocios
             {
                 var clubes = omir.BuscarDistritoPorNumero("4430");
 
-                clubes.CodigoClubes.ForEach(codigoClube =>
+                for (int i = 0; i < clubes.CodigoClubes.Count; i++)
                 {
-                    var clube = omir.BuscarClubePorCodigo(codigoClube);
+                    Console.WriteLine($"Processando clube {i+1}/{clubes.CodigoClubes.Count}");
+
+                    var clube = omir.BuscarClubePorCodigo(clubes.CodigoClubes[i]);
                     SalvarClube(clube);
 
-                    clube.Socios.ForEach(socio =>
+                    for (int y = 0; y < clube.Socios.Count; y++)
                     {
-                        var socioOmir = omir.BuscarSocioPorCodigo(socio.Codigo);
-                        SalvarSocio(socioOmir, socio.Email, codigoClube);
-                    });
-                });
+                        Console.WriteLine($"Processando clube {i+1}/{clubes.CodigoClubes.Count} - Socio {y+1}/{clube.Socios.Count}");
+
+                        var socioOmir = omir.BuscarSocioPorCodigo(clube.Socios[y].Codigo);
+                        SalvarSocio(socioOmir, clube.Socios[y].Email, clubes.CodigoClubes[i], clube.NumeroDistrito);
+                    }
+                }
             }
         }
 
@@ -74,14 +78,19 @@ namespace BootWebCrawlerSocios
             }
         }
 
-        private static void SalvarSocio(OmirSocioResult socio, string email, string codigoClube)
+        private static void SalvarSocio(OmirSocioResult socio, string email, string codigoClube, string numeroDistrito)
         {
             var socioRepository = new SocioRepository();
             var clubeRepository = new ClubeRepository();
+            var cargoSocioRepository = new CargoSocioRepository();
+
+            var lista = cargoSocioRepository.Listar(socio.Codigo);
+            cargoSocioRepository.Excluir(lista);
 
             var socioSalvo = socioRepository.ObterPorCodigo(socio.Codigo, codigoClube);
 
             var cargos = new List<CadastrarCargoSocioInput>();
+            var cargoSocios = new List<CargoSocio>();
 
             socio.CargosClube.ForEach(cargo =>
             {
@@ -92,6 +101,8 @@ namespace BootWebCrawlerSocios
                     Ate = cargo.Ate,
                     TipoCargo = "Clube"
                 });
+
+                cargoSocios.Add(new CargoSocio(cargo.NomeCargo, socio.Nome, cargo.Clube, socio.Codigo, numeroDistrito, "", socio.FotoUrl, "Clube", cargo.De, cargo.Ate, "Rotaract"));
             });
 
             socio.CargosDistritais.ForEach(cargo =>
@@ -103,6 +114,8 @@ namespace BootWebCrawlerSocios
                     Ate = cargo.Ate,
                     TipoCargo = "Distrital"
                 });
+
+                cargoSocios.Add(new CargoSocio(cargo.NomeCargo, socio.Nome, "", socio.Codigo, numeroDistrito, cargo.Distrito, socio.FotoUrl, "Distrital", cargo.De, cargo.Ate, "Rotaract"));
             });
 
             socio.CargosRotaractBrasil.ForEach(cargo =>
@@ -114,7 +127,11 @@ namespace BootWebCrawlerSocios
                     Ate = cargo.Ate,
                     TipoCargo = "Rotaract Brasil"
                 });
+
+                cargoSocios.Add(new CargoSocio(cargo.NomeCargo, socio.Nome,"", socio.Codigo, numeroDistrito, "", socio.FotoUrl, "Rotaract Brasil", cargo.De, cargo.Ate, "Rotaract"));
             });
+
+            cargoSocioRepository.Incluir(cargoSocios);
 
             if (socioSalvo == null)
             {

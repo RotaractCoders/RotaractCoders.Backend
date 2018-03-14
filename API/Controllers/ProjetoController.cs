@@ -3,6 +3,7 @@ using Infra.AzureTables;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -18,17 +19,24 @@ namespace API.Controllers
             _projetoRepository = new ProjetoRepository();
         }
 
-        [HttpGet("{idProjeto}")]
-        public IActionResult Buscar(Guid idProjeto)
+        [HttpGet("{codigoClube}")]
+        [AllowAnonymous]
+        public IActionResult Listar(string codigoClube)
         {
-            return Ok(_projetoRepository.Obter(idProjeto.ToString()));
+            return Ok(_projetoRepository.Listar(codigoClube).Select(x => new
+            {
+                x.Nome,
+                x.Codigo,
+                x.Descricao,
+                x.Resumo
+            }));
         }
 
-        [HttpGet("lista")]
-        public IActionResult Listar([FromHeader]ListaProjetosInput input)
+        [HttpGet("obter/{codigoProjeto}")]
+        [AllowAnonymous]
+        public IActionResult Obter(string codigoProjeto)
         {
-            //return Ok(_projetoRepository.Listar(input));
-            return Ok();
+            return Ok(_projetoRepository.ObterPorCodigo(codigoProjeto));
         }
     }
 }

@@ -78,11 +78,11 @@ namespace Domain.Entities
             if (input.Clubes != null)
             {
                 var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
-                CargosSerializado = JsonConvert.SerializeObject(clubes);
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
             }
             else
             {
-                CargosSerializado = null;
+                ClubesSerializado = null;
             }
 
             RowKey = CodigoSocio;
@@ -117,11 +117,11 @@ namespace Domain.Entities
             if (input.Clubes != null)
             {
                 var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.Nome, x.Posse, x.Desligamento));
-                CargosSerializado = JsonConvert.SerializeObject(clubes);
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
             }
             else
             {
-                CargosSerializado = null;
+                ClubesSerializado = null;
             }
         }
 
@@ -152,11 +152,11 @@ namespace Domain.Entities
             if (input.Clubes != null)
             {
                 var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
-                CargosSerializado = JsonConvert.SerializeObject(clubes);
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
             }
             else
             {
-                CargosSerializado = null;
+                ClubesSerializado = null;
             }
         }
 

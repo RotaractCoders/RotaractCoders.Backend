@@ -70,7 +70,7 @@ namespace Infra.WebCrowley
 
             return new OmirProjetoResult
             {
-                Codigo = Convert.ToInt32(code),
+                Codigo = code,
                 Nome = GetProjectName(title),
                 Justificativa = GetProjectRationale(simpleFields),
                 ObjetivosGerais = GetProjectGeneralObjective(simpleFields),
@@ -330,13 +330,13 @@ namespace Infra.WebCrowley
                             .Trim();
         }
 
-        private static int GetClubCode(IDocument document)
+        private static string GetClubCode(IDocument document)
         {
-            return int.Parse(document
-                            .QuerySelectorAll("#projetoprincipal tr a")
-                            .FirstOrDefault(x => x.TextContent.Contains("Clique aqui para exibir a ficha completa do clube."))
-                            .Attributes.FirstOrDefault(x => x.Name == "href")
-                            .Value.Split('\'')[1]);
+            return document
+                .QuerySelectorAll("#projetoprincipal tr a")
+                .FirstOrDefault(x => x.TextContent.Contains("Clique aqui para exibir a ficha completa do clube."))
+                .Attributes.FirstOrDefault(x => x.Name == "href")
+                .Value.Split('\'')[1];
         }
 
         private static string GetClubEmail(List<IElement> simpleFields)

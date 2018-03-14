@@ -175,7 +175,8 @@ namespace Infra.WebCrowley
                 Site = htmlDadosPrincipaisClube.FirstOrDefault(x => x.TextContent.Contains("Site")).TextContent.Replace("\n", "").Replace("Site", "").Trim(),
                 Email = htmlDadosPrincipaisClube.FirstOrDefault(x => x.TextContent.Contains("E-mail")).TextContent.Replace("\n", "").Replace("E-mail", "").Trim(),
                 Facebook = htmlDadosPrincipaisClube.FirstOrDefault(x => x.TextContent.Contains("Facebook")).TextContent.Replace("\n", "").Replace("Facebook", "").Trim(),
-                Socios = ExtrairCodigoDosSocios(htmlTexto)
+                Socios = ExtrairCodigoDosSocios(htmlTexto),
+                NumeroDistrito = htmlDadosClube.Substring(htmlDadosClube.IndexOf("D.") + 2, 7).Replace("\n", "").Trim()
             };
 
             if (htmlDadosClube.Split('\n').FirstOrDefault(x => x.Contains("Data de Fechamento:")) != null)
