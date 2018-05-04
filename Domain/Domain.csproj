@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,11 +33,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentValidator, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentValidator.1.0.5\lib\net461\FluentValidator.dll</HintPath>
+    <Reference Include="Microsoft.Azure.KeyVault.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Azure.KeyVault.Core.1.0.0\lib\net40\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Edm.5.8.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.OData.5.8.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.8.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=8.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WindowsAzure.Storage.8.7.0\lib\net45\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,62 +65,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Handlers\CadastrarProjetoHandler.cs" />
-    <Compile Include="Commands\Handlers\CadastrarSocioHandler.cs" />
-    <Compile Include="Commands\Handlers\CadastroCargoDistritalHandler.cs" />
-    <Compile Include="Commands\Handlers\CadastroCargoSocioHandler.cs" />
-    <Compile Include="Commands\Handlers\CadastroCargoRotaractBrasilHandler.cs" />
-    <Compile Include="Commands\Handlers\CriarClubeHandler.cs" />
-    <Compile Include="Commands\Handlers\CriarDistritoHandler.cs" />
-    <Compile Include="Commands\Handlers\FiliarSocioHandler.cs" />
+    <Compile Include="Commands\Inputs\AtualizarEventoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarCargoSocioInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarProjetoInput.cs" />
     <Compile Include="Commands\Inputs\CadastrarSocioInput.cs" />
-    <Compile Include="Commands\Inputs\CadastroCargoRotaractBrasilInput.cs" />
-    <Compile Include="Commands\Inputs\CadastroCargoDistritoInput.cs" />
+    <Compile Include="Commands\Inputs\CadastroSocioClubeInput.cs" />
     <Compile Include="Commands\Inputs\FiliarSocioInput.cs" />
     <Compile Include="Commands\Inputs\CriarClubeInput.cs" />
     <Compile Include="Commands\Inputs\CriarDistritoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirArquivoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirDadoEstaticoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirEventoInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirFaqInput.cs" />
+    <Compile Include="Commands\Inputs\IncluirTipoEventoInput.cs" />
     <Compile Include="Commands\Inputs\ListaProjetosInput.cs" />
-    <Compile Include="Commands\Results\ConsultaProjetoResult.cs" />
-    <Compile Include="Commands\Results\ListaProjetosResult.cs" />
-    <Compile Include="Contracts\Commands\ICommand.cs" />
-    <Compile Include="Contracts\Commands\ICommandHandler.cs" />
-    <Compile Include="Contracts\Commands\ICommandResult.cs" />
-    <Compile Include="Contracts\Repositories\ICargoClubeRepository.cs" />
-    <Compile Include="Contracts\Repositories\ICargoDistritoRepository.cs" />
-    <Compile Include="Contracts\Repositories\ICargoRepository.cs" />
-    <Compile Include="Contracts\Repositories\ICargoRotaractBrasilRepository.cs" />
-    <Compile Include="Contracts\Repositories\ICategoriaRepository.cs" />
-    <Compile Include="Contracts\Repositories\IClubeRepository.cs" />
-    <Compile Include="Contracts\Repositories\IDistritoRepository.cs" />
-    <Compile Include="Contracts\Repositories\ILancamentoFinanceiroRepository.cs" />
-    <Compile Include="Contracts\Repositories\IMeioDeDivulgacaoProjetoRepository.cs" />
-    <Compile Include="Contracts\Repositories\IObjetivoRepository.cs" />
-    <Compile Include="Contracts\Repositories\IParceriaProjetoRepository.cs" />
-    <Compile Include="Contracts\Repositories\IParticipanteProjetoRepository.cs" />
-    <Compile Include="Contracts\Repositories\IProjetoCategoriaRepository.cs" />
-    <Compile Include="Contracts\Repositories\IProjetoRepository.cs" />
-    <Compile Include="Contracts\Repositories\IPublicoAlvoProjetoRepository.cs" />
-    <Compile Include="Contracts\Repositories\ISocioClubeRepository.cs" />
-    <Compile Include="Contracts\Repositories\ISocioRepository.cs" />
-    <Compile Include="Contracts\Repositories\ITarefaRepository.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirClubeSocioResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirDistritoResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoLancamentoFinanceiroResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirProjetoTarefaResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoDistritalResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoRotaractBrasilResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioClubeResult.cs" />
+    <Compile Include="Commands\OmirBrasil\Results\OmirSocioResult.cs" />
+    <Compile Include="Commands\Results\DetalheEventoResult.cs" />
+    <Compile Include="Commands\Results\ListaEventoResult.cs" />
+    <Compile Include="Commands\Results\ListaTipoEventoResult.cs" />
+    <Compile Include="Entities\Arquivo.cs" />
     <Compile Include="Entities\Base\Entity.cs" />
     <Compile Include="Entities\Cargo.cs" />
-    <Compile Include="Entities\CargoClube.cs" />
-    <Compile Include="Entities\CargoDistrito.cs" />
-    <Compile Include="Entities\CargoRotaractBrasil.cs" />
-    <Compile Include="Entities\Categoria.cs" />
+    <Compile Include="Entities\CargoSocio.cs" />
     <Compile Include="Entities\Clube.cs" />
-    <Compile Include="Entities\Distrito.cs" />
+    <Compile Include="Entities\DadoEstatico.cs" />
+    <Compile Include="Entities\Evento.cs" />
+    <Compile Include="Entities\Faq.cs" />
     <Compile Include="Entities\LancamentoFinanceiro.cs" />
-    <Compile Include="Entities\MeioDeDivulgacaoProjeto.cs" />
-    <Compile Include="Entities\Objetivo.cs" />
-    <Compile Include="Entities\ParceriaProjeto.cs" />
-    <Compile Include="Entities\ParticipanteProjeto.cs" />
     <Compile Include="Entities\Projeto.cs" />
-    <Compile Include="Entities\ProjetoCategoria.cs" />
-    <Compile Include="Entities\PublicoAlvoProjeto.cs" />
     <Compile Include="Entities\Socio.cs" />
     <Compile Include="Entities\SocioClube.cs" />
     <Compile Include="Entities\Tarefa.cs" />
@@ -111,6 +114,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets'))" />
+  </Target>
 </Project>

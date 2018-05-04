@@ -5,23 +5,20 @@ namespace Domain.Entities
 {
     public class LancamentoFinanceiro : Entity
     {
-        public DateTime Data { get; private set; }
-        public string Descricao { get; private set; }
-        public decimal Valor { get; private set; }
-        public Guid IdProjeto { get; private set; }
-        public Projeto Projeto { get; private set; }
+        public DateTime Data { get; set; }
+        public string Descricao { get; set; }
+        public decimal Valor { get; set; }
 
         protected LancamentoFinanceiro()
         {
 
         }
 
-        public LancamentoFinanceiro(DateTime data, string descricao, decimal valor, Guid idProjeto)
+        public LancamentoFinanceiro(DateTime data, string descricao, decimal valor)
         {
             Data = data;
             Descricao = descricao;
             Valor = valor;
-            IdProjeto = idProjeto;
         }
     }
 }

@@ -1,36 +1,23 @@
 ﻿using Domain.Commands.Inputs;
 using Domain.Entities.Base;
-using FluentValidator;
 using System;
 using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class SocioClube : Entity
+    public class SocioClube
     {
-        public Guid IdClube { get; private set; }
-        public Guid IdSocio { get; private set; }
-        public DateTime Posse { get; private set; }
-        public DateTime? Desligamento { get; private set; }
-        public Clube Clube { get; private set; }
-        public Socio Socio { get; private set; }
+        public string NumeroDistrito { get; set; }
+        public string Nome { get; set; }
+        public DateTime? Posse { get; set; }
+        public DateTime? Desligamento { get; set; }
 
-        protected SocioClube()
+        public SocioClube(string numeroDistrito, string nome, DateTime? posse, DateTime? desligamento)
         {
-
-        }
-
-        public SocioClube(Guid idClube, Guid idSocio, DateTime posse, DateTime? desligamento)
-        {
-            IdClube = idClube;
-            IdSocio = idSocio;
+            NumeroDistrito = numeroDistrito;
+            Nome = nome;
             Posse = posse;
             Desligamento = desligamento;
-
-            new ValidationContract<SocioClube>(this)
-                .IsNotNull(IdClube, "Obrigatório")
-                .IsNotNull(IdSocio, "Obrigatório")
-                .IsNotNull(Posse, "Obrigatório");
         }
     }
 }

@@ -5,21 +5,18 @@ namespace Domain.Entities
 {
     public class Tarefa : Entity
     {
-        public DateTime? Data { get; private set; }
-        public string Descricao { get; private set; }
-        public Guid IdProjeto { get; private set; }
-        public Projeto Projeto { get; private set; }
+        public DateTime? Data { get; set; }
+        public string Descricao { get; set; }
 
         protected Tarefa()
         {
 
         }
 
-        public Tarefa(DateTime? data, string descricao, Guid idProjeto)
+        public Tarefa(DateTime? data, string descricao)
         {
             Data = data;
             Descricao = descricao;
-            IdProjeto = idProjeto;
         }
     }
 }

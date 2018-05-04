@@ -1,60 +1,169 @@
 ﻿using Domain.Commands.Inputs;
-using Domain.Entities.Base;
-using FluentValidator;
+using Microsoft.WindowsAzure.Storage.Table;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Domain.Entities
 {
-    public class Socio : Entity
+    public class Socio : TableEntity
     {
-        public int Codigo { get; private set; }
-        public string Nome { get; private set; }
-        public string Apelido { get; private set; }
-        public DateTime? DataNascimento { get; private set; }
-        public string Email { get; private set; }
-        public List<SocioClube> SocioClubes { get; private set; }
-        public List<CargoDistrito> CargosDistritais { get; private set; }
-        public List<CargoRotaractBrasil> CargosRotaractBrasil { get; private set; }
-        public List<CargoClube> CargosClube { get; private set; }
+        public string CodigoSocio { get; set; }
+        public string Nome { get; set; }
+        public string Apelido { get; set; }
+        public DateTime? DataNascimento { get; set; }
+        public string Email { get; set; }
+        public string Facebook { get; set; }
+        public string Instagram { get; set; }
+        public string Celular { get; set; }
+        public string CodigoClube { get; set; }
+        public string Foto { get; set; }
+        public string CargosSerializado { get; set; }
+        public string ClubesSerializado { get; set; }
+        public DateTime DataAtualizacao { get; set; }
+        public bool BitAtivo { get; set; } = true;
 
-        protected Socio()
+        public List<Cargo> Cargos
+        {
+            get
+            {
+                if (CargosSerializado == null)
+                    return null;
+
+                return JsonConvert.DeserializeObject<List<Cargo>>(CargosSerializado);
+            }
+        }
+
+        public List<SocioClube> Clubes
+        {
+            get
+            {
+                if (ClubesSerializado == null)
+                    return null;
+
+                return JsonConvert.DeserializeObject<List<SocioClube>>(ClubesSerializado);
+            }
+        }
+
+        public Socio()
         {
 
         }
 
         public Socio(CadastroSocioInput input)
         {
-            AdicionarValidacoes(input);
-
-            if (!IsValid())
-                return;
-
-            Codigo = input.Codigo;
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
             Email = input.Email;
+            Facebook = input.Facebook;
+            Instagram = input.Instagram;
+            Celular = input.Celular;
+            Foto = input.Foto;
+            DataAtualizacao = DateTime.Now;
+
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.De, x.Ate));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                ClubesSerializado = null;
+            }
+
+            RowKey = CodigoSocio;
+            PartitionKey = CodigoClube;
+        }
+
+        public void Atualizar(Socio input)
+        {
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
+            Nome = input.Nome;
+            Apelido = input.Apelido;
+            DataNascimento = input.DataNascimento;
+            Email = input.Email;
+            Facebook = input.Facebook;
+            Instagram = input.Instagram;
+            Celular = input.Celular;
+            Foto = input.Foto;
+            DataAtualizacao = DateTime.Now;
+            BitAtivo = input.BitAtivo;
+
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.GestaoDe, x.GestaoAte));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.Nome, x.Posse, x.Desligamento));
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                ClubesSerializado = null;
+            }
         }
 
         public void Atualizar(CadastroSocioInput input)
         {
-            AdicionarValidacoes(input);
-
-            if (!IsValid())
-                return;
-
+            CodigoSocio = input.CodigoSocio;
+            CodigoClube = input.CodigoClube;
             Nome = input.Nome;
             Apelido = input.Apelido;
             DataNascimento = input.DataNascimento;
             Email = input.Email;
+            Facebook = input.Facebook;
+            Instagram = input.Instagram;
+            Celular = input.Celular;
+            Foto = input.Foto;
+            DataAtualizacao = DateTime.Now;
+
+            if (input.Cargos != null)
+            {
+                var cargos = input.Cargos.Select(x => new Cargo(x.Nome, x.TipoCargo, x.De, x.Ate));
+                CargosSerializado = JsonConvert.SerializeObject(cargos);
+            }
+            else
+            {
+                CargosSerializado = null;
+            }
+
+            if (input.Clubes != null)
+            {
+                var clubes = input.Clubes.Select(x => new SocioClube(x.NumeroDistrito, x.NomeClube, x.Posse, x.Desligamento));
+                ClubesSerializado = JsonConvert.SerializeObject(clubes);
+            }
+            else
+            {
+                ClubesSerializado = null;
+            }
         }
 
-        private void AdicionarValidacoes(CadastroSocioInput input)
+        public void Inativar()
         {
-            new ValidationContract<CadastroSocioInput>(input)
-                .IsGreaterThan(x => x.Codigo, 0, "O código é obrigatório")
-                .IsRequired(x => x.Nome, "O nome é obrigatório");
+            BitAtivo = false;
+            DataAtualizacao = DateTime.Now;
         }
     }
 }
