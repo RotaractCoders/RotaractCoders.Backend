@@ -11,6 +11,7 @@ namespace API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Login")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class LoginController : Controller
     {
         [AllowAnonymous]

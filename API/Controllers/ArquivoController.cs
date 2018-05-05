@@ -9,6 +9,7 @@ namespace API.Controllers
     [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/Arquivo")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ArquivoController : Controller
     {
         private ArquivoRepository _arquivoRepository;

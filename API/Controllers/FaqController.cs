@@ -10,6 +10,7 @@ namespace API.Controllers
     [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/Faq")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FaqController : Controller
     {
         private FaqRepository _faqRepository;
@@ -66,13 +67,7 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult Deletar(string id)
         {
-            var faq = _faqRepository.Obter(id);
-
-            if (faq == null)
-                return BadRequest();
-
-            faq.Inativar();
-            _faqRepository.Atualizar(faq);
+            _faqRepository.Excluir(id);
 
             return Ok();
         }

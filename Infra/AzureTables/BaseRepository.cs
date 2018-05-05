@@ -22,7 +22,7 @@ namespace Infra.AzureTables
             var blobClient = storageAccount.CreateCloudBlobClient();
 
             Evento = tableClient.GetTableReference("Evento");
-            //Evento.CreateIfNotExists();
+            Evento.CreateIfNotExists();
 
             DadoEstatico = tableClient.GetTableReference("DadoEstatico");
             //DadoEstatico.CreateIfNotExists();

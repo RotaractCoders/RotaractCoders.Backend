@@ -13,8 +13,9 @@ namespace Domain.Entities
         public string Programa { get; set; }
         public string Descricao { get; set; }
         public string Endereco { get; set; }
-        public decimal Latitude { get; set; }
-        public decimal Longitude { get; set; }
+        public string Complemento { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
         public DateTime DataCriacao { get; set; }
         public DateTime DataEvento { get; set; }
         public DateTime DataAtualizacao { get; set; }
@@ -35,6 +36,7 @@ namespace Domain.Entities
             DataCriacao = DateTime.Now;
             Programa = input.Programa;
             Endereco = input.Endereco;
+            Complemento = input.Complemento;
             Latitude = input.Latitude;
             Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
@@ -53,6 +55,7 @@ namespace Domain.Entities
             DataEvento = input.DataEvento;
             Programa = input.Programa;
             Endereco = input.Endereco;
+            Complemento = input.Complemento;
             Latitude = input.Latitude;
             Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;
@@ -69,6 +72,7 @@ namespace Domain.Entities
             DataEvento = input.DataEvento;
             Programa = input.Programa;
             Endereco = input.Endereco;
+            Complemento = input.Complemento;
             Latitude = input.Latitude;
             Longitude = input.Longitude;
             DataAtualizacao = DateTime.Now;

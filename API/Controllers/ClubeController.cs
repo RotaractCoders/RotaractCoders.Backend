@@ -37,6 +37,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Incluir([FromBody]CriarClubeInput input)
         {
             var clube = new Clube(input);
@@ -47,6 +48,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Atualizar([FromBody]CriarClubeInput input)
         {
             var clube = _clubeRepository.Obter(input.RowKey);
@@ -62,6 +64,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Deletar(string id)
         {
             var clube = _clubeRepository.Obter(id);

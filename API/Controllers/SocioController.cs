@@ -43,6 +43,13 @@ namespace API.Controllers
             }));
         }
 
+        [HttpGet("ListarEquipeDistrital/{gestaoInicio}/{gestaoFim}/{numeroDistrito}")]
+        [AllowAnonymous]
+        public IActionResult ListarEquipeDistrital(DateTime gestaoInicio, DateTime gestaoFim, string numeroDistrito)
+        {
+            return Ok(_cargoSocioRepository.ListarEquipeDistrital(gestaoInicio, gestaoFim, numeroDistrito, "Rotaract"));
+        }
+
         [HttpGet("ListarPresidentes/{gestaoInicio}/{gestaoFim}/{numeroDistrito}")]
         [AllowAnonymous]
         public IActionResult ListarPresidentes(DateTime gestaoInicio, DateTime gestaoFim, string numeroDistrito)
@@ -72,6 +79,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Incluir([FromBody] CadastroSocioInput input)
         {
             var socio = new Socio(input);
@@ -79,6 +87,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Atualizar([FromBody] CadastroSocioInput input)
         {
             var socio = _socioRepository.ObterPorCodigo(input.CodigoSocio, input.CodigoClube);
@@ -94,6 +103,7 @@ namespace API.Controllers
 
         [HttpPost("ImportarFoto")]
         [AllowAnonymous]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public async Task<IActionResult> ImportarFoto(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
@@ -114,6 +124,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Deletar(string codigoSocio, string codigoClube)
         {
             var socio = _socioRepository.ObterPorCodigo(codigoSocio, codigoClube);

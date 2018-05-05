@@ -27,12 +27,14 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Buscar(string id)
         {
             return Ok(_eventoRepository.Obter(id));
         }
 
         [HttpPost]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Incluir([FromBody]IncluirEventoInput input)
         {
             _eventoRepository.Incluir(new Evento(input));
@@ -40,6 +42,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Atualizar([FromBody]IncluirEventoInput input)
         {
             var evento = _eventoRepository.Obter(input.RowKey);
@@ -51,6 +54,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Deletar(string id)
         {
             var evento = _eventoRepository.Obter(id);
