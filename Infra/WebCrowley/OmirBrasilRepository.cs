@@ -1,14 +1,12 @@
 ﻿using AngleSharp;
-using AngleSharp.Dom;
 using AngleSharp.Parser.Html;
 using Domain.Commands.Inputs;
 using Domain.Commands.OmirBrasil.Results;
-using Domain.Entities;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Infra.WebCrowley
 {
@@ -20,12 +18,19 @@ namespace Infra.WebCrowley
         public OmirBrasilRepository()
         {
             config = Configuration.Default.WithDefaultLoader();
-            driver = new ChromeDriver("C:/");
+
+            ChromeOptions option = new ChromeOptions();
+            option.AddArgument("--headless");
+
+            driver = new ChromeDriver("C:/", option);
             driver.Navigate().GoToUrl("http://www.omirbrasil.org.br/");
         }
 
         public List<string> ListarDistritos()
         {
+            //var js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript("TrocaInclude('Sistema_OmirBrasil');");
+
             driver.ExecuteScript("TrocaInclude('Sistema_OmirBrasil');");
 
             return ExtrairNumeroDeTodosOsDistritos(driver.PageSource);
@@ -33,6 +38,8 @@ namespace Infra.WebCrowley
 
         public OmirDistritoResult BuscarDistritoPorNumero(string numeroDistrito)
         {
+            //var js = (IJavaScriptExecutor)driver;
+            //js.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
             driver.ExecuteScript($"AbreFichaDistrito('{numeroDistrito}');");
 
             return ExtrairDadosDistrito(driver.PageSource, numeroDistrito);

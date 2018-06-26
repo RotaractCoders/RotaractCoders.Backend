@@ -70,6 +70,9 @@
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Selenium.WebDriverBackedSelenium, Version=3.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriverBackedSelenium.3.13.0\lib\net45\Selenium.WebDriverBackedSelenium.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
@@ -77,13 +80,17 @@
     <Reference Include="System.Spatial, Version=5.8.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Spatial.5.8.2\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
-    <Reference Include="WebDriver, Version=3.10.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Selenium.WebDriver.3.10.0\lib\net45\WebDriver.dll</HintPath>
+    <Reference Include="WebDriver, Version=3.13.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Selenium.WebDriver.3.13.0\lib\net45\WebDriver.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureBlobs\BaseBlob.cs" />
     <Compile Include="AzureBlobs\SocioBlob.cs" />
+    <Compile Include="AzureQueue\BaseQueue.cs" />
+    <Compile Include="AzureQueue\ClubeQueue.cs" />
+    <Compile Include="AzureQueue\ProjetoQueue.cs" />
+    <Compile Include="AzureQueue\SocioQueue.cs" />
     <Compile Include="AzureTables\ArquivoRepository.cs" />
     <Compile Include="AzureTables\BaseRepository.cs" />
     <Compile Include="AzureTables\CargoSocioRepository.cs" />
@@ -91,6 +98,7 @@
     <Compile Include="AzureTables\DadoEstaticoRepository.cs" />
     <Compile Include="AzureTables\EventoRepository.cs" />
     <Compile Include="AzureTables\FaqRepository.cs" />
+    <Compile Include="AzureTables\ProcessadorRepository.cs" />
     <Compile Include="AzureTables\ProjetoRepository.cs" />
     <Compile Include="AzureTables\SocioRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

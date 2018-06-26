@@ -90,6 +90,7 @@
     <Compile Include="Commands\OmirBrasil\Results\OmirSocioCargoRotaractBrasilResult.cs" />
     <Compile Include="Commands\OmirBrasil\Results\OmirSocioClubeResult.cs" />
     <Compile Include="Commands\OmirBrasil\Results\OmirSocioResult.cs" />
+    <Compile Include="Commands\QueueModel\SocioQueueModel.cs" />
     <Compile Include="Commands\Results\DetalheEventoResult.cs" />
     <Compile Include="Commands\Results\ListaEventoResult.cs" />
     <Compile Include="Commands\Results\ListaTipoEventoResult.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Entities\Evento.cs" />
     <Compile Include="Entities\Faq.cs" />
     <Compile Include="Entities\LancamentoFinanceiro.cs" />
+    <Compile Include="Entities\Processador.cs" />
     <Compile Include="Entities\Projeto.cs" />
     <Compile Include="Entities\Socio.cs" />
     <Compile Include="Entities\SocioClube.cs" />
@@ -114,6 +116,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.1\build\netstandard2.0\NETStandard.Library.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -13,6 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerSocios", "Boo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerProjeto", "BootWebCrawlerProjeto\BootWebCrawlerProjeto.csproj", "{CF254448-E164-4659-9B9A-8F2BBA94EE4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerInicializador", "BootWebCrawlerInicializador\BootWebCrawlerInicializador.csproj", "{47BE5017-FB46-460D-8147-885525158BF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerClube", "BootWebCrawlerClube\BootWebCrawlerClube.csproj", "{7CC840F4-9FD1-4407-95C3-BA21182232F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +43,14 @@ Global
 		{CF254448-E164-4659-9B9A-8F2BBA94EE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF254448-E164-4659-9B9A-8F2BBA94EE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF254448-E164-4659-9B9A-8F2BBA94EE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47BE5017-FB46-460D-8147-885525158BF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47BE5017-FB46-460D-8147-885525158BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47BE5017-FB46-460D-8147-885525158BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47BE5017-FB46-460D-8147-885525158BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
