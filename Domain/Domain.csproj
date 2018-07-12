@@ -93,7 +93,9 @@
     <Compile Include="Commands\QueueModel\SocioQueueModel.cs" />
     <Compile Include="Commands\Results\DetalheEventoResult.cs" />
     <Compile Include="Commands\Results\ListaEventoResult.cs" />
+    <Compile Include="Commands\Results\ListaRDRResult.cs" />
     <Compile Include="Commands\Results\ListaTipoEventoResult.cs" />
+    <Compile Include="ConsolidadoEntities\Distrito.cs" />
     <Compile Include="Entities\Arquivo.cs" />
     <Compile Include="Entities\Base\Entity.cs" />
     <Compile Include="Entities\Cargo.cs" />

@@ -35,6 +35,11 @@ namespace BootWebCrawlerSocios
                 lista.Add(new Thread(NovaThread));
                 lista.Add(new Thread(NovaThread));
                 lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
 
                 lista.ForEach(x =>
                 {
@@ -50,6 +55,8 @@ namespace BootWebCrawlerSocios
 
                     if (quantidadeSocio == 0)
                     {
+                        processo = processadorRepository.BuscarProcessoEmAndamento();
+
                         processo.FinalizarProcessamentoSocio();
                         processadorRepository.Atualizar(processo);
 

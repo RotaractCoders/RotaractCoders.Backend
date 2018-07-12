@@ -15,6 +15,8 @@ namespace Infra.AzureTables
         public CloudTable CargoSocio { get; private set; }
         public CloudTable Processador { get; set; }
 
+        public CloudTable Distrito { get; set; }
+
         public BaseRepository()
         {
             var storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=rotaract;AccountKey=0wV5I1IC9qM5ZWF6PYIGQtnnZm5p1H53FtrerOhHEYP2JZYZGN2Wk9+Bq4+06AvFidzGh0Zg/M0zjklRPF0iqg==;EndpointSuffix=core.windows.net");
@@ -47,6 +49,9 @@ namespace Infra.AzureTables
 
             Processador = tableClient.GetTableReference("Processador");
             Processador.CreateIfNotExists();
+
+            Distrito = tableClient.GetTableReference("Distrito");
+            Distrito.CreateIfNotExists();
         }
     }
 }

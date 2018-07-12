@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerInicializador
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootWebCrawlerClube", "BootWebCrawlerClube\BootWebCrawlerClube.csproj", "{7CC840F4-9FD1-4407-95C3-BA21182232F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consolidador", "Consolidador\Consolidador.csproj", "{D3C2CD0C-91DC-42AF-892C-845106C5EC9E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7CC840F4-9FD1-4407-95C3-BA21182232F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C2CD0C-91DC-42AF-892C-845106C5EC9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C2CD0C-91DC-42AF-892C-845106C5EC9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C2CD0C-91DC-42AF-892C-845106C5EC9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C2CD0C-91DC-42AF-892C-845106C5EC9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

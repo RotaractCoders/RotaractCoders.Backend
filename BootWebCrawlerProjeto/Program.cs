@@ -50,6 +50,8 @@ namespace BootWebCrawlerProjeto
 
                     if (quantidade == 0)
                     {
+                        processo = processadorRepository.BuscarProcessoEmAndamento();
+
                         processo.FinalizarProcessamentoProjeto();
                         processadorRepository.Atualizar(processo);
 
@@ -72,9 +74,7 @@ namespace BootWebCrawlerProjeto
                     var codigoProjeto = queue.ObterProximoProjeto();
 
                     if (codigoProjeto == null)
-                    {
                         break;
-                    }
 
                     var projetoOmir = omir.BuscarProjetoPorCodigo(codigoProjeto.AsString);
                     SalvarProjeto(projetoOmir);

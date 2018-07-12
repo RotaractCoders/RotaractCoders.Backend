@@ -31,6 +31,19 @@ namespace Infra.AzureTables
                 x.StatusProcessamentoProjeto == "Processando" || x.StatusProcessamentoProjeto == "AguardandoProcessamento");
         }
 
+        public List<Processador> ListarProcessamentosFinalizados()
+        {
+            TableQuery<Processador> tableQuery = new TableQuery<Processador>();
+            TableContinuationToken continuationToken = null;
+            TableQuerySegment<Processador> tableQueryResult = _baseRepository.Processador.ExecuteQuerySegmented(tableQuery, continuationToken);
+            continuationToken = tableQueryResult.ContinuationToken;
+
+            return tableQueryResult.Results.Where(x =>
+                x.StatusProcessamentoClube == "Finalizado" &&
+                x.StatusProcessamentoSocio == "Finalizado" &&
+                x.StatusProcessamentoProjeto == "Finalizado").ToList();
+        }
+
         public void Atualizar(Processador processador)
         {
             var atualizar = Obter(processador.RowKey);

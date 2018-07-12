@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Commands.Inputs;
 using Infra.AzureTables;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -23,7 +24,7 @@ namespace API.Controllers
         [AllowAnonymous]
         public IActionResult Listar()
         {
-            return Ok(_eventoRepository.Listar());
+            return Ok(_eventoRepository.Listar().OrderBy(x => x.DataEvento));
         }
 
         [HttpGet("{id}")]

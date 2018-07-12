@@ -24,7 +24,8 @@ namespace API.Controllers
         public IActionResult Listar(string numeroDistrito)
         {
             var lista = _clubeRepository.Listar(numeroDistrito)
-                .Select(x => new { x.Codigo, x.Nome, x.DataFechamento });
+                .Select(x => new { x.Codigo, x.Nome, x.DataFechamento })
+                .OrderBy(x => x.Nome);
 
             return Ok(lista);
         }

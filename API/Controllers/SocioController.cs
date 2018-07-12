@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.IO;
 using Infra.AzureBlobs;
+using Domain.Commands.Results;
 
 namespace API.Controllers
 {
@@ -33,35 +34,45 @@ namespace API.Controllers
         [AllowAnonymous]
         public IActionResult Listar(string codigoClube)
         {
-            return Ok(_socioRepository.Listar(codigoClube).Select(x=> new
+            return Ok(_socioRepository.Listar(codigoClube).Select(x => new
             {
                 x.Nome,
                 x.CodigoSocio,
                 x.Foto,
                 x.CodigoClube,
                 x.Clubes
-            }));
+            }).OrderBy(x => x.Nome));
         }
 
         [HttpGet("ListarEquipeDistrital/{gestaoInicio}/{gestaoFim}/{numeroDistrito}")]
         [AllowAnonymous]
         public IActionResult ListarEquipeDistrital(DateTime gestaoInicio, DateTime gestaoFim, string numeroDistrito)
         {
-            return Ok(_cargoSocioRepository.ListarEquipeDistrital(gestaoInicio, gestaoFim, numeroDistrito, "Rotaract"));
+            gestaoFim = gestaoFim.AddDays(1);
+
+            return Ok(_cargoSocioRepository
+                .ListarEquipeDistrital(gestaoInicio, gestaoFim, numeroDistrito, "Rotaract")
+                .OrderBy(x => x.NomeSocio));
         }
 
         [HttpGet("ListarPresidentes/{gestaoInicio}/{gestaoFim}/{numeroDistrito}")]
         [AllowAnonymous]
         public IActionResult ListarPresidentes(DateTime gestaoInicio, DateTime gestaoFim, string numeroDistrito)
         {
-            return Ok(_cargoSocioRepository.Listar(gestaoInicio, gestaoFim, "Presidente", numeroDistrito, "Rotaract"));
+            gestaoFim = gestaoFim.AddDays(1);
+
+            return Ok(_cargoSocioRepository
+                .Listar(gestaoInicio, gestaoFim, "Presidente", numeroDistrito, "Rotaract")
+                .OrderBy(x => x.NomeSocio));
         }
 
         [HttpGet("ListarRdrs/{numeroDistrito}")]
         [AllowAnonymous]
         public IActionResult ListarRdrs(string numeroDistrito)
         {
-            return Ok(_cargoSocioRepository.Listar("Representante Distrital de Rotaract", numeroDistrito, "Rotaract"));
+            return Ok(_cargoSocioRepository
+                .Listar("Representante Distrital de Rotaract", numeroDistrito, "Rotaract")
+                .OrderByDescending(x => x.GestaoDe));
         }
 
         [HttpGet("obter/{codigoSocio}")]

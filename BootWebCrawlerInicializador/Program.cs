@@ -5,6 +5,7 @@ using Infra.AzureQueue;
 using Infra.AzureTables;
 using Infra.WebCrowley;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,12 +28,12 @@ namespace BootWebCrawlerInicializador
 
             var numeroDistrito = "4430";
 
+            Console.WriteLine("Processando distrito: " + numeroDistrito);
+
             using (var omir = new OmirBrasilRepository())
             {
                 var distrito = omir.BuscarDistritoPorNumero(numeroDistrito);
-
-                //distrito.CodigoClubes = distrito.CodigoClubes.Take(2).ToList();
-
+                
                 listaClubes.AddRange(distrito.CodigoClubes);
 
                 foreach (var codigoClube in distrito.CodigoClubes)
@@ -46,8 +47,12 @@ namespace BootWebCrawlerInicializador
                         CodigoClube = codigoClube,
                         NumeroDistrito = distrito.Numero
                     }));
+
+                    Console.WriteLine("Clube: " + clube.Nome + " processado");
                 }
             }
+
+            Console.WriteLine("iniciando listagem dos projetos");
 
             using (var omir = new OmirBrasilProjetoRepository())
             {
@@ -56,14 +61,18 @@ namespace BootWebCrawlerInicializador
                 listaProjetos.AddRange(codigosProjetos);
             }
 
+            Console.WriteLine("finalizado listagem dos projetos");
+
             var processador = new Processador(
-                "",
+                numeroDistrito,
                 listaClubes.Count,
                 listaSocios.Count,
                 listaProjetos.Count);
 
             var processadorRepository = new ProcessadorRepository();
             processadorRepository.Incluir(processador);
+
+            Console.WriteLine("carregando filas");
 
             foreach (var codigoClube in listaClubes)
             {

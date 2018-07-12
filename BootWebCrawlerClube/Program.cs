@@ -46,6 +46,8 @@ namespace BootWebCrawlerClube
 
                     if (quantidade == 0)
                     {
+                        processo = processadorRepository.BuscarProcessoEmAndamento();
+
                         processo.FinalizarProcessamentoClube();
                         processadorRepository.Atualizar(processo);
 
@@ -93,7 +95,7 @@ namespace BootWebCrawlerClube
                     Nome = clube.Nome,
                     DataFundacao = clube.DataFundacao,
                     Email = clube.Email,
-                    NumeroDistrito = "4430",
+                    NumeroDistrito = clube.NumeroDistrito,
                     Facebook = clube.Facebook,
                     RotaryPadrinho = clube.RotaryPadrinho,
                     DataFechamento = clube.DataFechamento,
@@ -109,7 +111,7 @@ namespace BootWebCrawlerClube
                     Nome = clube.Nome,
                     DataFundacao = clube.DataFundacao,
                     Email = clube.Email,
-                    NumeroDistrito = "4430",
+                    NumeroDistrito = clube.NumeroDistrito,
                     Facebook = clube.Facebook,
                     RotaryPadrinho = clube.RotaryPadrinho,
                     DataFechamento = clube.DataFechamento,

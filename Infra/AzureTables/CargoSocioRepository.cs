@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.WindowsAzure.Storage.Table;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,7 +55,9 @@ namespace Infra.AzureTables
 
             var retorno = _baseRepository.CargoSocio.ExecuteQuery(query);
 
-            return retorno.ToList();
+            return retorno
+                .DistinctBy(x => new { x.NomeSocio, x.GestaoDe, x.GestaoAte, x.NomeCargo })
+                .ToList();
         }
 
         public List<CargoSocio> ListarEquipeDistrital(DateTime gestaoDe, DateTime gestaoAte, string numeroDistrito, string programa)

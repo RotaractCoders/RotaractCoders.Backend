@@ -16,6 +16,16 @@ namespace Infra.AzureTables
             _baseRepository.Clube.Execute(insertOperation);
         }
 
+        public int QuantidadeClubes(string numeroDistrito)
+        {
+            var tableQuery = new TableQuery<Clube>();
+            TableContinuationToken continuationToken = null;
+            TableQuerySegment<Clube> tableQueryResult = _baseRepository.Clube.ExecuteQuerySegmented(tableQuery, continuationToken);
+            continuationToken = tableQueryResult.ContinuationToken;
+
+            return tableQueryResult.Results.Where(x => x.NumeroDistrito == numeroDistrito && x.DataFechamento == null).Count();
+        }
+
         public List<Clube> Listar()
         {
             TableQuery<Clube> tableQuery = new TableQuery<Clube>();
