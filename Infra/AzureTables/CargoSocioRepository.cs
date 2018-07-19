@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.WindowsAzure.Storage.Table;
+using MoreLinq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,36 @@ namespace Infra.AzureTables
 
             var query = new TableQuery<CargoSocio>()
                 .Where(filtro3);
+
+            var retorno = _baseRepository.CargoSocio.ExecuteQuery(query);
+
+            return retorno
+                .DistinctBy(x => new { x.NomeSocio, x.GestaoDe, x.GestaoAte, x.NomeCargo })
+                .ToList();
+        }
+
+        public List<CargoSocio> ListarEquipeDistrital(DateTime gestaoDe, DateTime gestaoAte, string numeroDistrito, string programa)
+        {
+            string filtro1 = TableQuery.CombineFilters(
+                TableQuery.GenerateFilterConditionForDate("GestaoDe", QueryComparisons.GreaterThanOrEqual, gestaoDe),
+                TableOperators.And,
+                TableQuery.GenerateFilterConditionForDate("GestaoAte", QueryComparisons.LessThanOrEqual, gestaoAte));
+
+            string filtro2 = TableQuery.CombineFilters(
+                TableQuery.GenerateFilterCondition("NumeroDistritoCargo", QueryComparisons.Equal, numeroDistrito),
+                TableOperators.And,
+                TableQuery.GenerateFilterCondition("Programa", QueryComparisons.Equal, programa));
+
+            string filtro3 = TableQuery.CombineFilters(
+                filtro2,
+                TableOperators.And,
+                TableQuery.GenerateFilterCondition("TipoCargo", QueryComparisons.Equal, "Distrital"));
+
+            var query = new TableQuery<CargoSocio>()
+                .Where(TableQuery.CombineFilters(
+                    filtro1,
+                    TableOperators.And,
+                    filtro3));
 
             var retorno = _baseRepository.CargoSocio.ExecuteQuery(query);
 

@@ -12,13 +12,16 @@ using System.Threading.Tasks;
 
 namespace Infra.WebCrowley
 {
-    public class OmirBrasilProjetoRepository
-    {
+    public class OmirBrasilProjetoRepository : IDisposable
+    { 
         public List<string> ListarCodigoProjetosPorDistrito(string numeroDistrito)
         {
             var retorno = new List<string>();
 
-            using (var driver = new ChromeDriver("C:/"))
+            ChromeOptions option = new ChromeOptions();
+            option.AddArgument("--headless");
+
+            using (var driver = new ChromeDriver("C:/", option))
             {
                 driver.Navigate().GoToUrl("http://projetos.omirbrasil.org.br/home.php");
                 driver.ExecuteScript($"document.getElementById('distrito').value = '{numeroDistrito}';");
@@ -391,6 +394,11 @@ namespace Infra.WebCrowley
                             .InnerHtml
                             .Substring(0, title[1].InnerHtml.LastIndexOf('-'))
                             .Trim();
+        }
+
+        public void Dispose()
+        {
+            
         }
 
         #endregion

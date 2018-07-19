@@ -8,6 +8,7 @@ namespace API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Consolidado")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ConsolidadoController : Controller
     {
         private ArquivoRepository _arquivoRepository;

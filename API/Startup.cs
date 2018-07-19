@@ -13,6 +13,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using API.Auth;
+using Swashbuckle.AspNetCore.Swagger;
+using System.IO;
 
 namespace API
 {
@@ -91,6 +93,22 @@ namespace API
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new Info
+                    {
+                        Title = "Rotaract API",
+                        Version = "v1",
+                        Description = "API desenvolvida em C# com dados do Rotaract.",
+                        Contact = new Contact
+                        {
+                            Name = "Eduardo Fernandes",
+                            Url = "https://github.com/edubalf"
+                        }
+                    });
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -102,6 +120,12 @@ namespace API
             app.UseCors("MyPolicy");
 
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rotaract API");
+            });
         }
     }
 }

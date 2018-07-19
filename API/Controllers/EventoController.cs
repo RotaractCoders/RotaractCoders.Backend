@@ -4,6 +4,7 @@ using Domain.Entities;
 using Domain.Commands.Inputs;
 using Infra.AzureTables;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace API.Controllers
 {
@@ -23,16 +24,18 @@ namespace API.Controllers
         [AllowAnonymous]
         public IActionResult Listar()
         {
-            return Ok(_eventoRepository.Listar());
+            return Ok(_eventoRepository.Listar().OrderBy(x => x.DataEvento));
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public IActionResult Buscar(string id)
         {
             return Ok(_eventoRepository.Obter(id));
         }
 
         [HttpPost]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Incluir([FromBody]IncluirEventoInput input)
         {
             _eventoRepository.Incluir(new Evento(input));
@@ -40,6 +43,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Atualizar([FromBody]IncluirEventoInput input)
         {
             var evento = _eventoRepository.Obter(input.RowKey);
@@ -51,6 +55,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Deletar(string id)
         {
             var evento = _eventoRepository.Obter(id);

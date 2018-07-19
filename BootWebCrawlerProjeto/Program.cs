@@ -1,30 +1,86 @@
 ﻿using Domain.Commands.Inputs;
 using Domain.Commands.OmirBrasil.Results;
 using Domain.Entities;
+using Infra.AzureQueue;
 using Infra.AzureTables;
 using Infra.WebCrowley;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BootWebCrawlerProjeto
 {
     class Program
     {
+        public static Processador processo { get; set; }
+
         static void Main(string[] args)
         {
-            var omir = new OmirBrasilProjetoRepository();
+            var processadorRepository = new ProcessadorRepository();
+            processo = processadorRepository.BuscarProcessoEmAndamento();
 
-            var lista = omir.ListarCodigoProjetosPorDistrito("4430");
-
-            for (int i = 0; i < lista.Count; i++)
+            if (processo != null && (processo.StatusProcessamentoProjeto == "AguardandoProcessamento" || processo.StatusProcessamentoProjeto == "Processando"))
             {
-                var projetoOmir = omir.BuscarProjetoPorCodigo(lista[i]);
-                SalvarProjeto(projetoOmir);
 
-                Console.WriteLine($"{i}/{lista.Count}");
+                processo.IniciarProcessamentoProjeto();
+                processadorRepository.Atualizar(processo);
+
+                var lista = new List<Thread>();
+
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+
+                lista.ForEach(x =>
+                {
+                    x.Start();
+                });
+
+                while (true)
+                {
+                    var projetoQueue = new ProjetoQueue();
+                    var quantidade = projetoQueue.QuantidadeProjetos();
+
+                    Console.WriteLine($"Projetos processados {processo.QuantidadeProjetos - quantidade} de {processo.QuantidadeProjetos}");
+
+                    if (quantidade == 0)
+                    {
+                        processo = processadorRepository.BuscarProcessoEmAndamento();
+
+                        processo.FinalizarProcessamentoProjeto();
+                        processadorRepository.Atualizar(processo);
+
+                        break;
+                    }
+
+                    Thread.Sleep(10000);
+                }
+            }
+        }
+
+        static void NovaThread()
+        {
+            var queue = new ProjetoQueue();
+
+            while (true)
+            {
+                using (var omir = new OmirBrasilProjetoRepository())
+                {
+                    var codigoProjeto = queue.ObterProximoProjeto();
+
+                    if (codigoProjeto == null)
+                        break;
+
+                    var projetoOmir = omir.BuscarProjetoPorCodigo(codigoProjeto.AsString);
+                    SalvarProjeto(projetoOmir);
+
+                    queue.Deletar(codigoProjeto);
+                }
             }
         }
 

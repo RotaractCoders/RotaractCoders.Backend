@@ -24,7 +24,8 @@ namespace API.Controllers
         public IActionResult Listar(string numeroDistrito)
         {
             var lista = _clubeRepository.Listar(numeroDistrito)
-                .Select(x => new { x.Codigo, x.Nome, x.DataFechamento });
+                .Select(x => new { x.Codigo, x.Nome, x.DataFechamento })
+                .OrderBy(x => x.Nome);
 
             return Ok(lista);
         }
@@ -37,6 +38,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Incluir([FromBody]CriarClubeInput input)
         {
             var clube = new Clube(input);
@@ -47,6 +49,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Atualizar([FromBody]CriarClubeInput input)
         {
             var clube = _clubeRepository.Obter(input.RowKey);
@@ -62,6 +65,7 @@ namespace API.Controllers
         }
 
         [HttpDelete]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult Deletar(string id)
         {
             var clube = _clubeRepository.Obter(id);

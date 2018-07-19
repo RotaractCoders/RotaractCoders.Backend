@@ -1,80 +1,93 @@
 ﻿using Domain.Commands.Inputs;
 using Domain.Commands.OmirBrasil.Results;
+using Domain.Commands.QueueModel;
 using Domain.Entities;
+using Infra.AzureQueue;
 using Infra.AzureTables;
 using Infra.WebCrowley;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace BootWebCrawlerSocios
 {
     class Program
     {
+        public static Processador processo { get; set; }
+
         static void Main(string[] args)
         {
-            using (var omir = new OmirBrasilRepository())
+            var processadorRepository = new ProcessadorRepository();
+            processo = processadorRepository.BuscarProcessoEmAndamento();
+
+            if (processo != null && (processo.StatusProcessamentoSocio == "AguardandoProcessamento" || processo.StatusProcessamentoSocio == "Processando"))
             {
-                var clubes = omir.BuscarDistritoPorNumero("4430");
 
-                for (int i = 0; i < clubes.CodigoClubes.Count; i++)
+                processo.IniciarProcessamentoSocio();
+                processadorRepository.Atualizar(processo);
+
+                var lista = new List<Thread>();
+
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+                lista.Add(new Thread(NovaThread));
+
+                lista.ForEach(x =>
                 {
-                    Console.WriteLine($"Processando clube {i+1}/{clubes.CodigoClubes.Count}");
+                    x.Start();
+                });
 
-                    var clube = omir.BuscarClubePorCodigo(clubes.CodigoClubes[i]);
-                    SalvarClube(clube);
+                while (true)
+                {
+                    var socioQueue = new SocioQueue();
+                    var quantidadeSocio = socioQueue.QuantidadeSocios();
 
-                    for (int y = 0; y < clube.Socios.Count; y++)
+                    Console.WriteLine($"Socios processados {processo.QuantidadeSocios - quantidadeSocio} de {processo.QuantidadeSocios}");
+
+                    if (quantidadeSocio == 0)
                     {
-                        Console.WriteLine($"Processando clube {i+1}/{clubes.CodigoClubes.Count} - Socio {y+1}/{clube.Socios.Count}");
+                        processo = processadorRepository.BuscarProcessoEmAndamento();
 
-                        var socioOmir = omir.BuscarSocioPorCodigo(clube.Socios[y].Codigo);
-                        SalvarSocio(socioOmir, clube.Socios[y].Email, clubes.CodigoClubes[i], clube.NumeroDistrito);
+                        processo.FinalizarProcessamentoSocio();
+                        processadorRepository.Atualizar(processo);
+
+                        break;
                     }
+
+                    Thread.Sleep(10000);
                 }
             }
         }
 
-        private static void SalvarClube(OmirClubeResult clube)
+        static void NovaThread()
         {
-            var clubeRepository = new ClubeRepository();
-            var clubeSalvo = clubeRepository.ObterPorCodigo(clube.Codigo);
+            var socioQueue = new SocioQueue();
 
-            if (clubeSalvo == null)
+            while (true)
             {
-                clubeRepository.Incluir(new Clube(new CriarClubeInput()
-                {
-                    Codigo = clube.Codigo,
-                    Nome = clube.Nome,
-                    DataFundacao = clube.DataFundacao,
-                    Email = clube.Email,
-                    NumeroDistrito = "4430",
-                    Facebook = clube.Facebook,
-                    RotaryPadrinho = clube.RotaryPadrinho,
-                    DataFechamento = clube.DataFechamento,
-                    Programa = "Rotaract",
-                    Site = clube.Site
-                }));
-            }
-            else
-            {
-                clubeSalvo.Atualizar(new CriarClubeInput()
-                {
-                    Codigo = clube.Codigo,
-                    Nome = clube.Nome,
-                    DataFundacao = clube.DataFundacao,
-                    Email = clube.Email,
-                    NumeroDistrito = "4430",
-                    Facebook = clube.Facebook,
-                    RotaryPadrinho = clube.RotaryPadrinho,
-                    DataFechamento = clube.DataFechamento,
-                    Programa = "Rotaract",
-                    Site = clube.Site
-                });
+                var socioFila = socioQueue.ObterProximoSocio();
 
-                clubeRepository.Atualizar(clubeSalvo);
+                if (socioFila == null)
+                    break;
+
+                var socio = JsonConvert.DeserializeObject<SocioQueueModel>(socioFila.AsString);
+
+                using (var omir = new OmirBrasilRepository())
+                {
+                    var socioOmir = omir.BuscarSocioPorCodigo(socio.Codigo);
+                    SalvarSocio(socioOmir, socio.Email, socio.CodigoClube, socio.NumeroDistrito);
+
+                    socioQueue.Deletar(socioFila);
+                }
             }
         }
 
@@ -128,7 +141,7 @@ namespace BootWebCrawlerSocios
                     TipoCargo = "Rotaract Brasil"
                 });
 
-                cargoSocios.Add(new CargoSocio(cargo.NomeCargo, socio.Nome,"", socio.Codigo, numeroDistrito, "", socio.FotoUrl, "Rotaract Brasil", cargo.De, cargo.Ate, "Rotaract"));
+                cargoSocios.Add(new CargoSocio(cargo.NomeCargo, socio.Nome, "", socio.Codigo, numeroDistrito, "", socio.FotoUrl, "Rotaract Brasil", cargo.De, cargo.Ate, "Rotaract"));
             });
 
             cargoSocioRepository.Incluir(cargoSocios);

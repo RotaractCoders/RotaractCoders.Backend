@@ -1,5 +1,4 @@
 ﻿using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Table;
 
 namespace Infra.AzureTables
@@ -14,6 +13,9 @@ namespace Infra.AzureTables
         public CloudTable Socio { get; private set; }
         public CloudTable Projeto { get; private set; }
         public CloudTable CargoSocio { get; private set; }
+        public CloudTable Processador { get; set; }
+
+        public CloudTable Distrito { get; set; }
 
         public BaseRepository()
         {
@@ -22,7 +24,7 @@ namespace Infra.AzureTables
             var blobClient = storageAccount.CreateCloudBlobClient();
 
             Evento = tableClient.GetTableReference("Evento");
-            //Evento.CreateIfNotExists();
+            Evento.CreateIfNotExists();
 
             DadoEstatico = tableClient.GetTableReference("DadoEstatico");
             //DadoEstatico.CreateIfNotExists();
@@ -44,6 +46,12 @@ namespace Infra.AzureTables
 
             CargoSocio = tableClient.GetTableReference("CargoSocio");
             CargoSocio.CreateIfNotExists();
+
+            Processador = tableClient.GetTableReference("Processador");
+            Processador.CreateIfNotExists();
+
+            Distrito = tableClient.GetTableReference("Distrito");
+            Distrito.CreateIfNotExists();
         }
     }
 }

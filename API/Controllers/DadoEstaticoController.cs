@@ -9,6 +9,7 @@ namespace API.Controllers
     [Authorize("Bearer")]
     [Produces("application/json")]
     [Route("api/DadoEstatico")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DadoEstaticoController : Controller
     {
         private DadoEstaticoRepository _dadoEstaticoRepository;

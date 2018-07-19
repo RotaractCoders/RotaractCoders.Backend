@@ -18,6 +18,18 @@ namespace Infra.AzureTables
             return socio;
         }
 
+        public int QuantidadeSocios(string numeroDistrito)
+        {
+            var tableQuery = new TableQuery<Socio>();
+            TableContinuationToken continuationToken = null;
+            TableQuerySegment<Socio> tableQueryResult = _baseRepository.Socio.ExecuteQuerySegmented(tableQuery, continuationToken);
+            continuationToken = tableQueryResult.ContinuationToken;
+
+            return tableQueryResult.Results.Where(x => 
+                x.ClubesSerializado.Contains("\"NumeroDistrito\":\"4430\"") &&
+                x.ClubesSerializado.Contains("\"Desligamento\":\"0001-01-01T00:00:00\"")).Count();
+        }
+
         public List<Socio> Listar()
         {
             var tableQuery = new TableQuery<Socio>();

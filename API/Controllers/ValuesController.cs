@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace API.Controllers
 {
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ValuesController : Controller
     {
         // GET api/values
